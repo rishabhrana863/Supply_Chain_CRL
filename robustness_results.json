@@ -1,0 +1,105 @@
+{
+  "n_eval": 150,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "n_train": 1500,
+  "ablation": {
+    "crl_full": {
+      "recovery_mean": 25.32,
+      "recovery_se": 2.95,
+      "cost_mean": 404120.9
+    },
+    "crl_mask_only": {
+      "recovery_mean": 22.97,
+      "recovery_se": 3.24,
+      "cost_mean": 382756.2
+    },
+    "crl_shape_only": {
+      "recovery_mean": 31.89,
+      "recovery_se": 2.36,
+      "cost_mean": 571430.1
+    },
+    "rl_only": {
+      "recovery_mean": 36.78,
+      "recovery_se": 2.96,
+      "cost_mean": 410511.5
+    },
+    "stochastic_opt": {
+      "recovery_mean": 40.34,
+      "recovery_se": 3.8,
+      "cost_mean": 448256.4
+    }
+  },
+  "ablation_tests": {
+    "crl_mask_only": {
+      "p": 0.049959,
+      "d": -0.062,
+      "delta_days": -2.35
+    },
+    "crl_shape_only": {
+      "p": 0.001116,
+      "d": 0.201,
+      "delta_days": 6.57
+    },
+    "rl_only": {
+      "p": 0.0,
+      "d": 0.317,
+      "delta_days": 11.46
+    },
+    "stochastic_opt": {
+      "p": 1e-06,
+      "d": 0.361,
+      "delta_days": 15.02
+    }
+  },
+  "threshold_sensitivity": {
+    "crl_full": {
+      "0.9": 25.0,
+      "0.95": 25.32,
+      "0.98": 25.74
+    },
+    "crl_mask_only": {
+      "0.9": 22.34,
+      "0.95": 22.97,
+      "0.98": 23.08
+    },
+    "crl_shape_only": {
+      "0.9": 31.25,
+      "0.95": 31.89,
+      "0.98": 32.36
+    },
+    "rl_only": {
+      "0.9": 35.73,
+      "0.95": 36.78,
+      "0.98": 37.11
+    },
+    "stochastic_opt": {
+      "0.9": 39.62,
+      "0.95": 40.34,
+      "0.98": 40.46
+    }
+  },
+  "ranking_preserved_90_95_98": true,
+  "stress_test_compound_n300": {
+    "crl_full": {
+      "recovery_mean": 20.4,
+      "recovery_sd": 24.62,
+      "recovery_se": 1.42
+    },
+    "rl_only": {
+      "recovery_mean": 44.65,
+      "recovery_sd": 14.86,
+      "recovery_se": 0.86
+    },
+    "stochastic_opt": {
+      "recovery_mean": 41.62,
+      "recovery_sd": 36.67,
+      "recovery_se": 2.12
+    },
+    "crl_vs_rl_p": 0.0,
+    "crl_vs_so_p": 0.0
+  }
+}

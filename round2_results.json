@@ -1,0 +1,71 @@
+{
+  "censoring_robustness": {
+    "n_uncensored_episodes": 148,
+    "n_total": 200,
+    "crl_vs_so": {
+      "p": 1.8e-05,
+      "d": 0.315,
+      "means": [
+        30.3,
+        18.73
+      ]
+    },
+    "crl_vs_rl": {
+      "p": 0.0,
+      "d": 0.25,
+      "means": [
+        26.29,
+        18.73
+      ]
+    }
+  },
+  "p4_inference": {
+    "n_episodes": 60,
+    "crl_mean": 0.6123,
+    "crl_se": 0.0378,
+    "rl_mean": 0.5637,
+    "rl_se": 0.0356,
+    "paired_wilcoxon_p": 0.030531,
+    "d": 0.171
+  },
+  "stress_diagnostics": {
+    "ordinary_compound": {
+      "n": 66,
+      "noaction_recovery": 38.29,
+      "covid_share": 0.545,
+      "mean_total_severity": 11.12
+    },
+    "old_stress_no_covid": {
+      "n": 150,
+      "noaction_recovery": 34.27,
+      "covid_share": 0.0,
+      "mean_total_severity": 13.47
+    },
+    "new_stress_random3of4": {
+      "n": 300,
+      "noaction_recovery": 54.19,
+      "covid_share": 0.777,
+      "mean_total_severity": 13.44
+    }
+  },
+  "so_action_rates": {
+    "ordinary_nonzero_rate": 0.0578,
+    "stress_nonzero_rate": 0.0649
+  },
+  "new_stress_results": {
+    "crl": {
+      "recovery_mean": 52.3,
+      "recovery_se": 1.77
+    },
+    "rl_only": {
+      "recovery_mean": 64.09,
+      "recovery_se": 1.2
+    },
+    "stochastic_opt": {
+      "recovery_mean": 70.66,
+      "recovery_se": 1.92
+    },
+    "crl_vs_rl_p": 0.0,
+    "crl_vs_so_p": 0.0
+  }
+}

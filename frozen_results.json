@@ -1,0 +1,195 @@
+{
+  "seed": 42,
+  "n_eval": 200,
+  "n_train": 1500,
+  "aggregate": {
+    "recovery_days": {
+      "stochastic_opt": {
+        "mean": 42.955,
+        "sd": 46.99,
+        "se": 3.323
+      },
+      "rl_only": {
+        "mean": 37.216,
+        "sd": 35.34,
+        "se": 2.499
+      },
+      "crl": {
+        "mean": 28.683,
+        "sd": 37.5,
+        "se": 2.652
+      }
+    },
+    "total_cost": {
+      "stochastic_opt": {
+        "mean": 449470.446,
+        "sd": 95356.193,
+        "se": 6742.701
+      },
+      "rl_only": {
+        "mean": 413114.051,
+        "sd": 68114.375,
+        "se": 4816.414
+      },
+      "crl": {
+        "mean": 402162.396,
+        "sd": 51633.557,
+        "se": 3651.044
+      }
+    },
+    "service_cov": {
+      "stochastic_opt": {
+        "mean": 0.14,
+        "sd": 0.163,
+        "se": 0.012
+      },
+      "rl_only": {
+        "mean": 0.143,
+        "sd": 0.152,
+        "se": 0.011
+      },
+      "crl": {
+        "mean": 0.088,
+        "sd": 0.134,
+        "se": 0.009
+      }
+    },
+    "mean_service": {
+      "stochastic_opt": {
+        "mean": 0.966,
+        "sd": 0.048,
+        "se": 0.003
+      },
+      "rl_only": {
+        "mean": 0.967,
+        "sd": 0.038,
+        "se": 0.003
+      },
+      "crl": {
+        "mean": 0.983,
+        "sd": 0.029,
+        "se": 0.002
+      }
+    }
+  },
+  "tests": {
+    "crl_vs_stochastic_opt_recovery": {
+      "p": 0.0,
+      "d": 0.336,
+      "mean_diff": 14.272
+    },
+    "crl_vs_stochastic_opt_cost": {
+      "p": 0.0,
+      "d": 0.617,
+      "mean_diff": 47308.05
+    },
+    "crl_vs_stochastic_opt_service_cov": {
+      "p": 0.0,
+      "d": 0.345,
+      "mean_diff": 0.051
+    },
+    "crl_vs_rl_only_recovery": {
+      "p": 0.0,
+      "d": 0.234,
+      "mean_diff": 8.533
+    },
+    "crl_vs_rl_only_cost": {
+      "p": 0.000994,
+      "d": 0.181,
+      "mean_diff": 10951.655
+    },
+    "crl_vs_rl_only_service_cov": {
+      "p": 0.0,
+      "d": 0.382,
+      "mean_diff": 0.055
+    },
+    "rl_only_vs_stochastic_opt_recovery": {
+      "p": 0.007248,
+      "d": 0.138,
+      "mean_diff": 5.739
+    },
+    "rl_only_vs_stochastic_opt_cost": {
+      "p": 0.0,
+      "d": 0.439,
+      "mean_diff": 36356.395
+    },
+    "rl_only_vs_stochastic_opt_service_cov": {
+      "p": 0.183946,
+      "d": -0.02,
+      "mean_diff": -0.003
+    }
+  },
+  "scenario_breakdown": {
+    "single": {
+      "n": 67,
+      "stochastic_opt": {
+        "mean": 20.27,
+        "sd": 39.5
+      },
+      "rl_only": {
+        "mean": 16.27,
+        "sd": 29.48
+      },
+      "crl": {
+        "mean": 13.99,
+        "sd": 30.09
+      },
+      "crl_minus_rl": 2.28
+    },
+    "dual": {
+      "n": 67,
+      "stochastic_opt": {
+        "mean": 46.93,
+        "sd": 47.47
+      },
+      "rl_only": {
+        "mean": 42.27,
+        "sd": 37.28
+      },
+      "crl": {
+        "mean": 33.27,
+        "sd": 42.0
+      },
+      "crl_minus_rl": 9.0
+    },
+    "compound": {
+      "n": 66,
+      "stochastic_opt": {
+        "mean": 61.95,
+        "sd": 44.43
+      },
+      "rl_only": {
+        "mean": 53.35,
+        "sd": 28.06
+      },
+      "crl": {
+        "mean": 38.94,
+        "sd": 35.27
+      },
+      "crl_minus_rl": 14.41
+    }
+  },
+  "infrastructure_analysis": {
+    "low_lpi": {
+      "n": 81,
+      "median_split_at": 2.581,
+      "crl_recovery": 25.8,
+      "rl_only_recovery": 36.23,
+      "stochastic_opt_recovery": 45.94,
+      "crl_switch_rate": 1.0
+    },
+    "high_lpi": {
+      "n": 119,
+      "median_split_at": 2.581,
+      "crl_recovery": 30.65,
+      "rl_only_recovery": 37.89,
+      "stochastic_opt_recovery": 40.92,
+      "crl_switch_rate": 1.0
+    }
+  },
+  "explainability_index": {
+    "crl": 0.61,
+    "rl_only": 0.5494,
+    "definition": "fraction of in-disruption decisions whose chosen action has non-negative estimated context-conditional ATE (causally justifiable decisions)"
+  }
+}

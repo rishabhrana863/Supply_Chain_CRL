@@ -1,0 +1,227 @@
+{
+  "budgets": [
+    100,
+    300,
+    800
+  ],
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "n_eval": 60,
+  "cells": [
+    {
+      "agent": "rl_only",
+      "budget": 100,
+      "seed": 0,
+      "recovery_days": 39.07,
+      "total_cost": 437166.1
+    },
+    {
+      "agent": "crl",
+      "budget": 100,
+      "seed": 0,
+      "recovery_days": 25.22,
+      "total_cost": 384869.1
+    },
+    {
+      "agent": "rl_only",
+      "budget": 100,
+      "seed": 1,
+      "recovery_days": 25.22,
+      "total_cost": 384869.1
+    },
+    {
+      "agent": "crl",
+      "budget": 100,
+      "seed": 1,
+      "recovery_days": 25.22,
+      "total_cost": 384869.1
+    },
+    {
+      "agent": "rl_only",
+      "budget": 100,
+      "seed": 2,
+      "recovery_days": 25.22,
+      "total_cost": 384869.1
+    },
+    {
+      "agent": "crl",
+      "budget": 100,
+      "seed": 2,
+      "recovery_days": 25.22,
+      "total_cost": 384869.1
+    },
+    {
+      "agent": "rl_only",
+      "budget": 100,
+      "seed": 3,
+      "recovery_days": 39.07,
+      "total_cost": 437166.1
+    },
+    {
+      "agent": "crl",
+      "budget": 100,
+      "seed": 3,
+      "recovery_days": 39.33,
+      "total_cost": 440510.0
+    },
+    {
+      "agent": "rl_only",
+      "budget": 100,
+      "seed": 4,
+      "recovery_days": 25.22,
+      "total_cost": 384869.1
+    },
+    {
+      "agent": "crl",
+      "budget": 100,
+      "seed": 4,
+      "recovery_days": 25.22,
+      "total_cost": 384869.1
+    },
+    {
+      "agent": "rl_only",
+      "budget": 300,
+      "seed": 0,
+      "recovery_days": 25.22,
+      "total_cost": 384869.1
+    },
+    {
+      "agent": "crl",
+      "budget": 300,
+      "seed": 0,
+      "recovery_days": 25.22,
+      "total_cost": 396501.7
+    },
+    {
+      "agent": "rl_only",
+      "budget": 300,
+      "seed": 1,
+      "recovery_days": 25.22,
+      "total_cost": 384869.1
+    },
+    {
+      "agent": "crl",
+      "budget": 300,
+      "seed": 1,
+      "recovery_days": 25.22,
+      "total_cost": 384869.1
+    },
+    {
+      "agent": "rl_only",
+      "budget": 300,
+      "seed": 2,
+      "recovery_days": 39.07,
+      "total_cost": 437166.1
+    },
+    {
+      "agent": "crl",
+      "budget": 300,
+      "seed": 2,
+      "recovery_days": 33.77,
+      "total_cost": 515975.5
+    },
+    {
+      "agent": "rl_only",
+      "budget": 300,
+      "seed": 3,
+      "recovery_days": 39.07,
+      "total_cost": 437166.1
+    },
+    {
+      "agent": "crl",
+      "budget": 300,
+      "seed": 3,
+      "recovery_days": 34.92,
+      "total_cost": 513354.1
+    },
+    {
+      "agent": "rl_only",
+      "budget": 300,
+      "seed": 4,
+      "recovery_days": 28.53,
+      "total_cost": 366453.9
+    },
+    {
+      "agent": "crl",
+      "budget": 300,
+      "seed": 4,
+      "recovery_days": 28.53,
+      "total_cost": 366453.9
+    },
+    {
+      "agent": "rl_only",
+      "budget": 800,
+      "seed": 0,
+      "recovery_days": 34.43,
+      "total_cost": 1106982.7
+    },
+    {
+      "agent": "crl",
+      "budget": 800,
+      "seed": 0,
+      "recovery_days": 26.9,
+      "total_cost": 426020.2
+    },
+    {
+      "agent": "rl_only",
+      "budget": 800,
+      "seed": 1,
+      "recovery_days": 25.22,
+      "total_cost": 384869.1
+    },
+    {
+      "agent": "crl",
+      "budget": 800,
+      "seed": 1,
+      "recovery_days": 25.22,
+      "total_cost": 384869.1
+    },
+    {
+      "agent": "rl_only",
+      "budget": 800,
+      "seed": 2,
+      "recovery_days": 39.07,
+      "total_cost": 437166.1
+    },
+    {
+      "agent": "crl",
+      "budget": 800,
+      "seed": 2,
+      "recovery_days": 25.77,
+      "total_cost": 942147.2
+    },
+    {
+      "agent": "rl_only",
+      "budget": 800,
+      "seed": 3,
+      "recovery_days": 26.88,
+      "total_cost": 377097.7
+    },
+    {
+      "agent": "crl",
+      "budget": 800,
+      "seed": 3,
+      "recovery_days": 25.22,
+      "total_cost": 384869.1
+    },
+    {
+      "agent": "rl_only",
+      "budget": 800,
+      "seed": 4,
+      "recovery_days": 28.53,
+      "total_cost": 366453.9
+    },
+    {
+      "agent": "crl",
+      "budget": 800,
+      "seed": 4,
+      "recovery_days": 28.53,
+      "total_cost": 366966.7
+    }
+  ]
+}
