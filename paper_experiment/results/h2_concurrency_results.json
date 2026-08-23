@@ -1,0 +1,49 @@
+{
+  "design": {
+    "unit": "held-out paired episode averaged over five training seeds",
+    "n_episodes": 200,
+    "concurrency_coding": {
+      "single": 1,
+      "dual": 2,
+      "compound": 3
+    },
+    "outcome": "RL-only recovery days minus CRL recovery days"
+  },
+  "episode_level_linear_trend": {
+    "intercept": -3.56245,
+    "slope_days_per_concurrency_level": 6.062882,
+    "standard_error": 1.701522,
+    "pearson_r": 0.245478,
+    "r_squared": 0.06026,
+    "two_sided_ols_p": 0.0004590355,
+    "repetitions": 20000,
+    "seed": 20260823,
+    "bootstrap_95_ci": [
+      2.99627,
+      9.164735
+    ],
+    "two_sided_sign_p": 0.000299985,
+    "bootstrap_slope_mean": 6.076521,
+    "bootstrap_slope_sd": 1.590073
+  },
+  "group_summaries": {
+    "single": {
+      "n": 67,
+      "mean": 2.280597,
+      "sd": 17.581914,
+      "se": 2.147973
+    },
+    "dual": {
+      "n": 67,
+      "mean": 9.002985,
+      "sd": 21.814326,
+      "se": 2.665044
+    },
+    "compound": {
+      "n": 66,
+      "mean": 14.40303,
+      "sd": 19.37883,
+      "se": 2.385369
+    }
+  }
+}

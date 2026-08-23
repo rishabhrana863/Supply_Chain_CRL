@@ -1,6 +1,14 @@
 {
   "design": {
-    "seed": 42,
+    "calibration_seed": 42,
+    "planner_seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "planner_seed_count": 5,
     "n_eval": 200,
     "evaluation_context_seed": 9000,
     "environment_seed_base": 63000,
@@ -117,29 +125,29 @@
     },
     "planner_weekly_h14": {
       "recovery_days": {
-        "mean": 43.545,
-        "sd": 46.664072,
-        "se": 3.299648
+        "mean": 43.67,
+        "sd": 46.053186,
+        "se": 3.256452
       },
       "total_cost": {
-        "mean": 451590.471803,
-        "sd": 99091.565162,
-        "se": 7006.831768
+        "mean": 451325.354634,
+        "sd": 97184.671795,
+        "se": 6871.994045
       },
       "service_cov": {
-        "mean": 0.14049,
-        "sd": 0.164396,
-        "se": 0.011625
+        "mean": 0.140093,
+        "sd": 0.162345,
+        "se": 0.01148
       },
       "mean_service": {
-        "mean": 0.965489,
-        "sd": 0.046772,
-        "se": 0.003307
+        "mean": 0.965456,
+        "sd": 0.046319,
+        "se": 0.003275
       },
       "air_expedites": {
-        "mean": 1.5,
-        "sd": 1.736397,
-        "se": 0.122782
+        "mean": 1.512,
+        "sd": 1.701509,
+        "se": 0.120315
       },
       "air_expedite_noops": {
         "mean": 0.0,
@@ -149,56 +157,56 @@
     },
     "planner_daily_h14": {
       "recovery_days": {
-        "mean": 28.445,
-        "sd": 40.177333,
-        "se": 2.840966
+        "mean": 30.129,
+        "sd": 35.848009,
+        "se": 2.534837
       },
       "total_cost": {
-        "mean": 802078.720073,
-        "sd": 491234.119145,
-        "se": 34735.49768
+        "mean": 796009.063886,
+        "sd": 477178.021938,
+        "se": 33741.581515
       },
       "service_cov": {
-        "mean": 0.135595,
-        "sd": 0.17783,
-        "se": 0.012574
+        "mean": 0.139549,
+        "sd": 0.168145,
+        "se": 0.01189
       },
       "mean_service": {
-        "mean": 0.974705,
-        "sd": 0.04293,
-        "se": 0.003036
+        "mean": 0.973667,
+        "sd": 0.038738,
+        "se": 0.002739
       },
       "air_expedites": {
-        "mean": 8.635,
-        "sd": 10.566458,
-        "se": 0.747161
+        "mean": 8.486,
+        "sd": 10.349714,
+        "se": 0.731835
       },
       "air_expedite_noops": {
-        "mean": 0.615,
-        "sd": 1.539032,
-        "se": 0.108826
+        "mean": 0.63,
+        "sd": 1.545914,
+        "se": 0.109313
       }
     },
     "planner_daily_no_expedite": {
       "recovery_days": {
-        "mean": 46.88,
-        "sd": 48.246911,
-        "se": 3.411572
+        "mean": 45.427,
+        "sd": 45.515379,
+        "se": 3.218423
       },
       "total_cost": {
-        "mean": 437755.077746,
-        "sd": 84446.751986,
-        "se": 5971.287098
+        "mean": 436926.243588,
+        "sd": 81079.286128,
+        "se": 5733.171304
       },
       "service_cov": {
-        "mean": 0.149546,
-        "sd": 0.164022,
-        "se": 0.011598
+        "mean": 0.147467,
+        "sd": 0.160972,
+        "se": 0.011382
       },
       "mean_service": {
-        "mean": 0.962764,
-        "sd": 0.046814,
-        "se": 0.00331
+        "mean": 0.96355,
+        "sd": 0.045139,
+        "se": 0.003192
       },
       "air_expedites": {
         "mean": 0.0,
@@ -213,29 +221,29 @@
     },
     "planner_daily_expedite_7d": {
       "recovery_days": {
-        "mean": 46.64,
-        "sd": 48.093715,
-        "se": 3.400739
+        "mean": 45.869,
+        "sd": 44.856208,
+        "se": 3.171813
       },
       "total_cost": {
-        "mean": 491372.759896,
-        "sd": 135286.304384,
-        "se": 9566.186323
+        "mean": 491575.322711,
+        "sd": 132525.2539,
+        "se": 9370.950571
       },
       "service_cov": {
-        "mean": 0.151457,
-        "sd": 0.169489,
-        "se": 0.011985
+        "mean": 0.150221,
+        "sd": 0.164024,
+        "se": 0.011598
       },
       "mean_service": {
-        "mean": 0.959243,
-        "sd": 0.053998,
-        "se": 0.003818
+        "mean": 0.959954,
+        "sd": 0.05033,
+        "se": 0.003559
       },
       "air_expedites": {
-        "mean": 1.25,
-        "sd": 1.482731,
-        "se": 0.104845
+        "mean": 1.228,
+        "sd": 1.453471,
+        "se": 0.102776
       },
       "air_expedite_noops": {
         "mean": 0.0,
@@ -245,98 +253,1094 @@
     },
     "planner_daily_h28": {
       "recovery_days": {
-        "mean": 19.85,
-        "sd": 38.739012,
-        "se": 2.739262
+        "mean": 19.933,
+        "sd": 32.856951,
+        "se": 2.323337
       },
       "total_cost": {
-        "mean": 767430.662808,
-        "sd": 401431.276134,
-        "se": 28385.477754
+        "mean": 776424.722955,
+        "sd": 398454.164452,
+        "se": 28174.964168
       },
       "service_cov": {
-        "mean": 0.061481,
-        "sd": 0.11626,
-        "se": 0.008221
+        "mean": 0.059066,
+        "sd": 0.102409,
+        "se": 0.007241
       },
       "mean_service": {
-        "mean": 0.988691,
-        "sd": 0.025695,
-        "se": 0.001817
+        "mean": 0.989562,
+        "sd": 0.021061,
+        "se": 0.001489
       },
       "air_expedites": {
-        "mean": 10.31,
-        "sd": 11.579912,
-        "se": 0.818823
+        "mean": 10.399,
+        "sd": 11.428053,
+        "se": 0.808085
       },
       "air_expedite_noops": {
-        "mean": 1.37,
-        "sd": 3.686605,
-        "se": 0.260682
+        "mean": 1.371,
+        "sd": 3.583233,
+        "se": 0.253373
       }
     },
     "planner_daily_h56": {
       "recovery_days": {
-        "mean": 14.0,
-        "sd": 32.982864,
-        "se": 2.332241
+        "mean": 12.2,
+        "sd": 27.03193,
+        "se": 1.911446
       },
       "total_cost": {
-        "mean": 903918.808136,
-        "sd": 422543.871487,
-        "se": 29878.363688
+        "mean": 903549.717257,
+        "sd": 421724.348326,
+        "se": 29820.414649
       },
       "service_cov": {
-        "mean": 0.046591,
-        "sd": 0.102331,
-        "se": 0.007236
+        "mean": 0.041874,
+        "sd": 0.094621,
+        "se": 0.006691
       },
       "mean_service": {
-        "mean": 0.993526,
-        "sd": 0.016181,
-        "se": 0.001144
+        "mean": 0.994471,
+        "sd": 0.013412,
+        "se": 0.000948
       },
       "air_expedites": {
-        "mean": 15.275,
-        "sd": 13.08762,
-        "se": 0.925435
+        "mean": 15.334,
+        "sd": 13.068926,
+        "se": 0.924113
       },
       "air_expedite_noops": {
-        "mean": 2.495,
-        "sd": 4.977333,
-        "se": 0.351951
+        "mean": 2.518,
+        "sd": 4.981017,
+        "se": 0.352211
       }
     },
     "planner_daily_h14_k48": {
       "recovery_days": {
-        "mean": 30.895,
-        "sd": 41.670929,
-        "se": 2.94658
+        "mean": 31.083,
+        "sd": 38.342389,
+        "se": 2.711216
       },
       "total_cost": {
-        "mean": 794794.932582,
-        "sd": 488354.559123,
-        "se": 34531.882038
+        "mean": 789594.291404,
+        "sd": 470387.799483,
+        "se": 33261.44028
       },
       "service_cov": {
-        "mean": 0.141548,
-        "sd": 0.178355,
-        "se": 0.012612
+        "mean": 0.142927,
+        "sd": 0.174411,
+        "se": 0.012333
       },
       "mean_service": {
-        "mean": 0.972335,
-        "sd": 0.044436,
-        "se": 0.003142
+        "mean": 0.971618,
+        "sd": 0.043056,
+        "se": 0.003045
       },
       "air_expedites": {
-        "mean": 8.515,
-        "sd": 10.591538,
-        "se": 0.748935
+        "mean": 8.384,
+        "sd": 10.241788,
+        "se": 0.724204
       },
       "air_expedite_noops": {
-        "mean": 0.62,
-        "sd": 1.528819,
-        "se": 0.108104
+        "mean": 0.612,
+        "sd": 1.532842,
+        "se": 0.108388
+      }
+    }
+  },
+  "planner_seed_summaries": {
+    "planner_weekly_h14": {
+      "42": {
+        "recovery_days": {
+          "mean": 43.545,
+          "sd": 46.664072,
+          "se": 3.299648
+        },
+        "total_cost": {
+          "mean": 451590.471803,
+          "sd": 99091.565162,
+          "se": 7006.831768
+        },
+        "service_cov": {
+          "mean": 0.14049,
+          "sd": 0.164396,
+          "se": 0.011625
+        },
+        "air_expedites": {
+          "mean": 1.5,
+          "sd": 1.736397,
+          "se": 0.122782
+        }
+      },
+      "43": {
+        "recovery_days": {
+          "mean": 44.18,
+          "sd": 46.797088,
+          "se": 3.309054
+        },
+        "total_cost": {
+          "mean": 451142.801819,
+          "sd": 98036.299027,
+          "se": 6932.213184
+        },
+        "service_cov": {
+          "mean": 0.141107,
+          "sd": 0.1646,
+          "se": 0.011639
+        },
+        "air_expedites": {
+          "mean": 1.515,
+          "sd": 1.721801,
+          "se": 0.12175
+        }
+      },
+      "44": {
+        "recovery_days": {
+          "mean": 44.64,
+          "sd": 47.020047,
+          "se": 3.324819
+        },
+        "total_cost": {
+          "mean": 450448.577897,
+          "sd": 94961.83001,
+          "se": 6714.815395
+        },
+        "service_cov": {
+          "mean": 0.139509,
+          "sd": 0.160335,
+          "se": 0.011337
+        },
+        "air_expedites": {
+          "mean": 1.515,
+          "sd": 1.724717,
+          "se": 0.121956
+        }
+      },
+      "45": {
+        "recovery_days": {
+          "mean": 42.43,
+          "sd": 46.445895,
+          "se": 3.284221
+        },
+        "total_cost": {
+          "mean": 451432.582989,
+          "sd": 98591.138694,
+          "se": 6971.446274
+        },
+        "service_cov": {
+          "mean": 0.139779,
+          "sd": 0.165311,
+          "se": 0.011689
+        },
+        "air_expedites": {
+          "mean": 1.515,
+          "sd": 1.71888,
+          "se": 0.121543
+        }
+      },
+      "46": {
+        "recovery_days": {
+          "mean": 43.555,
+          "sd": 47.002373,
+          "se": 3.32357
+        },
+        "total_cost": {
+          "mean": 452012.338664,
+          "sd": 99059.199456,
+          "se": 7004.543167
+        },
+        "service_cov": {
+          "mean": 0.139583,
+          "sd": 0.163614,
+          "se": 0.011569
+        },
+        "air_expedites": {
+          "mean": 1.515,
+          "sd": 1.727628,
+          "se": 0.122162
+        }
+      },
+      "between_seed_means": {
+        "recovery_days": {
+          "mean": 43.67,
+          "sd": 0.831783,
+          "se": 0.371985,
+          "min": 42.43,
+          "max": 44.64
+        },
+        "total_cost": {
+          "mean": 451325.354634,
+          "sd": 582.193067,
+          "se": 260.364655,
+          "min": 450448.577897,
+          "max": 452012.338664
+        },
+        "service_cov": {
+          "mean": 0.140094,
+          "sd": 0.000687,
+          "se": 0.000307,
+          "min": 0.139509,
+          "max": 0.141107
+        },
+        "air_expedites": {
+          "mean": 1.512,
+          "sd": 0.006708,
+          "se": 0.003,
+          "min": 1.5,
+          "max": 1.515
+        }
+      }
+    },
+    "planner_daily_h14": {
+      "42": {
+        "recovery_days": {
+          "mean": 28.445,
+          "sd": 40.177333,
+          "se": 2.840966
+        },
+        "total_cost": {
+          "mean": 802078.720073,
+          "sd": 491234.119145,
+          "se": 34735.49768
+        },
+        "service_cov": {
+          "mean": 0.135595,
+          "sd": 0.17783,
+          "se": 0.012574
+        },
+        "air_expedites": {
+          "mean": 8.635,
+          "sd": 10.566458,
+          "se": 0.747161
+        }
+      },
+      "43": {
+        "recovery_days": {
+          "mean": 30.815,
+          "sd": 41.03119,
+          "se": 2.901343
+        },
+        "total_cost": {
+          "mean": 801446.554862,
+          "sd": 495875.621604,
+          "se": 35063.701466
+        },
+        "service_cov": {
+          "mean": 0.143087,
+          "sd": 0.180342,
+          "se": 0.012752
+        },
+        "air_expedites": {
+          "mean": 8.48,
+          "sd": 10.644535,
+          "se": 0.752682
+        }
+      },
+      "44": {
+        "recovery_days": {
+          "mean": 33.075,
+          "sd": 42.955152,
+          "se": 3.037388
+        },
+        "total_cost": {
+          "mean": 771757.408854,
+          "sd": 474664.144557,
+          "se": 33563.82354
+        },
+        "service_cov": {
+          "mean": 0.146859,
+          "sd": 0.175428,
+          "se": 0.012405
+        },
+        "air_expedites": {
+          "mean": 8.065,
+          "sd": 10.53259,
+          "se": 0.744767
+        }
+      },
+      "45": {
+        "recovery_days": {
+          "mean": 28.01,
+          "sd": 39.466033,
+          "se": 2.79067
+        },
+        "total_cost": {
+          "mean": 796606.104036,
+          "sd": 497046.786336,
+          "se": 35146.515319
+        },
+        "service_cov": {
+          "mean": 0.13492,
+          "sd": 0.173453,
+          "se": 0.012265
+        },
+        "air_expedites": {
+          "mean": 8.5,
+          "sd": 10.710442,
+          "se": 0.757343
+        }
+      },
+      "46": {
+        "recovery_days": {
+          "mean": 30.3,
+          "sd": 41.463188,
+          "se": 2.93189
+        },
+        "total_cost": {
+          "mean": 808156.531604,
+          "sd": 489856.165294,
+          "se": 34638.061629
+        },
+        "service_cov": {
+          "mean": 0.137283,
+          "sd": 0.173082,
+          "se": 0.012239
+        },
+        "air_expedites": {
+          "mean": 8.75,
+          "sd": 10.571484,
+          "se": 0.747517
+        }
+      },
+      "between_seed_means": {
+        "recovery_days": {
+          "mean": 30.129,
+          "sd": 2.031303,
+          "se": 0.908426,
+          "min": 28.01,
+          "max": 33.075
+        },
+        "total_cost": {
+          "mean": 796009.063886,
+          "sd": 14163.926319,
+          "se": 6334.300415,
+          "min": 771757.408854,
+          "max": 808156.531604
+        },
+        "service_cov": {
+          "mean": 0.139549,
+          "sd": 0.0052,
+          "se": 0.002325,
+          "min": 0.13492,
+          "max": 0.146859
+        },
+        "air_expedites": {
+          "mean": 8.486,
+          "sd": 0.259504,
+          "se": 0.116054,
+          "min": 8.065,
+          "max": 8.75
+        }
+      }
+    },
+    "planner_daily_no_expedite": {
+      "42": {
+        "recovery_days": {
+          "mean": 46.88,
+          "sd": 48.246911,
+          "se": 3.411572
+        },
+        "total_cost": {
+          "mean": 437755.077746,
+          "sd": 84446.751986,
+          "se": 5971.287098
+        },
+        "service_cov": {
+          "mean": 0.149546,
+          "sd": 0.164022,
+          "se": 0.011598
+        },
+        "air_expedites": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "se": 0.0
+        }
+      },
+      "43": {
+        "recovery_days": {
+          "mean": 44.47,
+          "sd": 47.623936,
+          "se": 3.367521
+        },
+        "total_cost": {
+          "mean": 438422.622905,
+          "sd": 83631.043733,
+          "se": 5913.607814
+        },
+        "service_cov": {
+          "mean": 0.149058,
+          "sd": 0.168362,
+          "se": 0.011905
+        },
+        "air_expedites": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "se": 0.0
+        }
+      },
+      "44": {
+        "recovery_days": {
+          "mean": 44.85,
+          "sd": 48.108206,
+          "se": 3.401764
+        },
+        "total_cost": {
+          "mean": 437447.961836,
+          "sd": 82850.086556,
+          "se": 5858.385803
+        },
+        "service_cov": {
+          "mean": 0.146546,
+          "sd": 0.167255,
+          "se": 0.011827
+        },
+        "air_expedites": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "se": 0.0
+        }
+      },
+      "45": {
+        "recovery_days": {
+          "mean": 45.13,
+          "sd": 47.736432,
+          "se": 3.375475
+        },
+        "total_cost": {
+          "mean": 434373.489403,
+          "sd": 79049.21465,
+          "se": 5589.623573
+        },
+        "service_cov": {
+          "mean": 0.14167,
+          "sd": 0.161322,
+          "se": 0.011407
+        },
+        "air_expedites": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "se": 0.0
+        }
+      },
+      "46": {
+        "recovery_days": {
+          "mean": 45.805,
+          "sd": 47.561935,
+          "se": 3.363137
+        },
+        "total_cost": {
+          "mean": 436632.066047,
+          "sd": 82535.743796,
+          "se": 5836.158413
+        },
+        "service_cov": {
+          "mean": 0.150517,
+          "sd": 0.16615,
+          "se": 0.011749
+        },
+        "air_expedites": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "se": 0.0
+        }
+      },
+      "between_seed_means": {
+        "recovery_days": {
+          "mean": 45.427,
+          "sd": 0.947507,
+          "se": 0.423738,
+          "min": 44.47,
+          "max": 46.88
+        },
+        "total_cost": {
+          "mean": 436926.243587,
+          "sd": 1565.359496,
+          "se": 700.050048,
+          "min": 434373.489403,
+          "max": 438422.622905
+        },
+        "service_cov": {
+          "mean": 0.147467,
+          "sd": 0.003557,
+          "se": 0.001591,
+          "min": 0.14167,
+          "max": 0.150517
+        },
+        "air_expedites": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "se": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      }
+    },
+    "planner_daily_expedite_7d": {
+      "42": {
+        "recovery_days": {
+          "mean": 46.64,
+          "sd": 48.093715,
+          "se": 3.400739
+        },
+        "total_cost": {
+          "mean": 491372.759896,
+          "sd": 135286.304384,
+          "se": 9566.186323
+        },
+        "service_cov": {
+          "mean": 0.151457,
+          "sd": 0.169489,
+          "se": 0.011985
+        },
+        "air_expedites": {
+          "mean": 1.25,
+          "sd": 1.482731,
+          "se": 0.104845
+        }
+      },
+      "43": {
+        "recovery_days": {
+          "mean": 48.995,
+          "sd": 48.469075,
+          "se": 3.427281
+        },
+        "total_cost": {
+          "mean": 493150.11277,
+          "sd": 135644.003262,
+          "se": 9591.479453
+        },
+        "service_cov": {
+          "mean": 0.153554,
+          "sd": 0.168408,
+          "se": 0.011908
+        },
+        "air_expedites": {
+          "mean": 1.23,
+          "sd": 1.475801,
+          "se": 0.104355
+        }
+      },
+      "44": {
+        "recovery_days": {
+          "mean": 44.28,
+          "sd": 47.880206,
+          "se": 3.385642
+        },
+        "total_cost": {
+          "mean": 488833.219664,
+          "sd": 133014.12172,
+          "se": 9405.518746
+        },
+        "service_cov": {
+          "mean": 0.143865,
+          "sd": 0.168446,
+          "se": 0.011911
+        },
+        "air_expedites": {
+          "mean": 1.205,
+          "sd": 1.464136,
+          "se": 0.10353
+        }
+      },
+      "45": {
+        "recovery_days": {
+          "mean": 44.525,
+          "sd": 47.23468,
+          "se": 3.339996
+        },
+        "total_cost": {
+          "mean": 492997.835371,
+          "sd": 136681.983843,
+          "se": 9664.875764
+        },
+        "service_cov": {
+          "mean": 0.152881,
+          "sd": 0.175967,
+          "se": 0.012443
+        },
+        "air_expedites": {
+          "mean": 1.225,
+          "sd": 1.481672,
+          "se": 0.10477
+        }
+      },
+      "46": {
+        "recovery_days": {
+          "mean": 44.905,
+          "sd": 47.698867,
+          "se": 3.372819
+        },
+        "total_cost": {
+          "mean": 491522.685852,
+          "sd": 131211.359662,
+          "se": 9278.044219
+        },
+        "service_cov": {
+          "mean": 0.149347,
+          "sd": 0.170246,
+          "se": 0.012038
+        },
+        "air_expedites": {
+          "mean": 1.23,
+          "sd": 1.444831,
+          "se": 0.102165
+        }
+      },
+      "between_seed_means": {
+        "recovery_days": {
+          "mean": 45.869,
+          "sd": 1.976542,
+          "se": 0.883936,
+          "min": 44.28,
+          "max": 48.995
+        },
+        "total_cost": {
+          "mean": 491575.322711,
+          "sd": 1736.838899,
+          "se": 776.737969,
+          "min": 488833.219664,
+          "max": 493150.11277
+        },
+        "service_cov": {
+          "mean": 0.150221,
+          "sd": 0.003901,
+          "se": 0.001745,
+          "min": 0.143865,
+          "max": 0.153554
+        },
+        "air_expedites": {
+          "mean": 1.228,
+          "sd": 0.016047,
+          "se": 0.007176,
+          "min": 1.205,
+          "max": 1.25
+        }
+      }
+    },
+    "planner_daily_h28": {
+      "42": {
+        "recovery_days": {
+          "mean": 19.85,
+          "sd": 38.739012,
+          "se": 2.739262
+        },
+        "total_cost": {
+          "mean": 767430.662808,
+          "sd": 401431.276134,
+          "se": 28385.477754
+        },
+        "service_cov": {
+          "mean": 0.061481,
+          "sd": 0.11626,
+          "se": 0.008221
+        },
+        "air_expedites": {
+          "mean": 10.31,
+          "sd": 11.579912,
+          "se": 0.818823
+        }
+      },
+      "43": {
+        "recovery_days": {
+          "mean": 20.99,
+          "sd": 39.497852,
+          "se": 2.79292
+        },
+        "total_cost": {
+          "mean": 778884.862001,
+          "sd": 408519.31426,
+          "se": 28886.677736
+        },
+        "service_cov": {
+          "mean": 0.063306,
+          "sd": 0.117636,
+          "se": 0.008318
+        },
+        "air_expedites": {
+          "mean": 10.41,
+          "sd": 11.505817,
+          "se": 0.813584
+        }
+      },
+      "44": {
+        "recovery_days": {
+          "mean": 20.955,
+          "sd": 39.409498,
+          "se": 2.786672
+        },
+        "total_cost": {
+          "mean": 773159.97526,
+          "sd": 405417.391299,
+          "se": 28667.33866
+        },
+        "service_cov": {
+          "mean": 0.059097,
+          "sd": 0.112638,
+          "se": 0.007965
+        },
+        "air_expedites": {
+          "mean": 10.355,
+          "sd": 11.539705,
+          "se": 0.81598
+        }
+      },
+      "45": {
+        "recovery_days": {
+          "mean": 18.83,
+          "sd": 37.812831,
+          "se": 2.673771
+        },
+        "total_cost": {
+          "mean": 784491.263128,
+          "sd": 414481.343504,
+          "se": 29308.256867
+        },
+        "service_cov": {
+          "mean": 0.056875,
+          "sd": 0.112334,
+          "se": 0.007943
+        },
+        "air_expedites": {
+          "mean": 10.555,
+          "sd": 11.625521,
+          "se": 0.822048
+        }
+      },
+      "46": {
+        "recovery_days": {
+          "mean": 19.04,
+          "sd": 37.240876,
+          "se": 2.633328
+        },
+        "total_cost": {
+          "mean": 778156.851577,
+          "sd": 413026.588462,
+          "se": 29205.390151
+        },
+        "service_cov": {
+          "mean": 0.054573,
+          "sd": 0.107218,
+          "se": 0.007581
+        },
+        "air_expedites": {
+          "mean": 10.365,
+          "sd": 11.572006,
+          "se": 0.818264
+        }
+      },
+      "between_seed_means": {
+        "recovery_days": {
+          "mean": 19.933,
+          "sd": 1.02258,
+          "se": 0.457312,
+          "min": 18.83,
+          "max": 20.99
+        },
+        "total_cost": {
+          "mean": 776424.722955,
+          "sd": 6435.70741,
+          "se": 2878.135851,
+          "min": 767430.662808,
+          "max": 784491.263128
+        },
+        "service_cov": {
+          "mean": 0.059066,
+          "sd": 0.003493,
+          "se": 0.001562,
+          "min": 0.054573,
+          "max": 0.063306
+        },
+        "air_expedites": {
+          "mean": 10.399,
+          "sd": 0.094167,
+          "se": 0.042113,
+          "min": 10.31,
+          "max": 10.555
+        }
+      }
+    },
+    "planner_daily_h56": {
+      "42": {
+        "recovery_days": {
+          "mean": 14.0,
+          "sd": 32.982864,
+          "se": 2.332241
+        },
+        "total_cost": {
+          "mean": 903918.808136,
+          "sd": 422543.871487,
+          "se": 29878.363688
+        },
+        "service_cov": {
+          "mean": 0.046591,
+          "sd": 0.102331,
+          "se": 0.007236
+        },
+        "air_expedites": {
+          "mean": 15.275,
+          "sd": 13.08762,
+          "se": 0.925435
+        }
+      },
+      "43": {
+        "recovery_days": {
+          "mean": 11.47,
+          "sd": 29.839421,
+          "se": 2.109966
+        },
+        "total_cost": {
+          "mean": 903506.068775,
+          "sd": 421599.162712,
+          "se": 29811.56269
+        },
+        "service_cov": {
+          "mean": 0.039475,
+          "sd": 0.096049,
+          "se": 0.006792
+        },
+        "air_expedites": {
+          "mean": 15.37,
+          "sd": 13.063552,
+          "se": 0.923733
+        }
+      },
+      "44": {
+        "recovery_days": {
+          "mean": 12.545,
+          "sd": 31.328667,
+          "se": 2.215271
+        },
+        "total_cost": {
+          "mean": 905519.00829,
+          "sd": 424061.946491,
+          "se": 29985.707801
+        },
+        "service_cov": {
+          "mean": 0.042548,
+          "sd": 0.098974,
+          "se": 0.006999
+        },
+        "air_expedites": {
+          "mean": 15.385,
+          "sd": 13.102103,
+          "se": 0.926459
+        }
+      },
+      "45": {
+        "recovery_days": {
+          "mean": 10.995,
+          "sd": 29.303043,
+          "se": 2.072038
+        },
+        "total_cost": {
+          "mean": 902693.453437,
+          "sd": 423320.893777,
+          "se": 29933.307461
+        },
+        "service_cov": {
+          "mean": 0.039255,
+          "sd": 0.097351,
+          "se": 0.006884
+        },
+        "air_expedites": {
+          "mean": 15.325,
+          "sd": 13.08762,
+          "se": 0.925435
+        }
+      },
+      "46": {
+        "recovery_days": {
+          "mean": 11.99,
+          "sd": 30.526698,
+          "se": 2.158564
+        },
+        "total_cost": {
+          "mean": 902111.247647,
+          "sd": 421785.441998,
+          "se": 29824.734624
+        },
+        "service_cov": {
+          "mean": 0.0415,
+          "sd": 0.099066,
+          "se": 0.007005
+        },
+        "air_expedites": {
+          "mean": 15.315,
+          "sd": 13.078264,
+          "se": 0.924773
+        }
+      },
+      "between_seed_means": {
+        "recovery_days": {
+          "mean": 12.2,
+          "sd": 1.160609,
+          "se": 0.51904,
+          "min": 10.995,
+          "max": 14.0
+        },
+        "total_cost": {
+          "mean": 903549.717257,
+          "sd": 1305.624658,
+          "se": 583.893098,
+          "min": 902111.247647,
+          "max": 905519.00829
+        },
+        "service_cov": {
+          "mean": 0.041874,
+          "sd": 0.002977,
+          "se": 0.001332,
+          "min": 0.039255,
+          "max": 0.046591
+        },
+        "air_expedites": {
+          "mean": 15.334,
+          "sd": 0.044215,
+          "se": 0.019774,
+          "min": 15.275,
+          "max": 15.385
+        }
+      }
+    },
+    "planner_daily_h14_k48": {
+      "42": {
+        "recovery_days": {
+          "mean": 30.895,
+          "sd": 41.670929,
+          "se": 2.94658
+        },
+        "total_cost": {
+          "mean": 794794.932582,
+          "sd": 488354.559123,
+          "se": 34531.882038
+        },
+        "service_cov": {
+          "mean": 0.141548,
+          "sd": 0.178355,
+          "se": 0.012612
+        },
+        "air_expedites": {
+          "mean": 8.515,
+          "sd": 10.591538,
+          "se": 0.748935
+        }
+      },
+      "43": {
+        "recovery_days": {
+          "mean": 30.57,
+          "sd": 41.628231,
+          "se": 2.94356
+        },
+        "total_cost": {
+          "mean": 791870.904896,
+          "sd": 484733.042481,
+          "se": 34275.80214
+        },
+        "service_cov": {
+          "mean": 0.141482,
+          "sd": 0.179577,
+          "se": 0.012698
+        },
+        "air_expedites": {
+          "mean": 8.49,
+          "sd": 10.568271,
+          "se": 0.74729
+        }
+      },
+      "44": {
+        "recovery_days": {
+          "mean": 30.51,
+          "sd": 41.368061,
+          "se": 2.925164
+        },
+        "total_cost": {
+          "mean": 792721.562948,
+          "sd": 487169.659596,
+          "se": 34448.096989
+        },
+        "service_cov": {
+          "mean": 0.140744,
+          "sd": 0.178473,
+          "se": 0.01262
+        },
+        "air_expedites": {
+          "mean": 8.46,
+          "sd": 10.594319,
+          "se": 0.749131
+        }
+      },
+      "45": {
+        "recovery_days": {
+          "mean": 33.06,
+          "sd": 42.735442,
+          "se": 3.021852
+        },
+        "total_cost": {
+          "mean": 773875.296206,
+          "sd": 480321.019077,
+          "se": 33963.824974
+        },
+        "service_cov": {
+          "mean": 0.148529,
+          "sd": 0.17894,
+          "se": 0.012653
+        },
+        "air_expedites": {
+          "mean": 7.945,
+          "sd": 10.474279,
+          "se": 0.740643
+        }
+      },
+      "46": {
+        "recovery_days": {
+          "mean": 30.38,
+          "sd": 41.400308,
+          "se": 2.927444
+        },
+        "total_cost": {
+          "mean": 794708.76039,
+          "sd": 478720.971392,
+          "se": 33850.684517
+        },
+        "service_cov": {
+          "mean": 0.142332,
+          "sd": 0.182885,
+          "se": 0.012932
+        },
+        "air_expedites": {
+          "mean": 8.51,
+          "sd": 10.373909,
+          "se": 0.733546
+        }
+      },
+      "between_seed_means": {
+        "recovery_days": {
+          "mean": 31.083,
+          "sd": 1.121336,
+          "se": 0.501477,
+          "min": 30.38,
+          "max": 33.06
+        },
+        "total_cost": {
+          "mean": 789594.291404,
+          "sd": 8877.697731,
+          "se": 3970.227122,
+          "min": 773875.296206,
+          "max": 794794.932582
+        },
+        "service_cov": {
+          "mean": 0.142927,
+          "sd": 0.003182,
+          "se": 0.001423,
+          "min": 0.140744,
+          "max": 0.148529
+        },
+        "air_expedites": {
+          "mean": 8.384,
+          "sd": 0.246358,
+          "se": 0.110175,
+          "min": 7.945,
+          "max": 8.515
+        }
       }
     }
   },
@@ -344,457 +1348,457 @@
     "planner_weekly_h14_minus_crl": {
       "recovery_days": {
         "contrast": "first minus second",
-        "mean_difference": 14.862,
+        "mean_difference": 14.987,
         "bootstrap_95_ci": [
-          10.03875,
-          19.860075
+          10.27495,
+          19.9051
         ],
-        "paired_wilcoxon_p": 1.437e-07,
-        "paired_dz": 0.414844,
-        "fraction_first_greater": 0.35,
-        "fraction_equal": 0.475
-      },
-      "total_cost": {
-        "contrast": "first minus second",
-        "mean_difference": 49428.075943,
-        "bootstrap_95_ci": [
-          39191.903891,
-          59719.389382
-        ],
-        "paired_wilcoxon_p": 0.0,
-        "paired_dz": 0.664978,
-        "fraction_first_greater": 0.715,
-        "fraction_equal": 0.0
-      },
-      "service_cov": {
-        "contrast": "first minus second",
-        "mean_difference": 0.052353,
-        "bootstrap_95_ci": [
-          0.037405,
-          0.067366
-        ],
-        "paired_wilcoxon_p": 4e-10,
-        "paired_dz": 0.480571,
-        "fraction_first_greater": 0.4,
+        "paired_wilcoxon_p": 3.8e-08,
+        "paired_dz": 0.428539,
+        "fraction_first_greater": 0.365,
         "fraction_equal": 0.465
-      }
-    },
-    "planner_daily_h14_minus_crl": {
-      "recovery_days": {
-        "contrast": "first minus second",
-        "mean_difference": -0.238,
-        "bootstrap_95_ci": [
-          -5.382225,
-          4.723075
-        ],
-        "paired_wilcoxon_p": 0.4959194189,
-        "paired_dz": -0.006459,
-        "fraction_first_greater": 0.21,
-        "fraction_equal": 0.495
       },
       "total_cost": {
         "contrast": "first minus second",
-        "mean_difference": 399916.324213,
+        "mean_difference": 49162.958774,
         "bootstrap_95_ci": [
-          335110.954487,
-          464746.722548
+          39142.028567,
+          59238.30364
         ],
         "paired_wilcoxon_p": 0.0,
-        "paired_dz": 0.852332,
-        "fraction_first_greater": 0.735,
-        "fraction_equal": 0.0
-      },
-      "service_cov": {
-        "contrast": "first minus second",
-        "mean_difference": 0.047458,
-        "bootstrap_95_ci": [
-          0.029488,
-          0.065696
-        ],
-        "paired_wilcoxon_p": 8.579e-07,
-        "paired_dz": 0.362186,
-        "fraction_first_greater": 0.36,
-        "fraction_equal": 0.485
-      }
-    },
-    "planner_daily_no_expedite_minus_crl": {
-      "recovery_days": {
-        "contrast": "first minus second",
-        "mean_difference": 18.197,
-        "bootstrap_95_ci": [
-          13.472,
-          23.21605
-        ],
-        "paired_wilcoxon_p": 0.0,
-        "paired_dz": 0.515588,
-        "fraction_first_greater": 0.41,
-        "fraction_equal": 0.475
-      },
-      "total_cost": {
-        "contrast": "first minus second",
-        "mean_difference": 35592.681886,
-        "bootstrap_95_ci": [
-          27544.567276,
-          43739.477387
-        ],
-        "paired_wilcoxon_p": 0.0,
-        "paired_dz": 0.608385,
+        "paired_dz": 0.677883,
         "fraction_first_greater": 0.725,
         "fraction_equal": 0.0
       },
       "service_cov": {
         "contrast": "first minus second",
-        "mean_difference": 0.061409,
+        "mean_difference": 0.051956,
         "bootstrap_95_ci": [
-          0.047154,
-          0.076097
+          0.037215,
+          0.066782
+        ],
+        "paired_wilcoxon_p": 5e-10,
+        "paired_dz": 0.482135,
+        "fraction_first_greater": 0.405,
+        "fraction_equal": 0.455
+      }
+    },
+    "planner_daily_h14_minus_crl": {
+      "recovery_days": {
+        "contrast": "first minus second",
+        "mean_difference": 1.446,
+        "bootstrap_95_ci": [
+          -3.2081,
+          5.9123
+        ],
+        "paired_wilcoxon_p": 0.6867399405,
+        "paired_dz": 0.043748,
+        "fraction_first_greater": 0.28,
+        "fraction_equal": 0.425
+      },
+      "total_cost": {
+        "contrast": "first minus second",
+        "mean_difference": 393846.668026,
+        "bootstrap_95_ci": [
+          331649.842345,
+          457687.230154
         ],
         "paired_wilcoxon_p": 0.0,
-        "paired_dz": 0.582609,
-        "fraction_first_greater": 0.42,
-        "fraction_equal": 0.455
+        "paired_dz": 0.864176,
+        "fraction_first_greater": 0.75,
+        "fraction_equal": 0.0
+      },
+      "service_cov": {
+        "contrast": "first minus second",
+        "mean_difference": 0.051412,
+        "bootstrap_95_ci": [
+          0.035022,
+          0.067855
+        ],
+        "paired_wilcoxon_p": 1.3e-09,
+        "paired_dz": 0.436585,
+        "fraction_first_greater": 0.45,
+        "fraction_equal": 0.42
+      }
+    },
+    "planner_daily_no_expedite_minus_crl": {
+      "recovery_days": {
+        "contrast": "first minus second",
+        "mean_difference": 16.744,
+        "bootstrap_95_ci": [
+          12.23795,
+          21.415075
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 0.505108,
+        "fraction_first_greater": 0.44,
+        "fraction_equal": 0.445
+      },
+      "total_cost": {
+        "contrast": "first minus second",
+        "mean_difference": 34763.847728,
+        "bootstrap_95_ci": [
+          27106.171186,
+          42597.092279
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 0.612153,
+        "fraction_first_greater": 0.73,
+        "fraction_equal": 0.0
+      },
+      "service_cov": {
+        "contrast": "first minus second",
+        "mean_difference": 0.05933,
+        "bootstrap_95_ci": [
+          0.045303,
+          0.073369
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 0.581515,
+        "fraction_first_greater": 0.455,
+        "fraction_equal": 0.425
       }
     },
     "planner_daily_expedite_7d_minus_crl": {
       "recovery_days": {
         "contrast": "first minus second",
-        "mean_difference": 17.957,
+        "mean_difference": 17.186,
         "bootstrap_95_ci": [
-          13.005,
-          23.0032
+          12.8179,
+          21.57005
         ],
-        "paired_wilcoxon_p": 1e-10,
-        "paired_dz": 0.498698,
-        "fraction_first_greater": 0.41,
-        "fraction_equal": 0.475
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 0.543598,
+        "fraction_first_greater": 0.46,
+        "fraction_equal": 0.43
       },
       "total_cost": {
         "contrast": "first minus second",
-        "mean_difference": 89210.364036,
+        "mean_difference": 89412.926851,
         "bootstrap_95_ci": [
-          74578.958068,
-          104441.88101
+          75318.516333,
+          104125.781605
         ],
         "paired_wilcoxon_p": 0.0,
-        "paired_dz": 0.814396,
-        "fraction_first_greater": 0.735,
+        "paired_dz": 0.839867,
+        "fraction_first_greater": 0.75,
         "fraction_equal": 0.0
       },
       "service_cov": {
         "contrast": "first minus second",
-        "mean_difference": 0.06332,
+        "mean_difference": 0.062084,
         "bootstrap_95_ci": [
-          0.048785,
-          0.078703
+          0.049412,
+          0.075241
         ],
         "paired_wilcoxon_p": 0.0,
-        "paired_dz": 0.591129,
-        "fraction_first_greater": 0.435,
-        "fraction_equal": 0.46
+        "paired_dz": 0.668996,
+        "fraction_first_greater": 0.51,
+        "fraction_equal": 0.415
       }
     },
     "planner_daily_h28_minus_crl": {
       "recovery_days": {
         "contrast": "first minus second",
-        "mean_difference": -8.833,
+        "mean_difference": -8.75,
         "bootstrap_95_ci": [
-          -14.172075,
-          -3.283775
+          -13.563075,
+          -3.789975
         ],
-        "paired_wilcoxon_p": 0.0009797772,
-        "paired_dz": -0.226234,
-        "fraction_first_greater": 0.135,
-        "fraction_equal": 0.525
+        "paired_wilcoxon_p": 0.0003106657,
+        "paired_dz": -0.247678,
+        "fraction_first_greater": 0.15,
+        "fraction_equal": 0.495
       },
       "total_cost": {
         "contrast": "first minus second",
-        "mean_difference": 365268.266948,
+        "mean_difference": 374262.327095,
         "bootstrap_95_ci": [
-          311161.521207,
-          418783.274967
+          320297.732113,
+          426744.066219
         ],
         "paired_wilcoxon_p": 0.0,
-        "paired_dz": 0.922915,
-        "fraction_first_greater": 0.7,
+        "paired_dz": 0.956808,
+        "fraction_first_greater": 0.72,
         "fraction_equal": 0.0
       },
       "service_cov": {
         "contrast": "first minus second",
-        "mean_difference": -0.026656,
+        "mean_difference": -0.029071,
         "bootstrap_95_ci": [
-          -0.044357,
-          -0.009651
+          -0.045914,
+          -0.013502
         ],
-        "paired_wilcoxon_p": 0.0113579667,
-        "paired_dz": -0.213038,
-        "fraction_first_greater": 0.18,
-        "fraction_equal": 0.525
+        "paired_wilcoxon_p": 0.0056747601,
+        "paired_dz": -0.247946,
+        "fraction_first_greater": 0.205,
+        "fraction_equal": 0.495
       }
     },
     "planner_daily_h56_minus_crl": {
       "recovery_days": {
         "contrast": "first minus second",
-        "mean_difference": -14.683,
+        "mean_difference": -16.483,
         "bootstrap_95_ci": [
-          -20.20405,
-          -9.154975
+          -21.40705,
+          -11.507975
         ],
-        "paired_wilcoxon_p": 4.177e-07,
-        "paired_dz": -0.370359,
+        "paired_wilcoxon_p": 1.7e-09,
+        "paired_dz": -0.462025,
         "fraction_first_greater": 0.09,
-        "fraction_equal": 0.53
+        "fraction_equal": 0.52
       },
       "total_cost": {
         "contrast": "first minus second",
-        "mean_difference": 501756.412276,
+        "mean_difference": 501387.321397,
         "bootstrap_95_ci": [
-          444814.295697,
-          559003.069315
+          444487.071064,
+          558806.181603
         ],
         "paired_wilcoxon_p": 0.0,
-        "paired_dz": 1.206003,
-        "fraction_first_greater": 0.82,
+        "paired_dz": 1.207687,
+        "fraction_first_greater": 0.815,
         "fraction_equal": 0.0
       },
       "service_cov": {
         "contrast": "first minus second",
-        "mean_difference": -0.041546,
+        "mean_difference": -0.046263,
         "bootstrap_95_ci": [
-          -0.058762,
-          -0.024704
+          -0.062974,
+          -0.030151
         ],
-        "paired_wilcoxon_p": 1.03519e-05,
-        "paired_dz": -0.338339,
-        "fraction_first_greater": 0.13,
-        "fraction_equal": 0.525
+        "paired_wilcoxon_p": 4.672e-07,
+        "paired_dz": -0.392185,
+        "fraction_first_greater": 0.135,
+        "fraction_equal": 0.515
       }
     },
     "planner_daily_h14_k48_minus_crl": {
       "recovery_days": {
         "contrast": "first minus second",
-        "mean_difference": 2.212,
+        "mean_difference": 2.4,
         "bootstrap_95_ci": [
-          -3.092175,
-          7.574025
+          -2.5391,
+          7.32725
         ],
-        "paired_wilcoxon_p": 0.7790900481,
-        "paired_dz": 0.057966,
-        "fraction_first_greater": 0.25,
-        "fraction_equal": 0.48
+        "paired_wilcoxon_p": 0.5882408889,
+        "paired_dz": 0.067628,
+        "fraction_first_greater": 0.275,
+        "fraction_equal": 0.445
       },
       "total_cost": {
         "contrast": "first minus second",
-        "mean_difference": 392632.536722,
+        "mean_difference": 387431.895544,
         "bootstrap_95_ci": [
-          328060.148253,
-          458925.618
+          325950.416249,
+          450584.148747
         ],
         "paired_wilcoxon_p": 0.0,
-        "paired_dz": 0.837162,
-        "fraction_first_greater": 0.745,
+        "paired_dz": 0.860457,
+        "fraction_first_greater": 0.74,
         "fraction_equal": 0.0
       },
       "service_cov": {
         "contrast": "first minus second",
-        "mean_difference": 0.053411,
+        "mean_difference": 0.05479,
         "bootstrap_95_ci": [
-          0.034867,
-          0.071554
+          0.037514,
+          0.072021
         ],
-        "paired_wilcoxon_p": 9.58e-08,
-        "paired_dz": 0.400894,
-        "fraction_first_greater": 0.38,
-        "fraction_equal": 0.47
+        "paired_wilcoxon_p": 3.5e-09,
+        "paired_dz": 0.43595,
+        "fraction_first_greater": 0.43,
+        "fraction_equal": 0.43
       }
     },
     "planner_daily_h14_k48_minus_planner_daily_h14": {
       "recovery_days": {
         "contrast": "first minus second",
-        "mean_difference": 2.45,
+        "mean_difference": 0.954,
         "bootstrap_95_ci": [
-          -1.435,
-          6.485
+          -1.44815,
+          3.28905
         ],
-        "paired_wilcoxon_p": 0.3211552821,
-        "paired_dz": 0.085224,
-        "fraction_first_greater": 0.095,
-        "fraction_equal": 0.825
+        "paired_wilcoxon_p": 0.2738389734,
+        "paired_dz": 0.056241,
+        "fraction_first_greater": 0.19,
+        "fraction_equal": 0.655
       },
       "total_cost": {
         "contrast": "first minus second",
-        "mean_difference": -7283.787491,
+        "mean_difference": -6414.772481,
         "bootstrap_95_ci": [
-          -34866.217655,
-          20657.130236
+          -20172.13988,
+          7792.446686
         ],
-        "paired_wilcoxon_p": 0.3984096288,
-        "paired_dz": -0.036174,
-        "fraction_first_greater": 0.185,
-        "fraction_equal": 0.585
+        "paired_wilcoxon_p": 0.1432117595,
+        "paired_dz": -0.063845,
+        "fraction_first_greater": 0.28,
+        "fraction_equal": 0.385
       },
       "service_cov": {
         "contrast": "first minus second",
-        "mean_difference": 0.005953,
+        "mean_difference": 0.003378,
         "bootstrap_95_ci": [
-          -0.003567,
-          0.016519
+          -0.002194,
+          0.008873
         ],
-        "paired_wilcoxon_p": 0.5134141502,
-        "paired_dz": 0.081414,
-        "fraction_first_greater": 0.115,
-        "fraction_equal": 0.78
+        "paired_wilcoxon_p": 0.286231264,
+        "paired_dz": 0.083889,
+        "fraction_first_greater": 0.215,
+        "fraction_equal": 0.595
       }
     },
     "planner_daily_h28_minus_planner_daily_h14": {
       "recovery_days": {
         "contrast": "first minus second",
-        "mean_difference": -8.595,
+        "mean_difference": -10.196,
         "bootstrap_95_ci": [
-          -14.57,
-          -2.695
+          -14.921075,
+          -5.6169
         ],
-        "paired_wilcoxon_p": 0.000873828,
-        "paired_dz": -0.200168,
-        "fraction_first_greater": 0.13,
-        "fraction_equal": 0.54
+        "paired_wilcoxon_p": 3.5118e-06,
+        "paired_dz": -0.301684,
+        "fraction_first_greater": 0.165,
+        "fraction_equal": 0.425
       },
       "total_cost": {
         "contrast": "first minus second",
-        "mean_difference": -34648.057265,
+        "mean_difference": -19584.340931,
         "bootstrap_95_ci": [
-          -80986.271667,
-          12981.710213
+          -59879.555803,
+          22138.828306
         ],
-        "paired_wilcoxon_p": 0.0123099574,
-        "paired_dz": -0.101121,
-        "fraction_first_greater": 0.335,
-        "fraction_equal": 0.09
+        "paired_wilcoxon_p": 0.0398347776,
+        "paired_dz": -0.065954,
+        "fraction_first_greater": 0.36,
+        "fraction_equal": 0.08
       },
       "service_cov": {
         "contrast": "first minus second",
-        "mean_difference": -0.074114,
+        "mean_difference": -0.080482,
         "bootstrap_95_ci": [
-          -0.095108,
-          -0.054317
+          -0.098526,
+          -0.062978
         ],
-        "paired_wilcoxon_p": 1e-10,
-        "paired_dz": -0.504148,
-        "fraction_first_greater": 0.095,
-        "fraction_equal": 0.535
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": -0.631073,
+        "fraction_first_greater": 0.09,
+        "fraction_equal": 0.42
       }
     },
     "planner_daily_h56_minus_planner_daily_h28": {
       "recovery_days": {
         "contrast": "first minus second",
-        "mean_difference": -5.85,
+        "mean_difference": -7.733,
         "bootstrap_95_ci": [
-          -11.490125,
-          -0.25975
+          -11.833125,
+          -3.832975
         ],
-        "paired_wilcoxon_p": 0.0565929455,
-        "paired_dz": -0.145567,
-        "fraction_first_greater": 0.09,
-        "fraction_equal": 0.77
+        "paired_wilcoxon_p": 0.0001671842,
+        "paired_dz": -0.272927,
+        "fraction_first_greater": 0.11,
+        "fraction_equal": 0.62
       },
       "total_cost": {
         "contrast": "first minus second",
-        "mean_difference": 136488.145328,
+        "mean_difference": 127124.994302,
         "bootstrap_95_ci": [
-          102664.087596,
-          170847.128757
+          96099.499581,
+          158553.931894
         ],
         "paired_wilcoxon_p": 0.0,
-        "paired_dz": 0.551129,
-        "fraction_first_greater": 0.605,
-        "fraction_equal": 0.13
+        "paired_dz": 0.561482,
+        "fraction_first_greater": 0.645,
+        "fraction_equal": 0.105
       },
       "service_cov": {
         "contrast": "first minus second",
-        "mean_difference": -0.01489,
+        "mean_difference": -0.017192,
         "bootstrap_95_ci": [
-          -0.027395,
-          -0.002821
+          -0.026835,
+          -0.00779
         ],
-        "paired_wilcoxon_p": 0.0169617862,
-        "paired_dz": -0.163931,
-        "fraction_first_greater": 0.095,
-        "fraction_equal": 0.715
+        "paired_wilcoxon_p": 0.0002972381,
+        "paired_dz": -0.249198,
+        "fraction_first_greater": 0.11,
+        "fraction_equal": 0.615
       }
     },
     "planner_daily_no_expedite_minus_planner_daily_h14": {
       "recovery_days": {
         "contrast": "first minus second",
-        "mean_difference": 18.435,
+        "mean_difference": 15.298,
         "bootstrap_95_ci": [
-          13.515,
-          23.5
+          11.071725,
+          19.634325
         ],
-        "paired_wilcoxon_p": 2e-10,
-        "paired_dz": 0.507049,
-        "fraction_first_greater": 0.315,
-        "fraction_equal": 0.61
+        "paired_wilcoxon_p": 4e-10,
+        "paired_dz": 0.493652,
+        "fraction_first_greater": 0.365,
+        "fraction_equal": 0.535
       },
       "total_cost": {
         "contrast": "first minus second",
-        "mean_difference": -364323.642327,
+        "mean_difference": -359082.820298,
         "bootstrap_95_ci": [
-          -426247.21462,
-          -304629.717046
+          -419486.814211,
+          -301167.048075
         ],
         "paired_wilcoxon_p": 0.0,
-        "paired_dz": -0.83478,
+        "paired_dz": -0.844544,
         "fraction_first_greater": 0.0,
-        "fraction_equal": 0.52
+        "fraction_equal": 0.49
       },
       "service_cov": {
         "contrast": "first minus second",
-        "mean_difference": 0.013952,
+        "mean_difference": 0.007919,
         "bootstrap_95_ci": [
-          4.7e-05,
-          0.027754
+          -0.004208,
+          0.020066
         ],
-        "paired_wilcoxon_p": 0.1475687717,
-        "paired_dz": 0.138059,
-        "fraction_first_greater": 0.23,
-        "fraction_equal": 0.575
+        "paired_wilcoxon_p": 0.2685287773,
+        "paired_dz": 0.090128,
+        "fraction_first_greater": 0.26,
+        "fraction_equal": 0.515
       }
     },
     "planner_daily_expedite_7d_minus_planner_daily_h14": {
       "recovery_days": {
         "contrast": "first minus second",
-        "mean_difference": 18.195,
+        "mean_difference": 15.74,
         "bootstrap_95_ci": [
-          12.635,
-          23.835125
+          11.16295,
+          20.319225
         ],
-        "paired_wilcoxon_p": 3.11e-08,
-        "paired_dz": 0.447088,
-        "fraction_first_greater": 0.33,
-        "fraction_equal": 0.595
+        "paired_wilcoxon_p": 1.3e-09,
+        "paired_dz": 0.472889,
+        "fraction_first_greater": 0.355,
+        "fraction_equal": 0.535
       },
       "total_cost": {
         "contrast": "first minus second",
-        "mean_difference": -310705.960176,
+        "mean_difference": -304433.741175,
         "bootstrap_95_ci": [
-          -364274.451072,
-          -258744.736596
+          -356420.276319,
+          -254524.115464
         ],
         "paired_wilcoxon_p": 0.0,
-        "paired_dz": -0.819831,
+        "paired_dz": -0.832625,
         "fraction_first_greater": 0.0,
-        "fraction_equal": 0.54
+        "fraction_equal": 0.495
       },
       "service_cov": {
         "contrast": "first minus second",
-        "mean_difference": 0.015863,
+        "mean_difference": 0.010672,
         "bootstrap_95_ci": [
-          0.000187,
-          0.031911
+          -0.000595,
+          0.022675
         ],
-        "paired_wilcoxon_p": 0.0815476891,
-        "paired_dz": 0.13791,
-        "fraction_first_greater": 0.225,
-        "fraction_equal": 0.57
+        "paired_wilcoxon_p": 0.2393314662,
+        "paired_dz": 0.127048,
+        "fraction_first_greater": 0.24,
+        "fraction_equal": 0.525
       }
     }
   },
@@ -836,121 +1840,121 @@
       },
       "planner_weekly_h14": {
         "recovery_days": {
-          "mean": 19.880597,
-          "sd": 38.730429,
-          "se": 4.731675
+          "mean": 19.423881,
+          "sd": 38.231346,
+          "se": 4.670702
         },
         "total_cost": {
-          "mean": 386888.401622,
-          "sd": 55325.219952,
-          "se": 6759.05138
+          "mean": 387029.00655,
+          "sd": 55336.472898,
+          "se": 6760.426147
         },
         "service_cov": {
-          "mean": 0.049532,
-          "sd": 0.102623,
-          "se": 0.012537
+          "mean": 0.048854,
+          "sd": 0.102727,
+          "se": 0.01255
         }
       },
       "planner_daily_h14": {
         "recovery_days": {
-          "mean": 18.358209,
-          "sd": 37.892072,
-          "se": 4.629253
+          "mean": 17.253731,
+          "sd": 35.950211,
+          "se": 4.392017
         },
         "total_cost": {
-          "mean": 393137.921461,
-          "sd": 62978.360928,
-          "se": 7694.031361
+          "mean": 393328.282065,
+          "sd": 62688.78892,
+          "se": 7658.65451
         },
         "service_cov": {
-          "mean": 0.054477,
-          "sd": 0.112054,
-          "se": 0.01369
+          "mean": 0.052577,
+          "sd": 0.109969,
+          "se": 0.013435
         }
       },
       "planner_daily_no_expedite": {
         "recovery_days": {
-          "mean": 18.358209,
-          "sd": 37.892072,
-          "se": 4.629253
+          "mean": 17.253731,
+          "sd": 35.950211,
+          "se": 4.392017
         },
         "total_cost": {
-          "mean": 393137.921461,
-          "sd": 62978.360928,
-          "se": 7694.031361
+          "mean": 393328.282065,
+          "sd": 62688.78892,
+          "se": 7658.65451
         },
         "service_cov": {
-          "mean": 0.054477,
-          "sd": 0.112054,
-          "se": 0.01369
+          "mean": 0.052577,
+          "sd": 0.109969,
+          "se": 0.013435
         }
       },
       "planner_daily_expedite_7d": {
         "recovery_days": {
-          "mean": 18.358209,
-          "sd": 37.892072,
-          "se": 4.629253
+          "mean": 17.253731,
+          "sd": 35.950211,
+          "se": 4.392017
         },
         "total_cost": {
-          "mean": 393137.921461,
-          "sd": 62978.360928,
-          "se": 7694.031361
+          "mean": 393328.282065,
+          "sd": 62688.78892,
+          "se": 7658.65451
         },
         "service_cov": {
-          "mean": 0.054477,
-          "sd": 0.112054,
-          "se": 0.01369
+          "mean": 0.052577,
+          "sd": 0.109969,
+          "se": 0.013435
         }
       },
       "planner_daily_h28": {
         "recovery_days": {
-          "mean": 17.940299,
-          "sd": 38.984799,
-          "se": 4.762751
+          "mean": 20.244776,
+          "sd": 39.369159,
+          "se": 4.809708
         },
         "total_cost": {
-          "mean": 355140.591282,
-          "sd": 60481.455952,
-          "se": 7388.985868
+          "mean": 356343.063746,
+          "sd": 63953.350234,
+          "se": 7813.145263
         },
         "service_cov": {
-          "mean": 0.04465,
-          "sd": 0.102361,
-          "se": 0.012505
+          "mean": 0.048049,
+          "sd": 0.099985,
+          "se": 0.012215
         }
       },
       "planner_daily_h56": {
         "recovery_days": {
-          "mean": 18.104478,
-          "sd": 39.334284,
-          "se": 4.805448
+          "mean": 16.871642,
+          "sd": 32.593747,
+          "se": 3.98196
         },
         "total_cost": {
-          "mean": 507414.334625,
-          "sd": 189282.425588,
-          "se": 23124.52876
+          "mean": 505904.775155,
+          "sd": 186288.645097,
+          "se": 22758.780261
         },
         "service_cov": {
-          "mean": 0.037442,
-          "sd": 0.086073,
-          "se": 0.010516
+          "mean": 0.030699,
+          "sd": 0.065376,
+          "se": 0.007987
         }
       },
       "planner_daily_h14_k48": {
         "recovery_days": {
-          "mean": 18.164179,
-          "sd": 37.456074,
-          "se": 4.575988
+          "mean": 16.176119,
+          "sd": 35.36546,
+          "se": 4.320579
         },
         "total_cost": {
-          "mean": 393598.661951,
-          "sd": 63791.685078,
-          "se": 7793.394721
+          "mean": 392261.113964,
+          "sd": 61254.302703,
+          "se": 7483.404126
         },
         "service_cov": {
-          "mean": 0.054683,
-          "sd": 0.112762,
-          "se": 0.013776
+          "mean": 0.048912,
+          "sd": 0.106165,
+          "se": 0.01297
         }
       }
     },
@@ -991,121 +1995,121 @@
       },
       "planner_weekly_h14": {
         "recovery_days": {
-          "mean": 45.940299,
-          "sd": 47.652747,
-          "se": 5.82171
+          "mean": 46.835821,
+          "sd": 46.67015,
+          "se": 5.701666
         },
         "total_cost": {
-          "mean": 459102.422192,
-          "sd": 106885.991686,
-          "se": 13058.202214
+          "mean": 458475.360741,
+          "sd": 103541.401136,
+          "se": 12649.595445
         },
         "service_cov": {
-          "mean": 0.150362,
-          "sd": 0.169939,
-          "se": 0.020761
+          "mean": 0.153202,
+          "sd": 0.168119,
+          "se": 0.020539
         }
       },
       "planner_daily_h14": {
         "recovery_days": {
-          "mean": 40.61194,
-          "sd": 49.08402,
-          "se": 5.996568
+          "mean": 44.743284,
+          "sd": 43.463015,
+          "se": 5.309852
         },
         "total_cost": {
-          "mean": 711515.01787,
-          "sd": 398984.06616,
-          "se": 48743.66167
+          "mean": 693147.808819,
+          "sd": 358916.335828,
+          "se": 43848.609319
         },
         "service_cov": {
-          "mean": 0.139273,
-          "sd": 0.177387,
-          "se": 0.021671
+          "mean": 0.14942,
+          "sd": 0.159501,
+          "se": 0.019486
         }
       },
       "planner_daily_no_expedite": {
         "recovery_days": {
-          "mean": 54.059701,
-          "sd": 49.491316,
-          "se": 6.046327
+          "mean": 51.364179,
+          "sd": 47.079378,
+          "se": 5.751661
         },
         "total_cost": {
-          "mean": 440260.617141,
-          "sd": 82119.217905,
-          "se": 10032.459222
+          "mean": 441405.846551,
+          "sd": 78727.946566,
+          "se": 9618.149487
         },
         "service_cov": {
-          "mean": 0.149461,
-          "sd": 0.155502,
-          "se": 0.018998
+          "mean": 0.14389,
+          "sd": 0.15145,
+          "se": 0.018503
         }
       },
       "planner_daily_expedite_7d": {
         "recovery_days": {
-          "mean": 47.38806,
-          "sd": 48.454588,
-          "se": 5.91967
+          "mean": 48.134328,
+          "sd": 44.295063,
+          "se": 5.411503
         },
         "total_cost": {
-          "mean": 483637.540542,
-          "sd": 127079.391685,
-          "se": 15525.218671
+          "mean": 488927.902262,
+          "sd": 125314.727167,
+          "se": 15309.630588
         },
         "service_cov": {
-          "mean": 0.148079,
-          "sd": 0.166122,
-          "se": 0.020295
+          "mean": 0.151749,
+          "sd": 0.157615,
+          "se": 0.019256
         }
       },
       "planner_daily_h28": {
         "recovery_days": {
-          "mean": 24.552239,
-          "sd": 44.399455,
-          "se": 5.424257
+          "mean": 22.755224,
+          "sd": 33.821596,
+          "se": 4.131966
         },
         "total_cost": {
-          "mean": 777600.581822,
-          "sd": 281973.933244,
-          "se": 34448.598747
+          "mean": 779292.900012,
+          "sd": 271179.739267,
+          "se": 33129.878067
         },
         "service_cov": {
-          "mean": 0.048028,
-          "sd": 0.097597,
-          "se": 0.011923
+          "mean": 0.044572,
+          "sd": 0.075565,
+          "se": 0.009232
         }
       },
       "planner_daily_h56": {
         "recovery_days": {
-          "mean": 17.104478,
-          "sd": 38.996944,
-          "se": 4.764235
+          "mean": 12.964179,
+          "sd": 30.91917,
+          "se": 3.777378
         },
         "total_cost": {
-          "mean": 883260.311048,
-          "sd": 371324.753589,
-          "se": 45364.538822
+          "mean": 887693.150384,
+          "sd": 370740.696623,
+          "se": 45293.184907
         },
         "service_cov": {
-          "mean": 0.03088,
-          "sd": 0.074381,
-          "se": 0.009087
+          "mean": 0.023543,
+          "sd": 0.060794,
+          "se": 0.007427
         }
       },
       "planner_daily_h14_k48": {
         "recovery_days": {
-          "mean": 48.014925,
-          "sd": 50.876706,
-          "se": 6.215579
+          "mean": 47.608955,
+          "sd": 47.603087,
+          "se": 5.815643
         },
         "total_cost": {
-          "mean": 667684.738784,
-          "sd": 359914.733481,
-          "se": 43970.583005
+          "mean": 679797.648652,
+          "sd": 346251.578399,
+          "se": 42301.362941
         },
         "service_cov": {
-          "mean": 0.157654,
-          "sd": 0.178196,
-          "se": 0.02177
+          "mean": 0.163073,
+          "sd": 0.176412,
+          "se": 0.021552
         }
       }
     },
@@ -1146,87 +2150,87 @@
       },
       "planner_weekly_h14": {
         "recovery_days": {
-          "mean": 65.136364,
-          "sd": 42.204953,
-          "se": 5.195071
+          "mean": 65.069697,
+          "sd": 41.426851,
+          "se": 5.099293
         },
         "total_cost": {
-          "mean": 509647.10856,
-          "sd": 86934.216174,
-          "se": 10700.862286
+          "mean": 509337.550278,
+          "sd": 84792.1229,
+          "se": 10437.188831
         },
         "service_cov": {
-          "mean": 0.222805,
-          "sd": 0.164971,
-          "se": 0.020307
+          "mean": 0.219409,
+          "sd": 0.161647,
+          "se": 0.019897
         }
       },
       "planner_daily_h14": {
         "recovery_days": {
-          "mean": 26.333333,
-          "sd": 27.853094,
-          "se": 3.428479
+          "mean": 28.363636,
+          "sd": 17.599367,
+          "se": 2.166332
         },
         "total_cost": {
-          "mean": 1309151.470899,
-          "sd": 362225.488661,
-          "se": 44586.87547
+          "mean": 1309210.828605,
+          "sd": 341819.560776,
+          "se": 42075.079382
         },
         "service_cov": {
-          "mean": 0.214208,
-          "sd": 0.197599,
-          "se": 0.024323
+          "mean": 0.217817,
+          "sd": 0.185282,
+          "se": 0.022807
         }
       },
       "planner_daily_no_expedite": {
         "recovery_days": {
-          "mean": 68.545455,
-          "sd": 42.582836,
-          "se": 5.241585
+          "mean": 68.0,
+          "sd": 37.519291,
+          "se": 4.618306
         },
         "total_cost": {
-          "mean": 480504.749438,
-          "sd": 83928.169339,
-          "se": 10330.843499
+          "mean": 476637.304549,
+          "sd": 79127.278534,
+          "se": 9739.894692
         },
         "service_cov": {
-          "mean": 0.246143,
-          "sd": 0.162089,
-          "se": 0.019952
+          "mean": 0.247428,
+          "sd": 0.155951,
+          "se": 0.019196
         }
       },
       "planner_daily_expedite_7d": {
         "recovery_days": {
-          "mean": 74.590909,
-          "sd": 40.263737,
-          "se": 4.956123
+          "mean": 72.618182,
+          "sd": 35.772542,
+          "se": 4.403295
         },
         "total_cost": {
-          "mean": 598948.424623,
-          "sd": 117683.01766,
-          "se": 14485.778107
+          "mean": 593998.487761,
+          "sd": 115001.311914,
+          "se": 14155.682948
         },
         "service_cov": {
-          "mean": 0.253336,
-          "sd": 0.16411,
-          "se": 0.020201
+          "mean": 0.247793,
+          "sd": 0.159269,
+          "se": 0.019605
         }
       },
       "planner_daily_h28": {
         "recovery_days": {
-          "mean": 17.015152,
-          "sd": 31.858095,
-          "se": 3.92146
+          "mean": 16.751515,
+          "sd": 23.480009,
+          "se": 2.890189
         },
         "total_cost": {
-          "mean": 1175643.544902,
-          "sd": 253751.397273,
-          "se": 31234.637828
+          "mean": 1199959.621502,
+          "sd": 207836.911786,
+          "se": 25582.955352
         },
         "service_cov": {
-          "mean": 0.092224,
-          "sd": 0.140114,
-          "se": 0.017247
+          "mean": 0.084965,
+          "sd": 0.123033,
+          "se": 0.015144
         }
       },
       "planner_daily_h56": {
@@ -1236,9 +2240,9 @@
           "se": 1.42344
         },
         "total_cost": {
-          "mean": 1327402.429803,
-          "sd": 160138.504348,
-          "se": 19711.687263
+          "mean": 1323316.400609,
+          "sd": 165944.325604,
+          "se": 20426.334458
         },
         "service_cov": {
           "mean": 0.071827,
@@ -1248,19 +2252,19 @@
       },
       "planner_daily_h14_k48": {
         "recovery_days": {
-          "mean": 26.439394,
-          "sd": 27.823139,
-          "se": 3.424792
+          "mean": 29.439394,
+          "sd": 20.413396,
+          "se": 2.512715
         },
         "total_cost": {
-          "mean": 1331106.04041,
-          "sd": 346213.102574,
-          "se": 42615.886992
+          "mean": 1304407.896752,
+          "sd": 328021.15876,
+          "se": 40376.613504
         },
         "service_cov": {
-          "mean": 0.213378,
-          "sd": 0.197362,
-          "se": 0.024294
+          "mean": 0.217914,
+          "sd": 0.186673,
+          "se": 0.022978
         }
       }
     }
@@ -1281,6 +2285,7 @@
         "rl_only"
       ],
       "planner_daily_h14": [
+        "crl",
         "planner_daily_h28"
       ],
       "planner_daily_no_expedite": [
@@ -1290,7 +2295,8 @@
       "planner_daily_expedite_7d": [
         "crl",
         "rl_only",
-        "planner_weekly_h14"
+        "planner_weekly_h14",
+        "planner_daily_no_expedite"
       ],
       "planner_daily_h28": [],
       "planner_daily_h56": [],
@@ -1330,6 +2336,7 @@
       "planner_daily_h56": [],
       "planner_daily_h14_k48": [
         "crl",
+        "rl_only",
         "planner_weekly_h14",
         "planner_daily_h28"
       ]

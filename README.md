@@ -10,7 +10,8 @@ Concurrent Disruptions: A Causal Reinforcement Learning Approach."**
   - `environment.py` — four-tier supply chain simulation (3 suppliers, 2 corridors, 1 DC, 4 service points). Includes the full structural assumptions table (`ASSUMPTIONS` dict). The environment never knows which agent is acting; LPI affects environmental constraints only.
   - `agents.py` — PPO (from scratch, numpy), CRL (PPO + causal action masking + reward shaping from interventionally estimated ATEs), and the sample-average stochastic lookahead planning baseline
   - `run_experiment.py`: main experiment with 5 training seeds and 200 paired held-out episodes
-  - `planner_frontier.py`: cadence, horizon, scenario-count, and expediting sensitivity; generates the observed cost-recovery frontier
+  - `planner_frontier.py`: five-planner-seed cadence, horizon, scenario-count, and expediting sensitivity; generates the observed cost-recovery frontier and raw seed-level audit trail
+  - `h2_concurrency_analysis.py`: episode-level concurrency trend test with a stratified bootstrap
   - `sample_efficiency.py`: training-budget by seed study
   - `robustness.py`: ablation and recovery-threshold sensitivity with paired episode outputs
   - `robustness_v2.py`: daily-planner extensions for threshold, tail-severity, and LPI-mapping analyses
@@ -29,16 +30,21 @@ parameter estimation.
 pip install -r requirements_paper.txt
 cd paper_experiment
 python run_experiment.py
-python planner_frontier.py
+python planner_frontier.py --workers 4
+python h2_concurrency_analysis.py
 python sample_efficiency.py
 python robustness.py
-python robustness_v2.py
+python robustness_v2.py --workers 4
 python round2_analysis.py
 python round3_analysis.py
+python validate_v11_outputs.py
 ```
 
-All analysis scripts use fixed seeds. The planner compares candidate actions
-with common random numbers at each replanning point.
+All analysis scripts use fixed seeds. The frontier and planner robustness
+analyses evaluate planner seeds 42 through 46 on identical held-out episode
+contexts. The planner compares candidate actions with common random numbers at
+each replanning point. Planner inference is based on the seed-averaged outcome
+for each paired episode, while separate CSV files retain every seed-level run.
 
 ## Honesty notes
 

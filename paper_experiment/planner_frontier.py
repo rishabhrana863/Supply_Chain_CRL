@@ -1,9 +1,10 @@
 """Evaluate the empirical cost, recovery, and stability frontier.
 
 The script compares the frozen CRL and RL-only policies with seven planner
-configurations on the same 200 held-out contexts and environment seeds. It
-reports paired uncertainty, identifies the discrete nondominated set, and
-creates the figure used in the manuscript.
+configurations on the same 200 held-out contexts and environment seeds. Each
+planner configuration uses seeds 42 through 46. Outcomes are averaged across
+planner seeds within episode before paired inference. Raw seed-level outputs,
+the discrete nondominated set, and the manuscript figure are also saved.
 
 Run from ``paper_experiment`` after ``run_experiment.py``:
 
@@ -13,6 +14,7 @@ Run from ``paper_experiment`` after ``run_experiment.py``:
 import argparse
 import csv
 import json
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -25,7 +27,8 @@ from calibration import Calibration
 from environment import N_ACTIONS, SupplyChainEnv
 
 
-SEED = 42
+CALIBRATION_SEED = 42
+PLANNER_SEEDS = (42, 43, 44, 45, 46)
 N_EVAL = 200
 EVAL_CONTEXT_SEED = 9000
 ENV_SEED_BASE = EVAL_CONTEXT_SEED * 7
@@ -34,6 +37,7 @@ BOOTSTRAP_REPS = 10000
 RESULTS = Path(__file__).parent / "results"
 PRIMARY_EPISODES = RESULTS / "per_episode.csv"
 OUTPUT_EPISODES = RESULTS / "planner_frontier_per_episode.csv"
+OUTPUT_RAW_EPISODES = RESULTS / "planner_frontier_per_episode_by_seed.csv"
 OUTPUT_SUMMARY = RESULTS / "planner_frontier_results.json"
 FIGURE_STEM = RESULTS / "planner_frontier"
 
@@ -130,7 +134,7 @@ def paired_comparison(first, second, seed):
     }
 
 
-def evaluate_planner(planner, contexts):
+def evaluate_planner(planner, contexts, planner_seed):
     rows = []
     for episode_id, context in enumerate(contexts):
         env = SupplyChainEnv(
@@ -159,6 +163,7 @@ def evaluate_planner(planner, contexts):
         row = {
             "episode_id": episode_id,
             "scenario_type": context["scenario_type"],
+            "planner_seed": planner_seed,
             "recovery_days": metrics["recovery_days"],
             "recovered": metrics["recovered"],
             "total_cost": metrics["total_cost"],
@@ -171,6 +176,36 @@ def evaluate_planner(planner, contexts):
             row[f"action_{action_id}_count"] = int(action_counts[action_id])
         rows.append(row)
     return rows
+
+
+def evaluate_configuration(task):
+    """Evaluate one configuration and planner seed in an isolated process."""
+    name, config, planner_seed, n_eval = task
+    calibration = Calibration(seed=CALIBRATION_SEED)
+    contexts = calibration.sample_episode_contexts(
+        n_eval, np.random.RandomState(EVAL_CONTEXT_SEED)
+    )
+    kwargs = {key: value for key, value in config.items() if key != "label"}
+    planner = StochasticOptAgent(
+        calibration, seed=planner_seed, name=name, **kwargs
+    )
+    rows = evaluate_planner(planner, contexts, planner_seed)
+    return name, planner_seed, rows
+
+
+def average_planner_rows(rows):
+    """Average planner-seed outcomes within each held-out episode."""
+    frame = pd.DataFrame(rows)
+    metadata = ["episode_id", "scenario_type"]
+    numeric = [
+        column for column in frame.columns
+        if column not in metadata + ["planner_seed"]
+    ]
+    for column in numeric:
+        frame[column] = pd.to_numeric(frame[column], errors="raise")
+    averaged = frame.groupby(metadata, as_index=False, sort=True)[numeric].mean()
+    averaged.insert(2, "planner_seed", "mean")
+    return averaged.to_dict("records")
 
 
 def nondominated_set(aggregate, x_metric="total_cost", y_metric="recovery_days"):
@@ -262,12 +297,12 @@ def plot_frontier(aggregate, labels, nondominated_recovery, nondominated_stabili
         "crl": (12, 8),
         "rl_only": (10, -18),
         "planner_weekly_h14": (10, -18),
-        "planner_daily_h14": (10, 6),
+        "planner_daily_h14": (10, -12),
         "planner_daily_no_expedite": (-105, 10),
         "planner_daily_expedite_7d": (10, 8),
         "planner_daily_h28": (10, 4),
         "planner_daily_h56": (10, -2),
-        "planner_daily_h14_k48": (10, 6),
+        "planner_daily_h14_k48": (-105, 10),
     }
     for name in aggregate:
         axes[0].annotate(
@@ -298,8 +333,19 @@ def plot_frontier(aggregate, labels, nondominated_recovery, nondominated_stabili
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--quick", action="store_true", help="Evaluate 12 episodes")
+    parser.add_argument(
+        "--workers", type=int, default=1,
+        help="Independent configuration-seed evaluations to run in parallel",
+    )
+    parser.add_argument(
+        "--planner-seeds", type=int, nargs="+", default=list(PLANNER_SEEDS),
+        help="Planner Monte Carlo seeds",
+    )
     args = parser.parse_args()
     n_eval = 12 if args.quick else N_EVAL
+    planner_seeds = tuple(args.planner_seeds)
+    if len(planner_seeds) < 2 and not args.quick:
+        raise ValueError("Full analysis requires at least two planner seeds")
 
     if not PRIMARY_EPISODES.exists():
         raise FileNotFoundError(
@@ -310,17 +356,42 @@ def main():
     if len(frozen) != n_eval:
         raise ValueError(f"Expected {n_eval} frozen episodes, found {len(frozen)}")
 
-    calibration = Calibration(seed=SEED)
+    calibration = Calibration(seed=CALIBRATION_SEED)
     contexts = calibration.sample_episode_contexts(
         n_eval, np.random.RandomState(EVAL_CONTEXT_SEED)
     )
 
+    tasks = [
+        (name, config, planner_seed, n_eval)
+        for name, config in CONFIGS.items()
+        for planner_seed in planner_seeds
+    ]
+    planner_results_by_seed = {name: {} for name in CONFIGS}
+    if args.workers == 1:
+        for task in tasks:
+            name, _, planner_seed, _ = task
+            print(f"Evaluating {name}, planner seed {planner_seed}", flush=True)
+            _, _, rows = evaluate_configuration(task)
+            planner_results_by_seed[name][planner_seed] = rows
+    else:
+        with ProcessPoolExecutor(max_workers=args.workers) as executor:
+            future_tasks = {
+                executor.submit(evaluate_configuration, task): task for task in tasks
+            }
+            for future in as_completed(future_tasks):
+                name, _, planner_seed, _ = future_tasks[future]
+                _, _, rows = future.result()
+                planner_results_by_seed[name][planner_seed] = rows
+                print(f"Completed {name}, planner seed {planner_seed}", flush=True)
+
     planner_results = {}
-    for name, config in CONFIGS.items():
-        kwargs = {key: value for key, value in config.items() if key != "label"}
-        planner = StochasticOptAgent(calibration, seed=SEED, name=name, **kwargs)
-        print(f"Evaluating {name}", flush=True)
-        planner_results[name] = evaluate_planner(planner, contexts)
+    for name in CONFIGS:
+        raw_rows = [
+            row
+            for planner_seed in planner_seeds
+            for row in planner_results_by_seed[name][planner_seed]
+        ]
+        planner_results[name] = average_planner_rows(raw_rows)
 
     long_rows = []
     for episode_id in range(n_eval):
@@ -330,6 +401,7 @@ def main():
                 "episode_id": episode_id,
                 "scenario_type": context["scenario_type"],
                 "configuration": name,
+                "planner_seed": "",
                 "recovery_days": float(frozen.iloc[episode_id][f"{name}_recovery_days"]),
                 "recovered": bool(frozen.iloc[episode_id].get(f"{name}_recovered", True)),
                 "total_cost": float(frozen.iloc[episode_id][f"{name}_total_cost"]),
@@ -341,6 +413,21 @@ def main():
             })
         for name in CONFIGS:
             long_rows.append({"configuration": name, **planner_results[name][episode_id]})
+
+    raw_rows = []
+    for name in CONFIGS:
+        for planner_seed in planner_seeds:
+            raw_rows.extend(
+                {"configuration": name, **row}
+                for row in planner_results_by_seed[name][planner_seed]
+            )
+
+    with OUTPUT_RAW_EPISODES.open("w", newline="") as handle:
+        writer = csv.DictWriter(
+            handle, fieldnames=list(raw_rows[0]), lineterminator="\n"
+        )
+        writer.writeheader()
+        writer.writerows(raw_rows)
 
     with OUTPUT_EPISODES.open("w", newline="") as handle:
         writer = csv.DictWriter(
@@ -364,6 +451,29 @@ def main():
             numeric = pd.to_numeric(subset[metric], errors="coerce").dropna()
             if len(numeric):
                 aggregate[name][metric] = mean_se(numeric)
+
+    planner_seed_summaries = {}
+    raw_frame = pd.DataFrame(raw_rows)
+    for name in CONFIGS:
+        planner_seed_summaries[name] = {}
+        subset = raw_frame[raw_frame["configuration"] == name]
+        for planner_seed in planner_seeds:
+            seed_subset = subset[subset["planner_seed"] == planner_seed]
+            planner_seed_summaries[name][str(planner_seed)] = {
+                metric: mean_se(seed_subset[metric])
+                for metric in ["recovery_days", "total_cost", "service_cov", "air_expedites"]
+            }
+        planner_seed_summaries[name]["between_seed_means"] = {}
+        for metric in ["recovery_days", "total_cost", "service_cov", "air_expedites"]:
+            seed_means = [
+                planner_seed_summaries[name][str(seed)][metric]["mean"]
+                for seed in planner_seeds
+            ]
+            planner_seed_summaries[name]["between_seed_means"][metric] = {
+                **mean_se(seed_means),
+                "min": round(float(min(seed_means)), 6),
+                "max": round(float(max(seed_means)), 6),
+            }
 
     comparisons = {}
     comparison_pairs = [
@@ -407,7 +517,9 @@ def main():
 
     summary = {
         "design": {
-            "seed": SEED,
+            "calibration_seed": CALIBRATION_SEED,
+            "planner_seeds": list(planner_seeds),
+            "planner_seed_count": len(planner_seeds),
             "n_eval": n_eval,
             "evaluation_context_seed": EVAL_CONTEXT_SEED,
             "environment_seed_base": ENV_SEED_BASE,
@@ -417,6 +529,7 @@ def main():
         },
         "labels": labels,
         "aggregate": aggregate,
+        "planner_seed_summaries": planner_seed_summaries,
         "paired_comparisons": comparisons,
         "scenario_breakdown": scenario_breakdown,
         "discrete_frontier": {
@@ -435,6 +548,7 @@ def main():
     )
     print(json.dumps(summary["aggregate"], indent=2))
     print(f"Saved {OUTPUT_EPISODES}")
+    print(f"Saved {OUTPUT_RAW_EPISODES}")
     print(f"Saved {OUTPUT_SUMMARY}")
     print(f"Saved {FIGURE_STEM}.png, .pdf, and .svg")
 
