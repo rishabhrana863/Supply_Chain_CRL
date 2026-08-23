@@ -1,7 +1,7 @@
 """
 Experiment runner: trains PPO and CRL, fits the causal model from randomized
 rollouts, evaluates all three agents on IDENTICAL held-out episodes
-(same contexts, same environment seeds — fully paired design), and freezes
+(same contexts and same environment seeds in a fully paired design), and freezes
 results to JSON + per-episode CSV.
 
 Usage: python3 run_experiment.py [--quick]
@@ -105,19 +105,13 @@ def cohens_d(a, b):
 
 
 def wilcoxon(a, b):
-    import math
-    diff = np.asarray(a) - np.asarray(b)
-    diff = diff[diff != 0]
-    n = len(diff)
-    if n == 0:
-        return 0.0, 1.0
-    ranks = np.argsort(np.argsort(np.abs(diff))) + 1.0
-    w = min(ranks[diff > 0].sum(), ranks[diff < 0].sum())
-    mu = n * (n + 1) / 4
-    sig = math.sqrt(n * (n + 1) * (2 * n + 1) / 24)
-    z = (w - mu) / sig
-    p = math.erfc(-z / math.sqrt(2)) / 2
-    return float(w), float(p)
+    """Return the two-sided paired Wilcoxon statistic and p-value."""
+    from scipy.stats import wilcoxon as scipy_wilcoxon
+
+    result = scipy_wilcoxon(
+        np.asarray(a), np.asarray(b), alternative="two-sided", zero_method="wilcox"
+    )
+    return float(result.statistic), float(result.pvalue)
 
 
 def summarize(rows, agents, key):
@@ -130,38 +124,40 @@ def summarize(rows, agents, key):
     return out
 
 
-def explainability_index(agent, cm, cal, n_episodes=40, seed=777, eps=0.01):
-    """Causal Alignment Index (redesigned P4, CRL vs RL-only):
-    EI = fraction of in-disruption decisions whose chosen action's estimated
-    context-conditional ATE is within eps of the best available action's ATE.
-    A passive policy scores low whenever an active intervention has a clearly
-    higher estimated causal effect. Formal, reproducible; optimization model
-    excluded (its transparency is of a different, algebraic kind)."""
+def policy_causal_alignment(agent, cm, cal, n_episodes=60, seed=777, eps=0.01):
+    """Return the per-episode Policy-Causal Alignment diagnostic.
+
+    The diagnostic is the fraction of in-disruption decisions whose chosen
+    action's estimated causal intervention effect is within ``eps`` of the best
+    available action's estimated effect. It measures policy behavior inside
+    the simulator, not human explainability.
+    """
     rng = np.random.RandomState(seed)
     contexts = cal.sample_episode_contexts(n_episodes, rng)
-    aligned, total = 0, 0
+    episode_values = []
     for i, ctx in enumerate(contexts):
         env = SupplyChainEnv(ctx, cal, np.random.RandomState(seed + i))
         s = env.reset()
+        aligned, total = 0, 0
         while True:
             a, _, _ = agent.act(s, ctx, greedy=True)
             if env.day > DISRUPTION_ONSET and env.severity_now > 0.5:
                 total += 1
                 st = cm.stratum(s)
                 ates = np.array([0.0] + [cm.ate(st, x) for x in range(1, N_ACTIONS)])
-                chosen = ates[a]
-                if chosen >= ates.max() - eps:
+                if ates[a] >= ates.max() - eps:
                     aligned += 1
-            s, r, done, info = env.step(a)
+            s, _, done, _ = env.step(a)
             if done:
                 break
-    return round(aligned / max(total, 1), 4)
+        episode_values.append(aligned / max(total, 1))
+    return np.asarray(episode_values, dtype=float)
 
 
 def main():
     np.random.seed(SEED)
     print("=" * 70)
-    print(f"CRL EXPERIMENT — seed={SEED} quick={QUICK}")
+    print(f"CRL EXPERIMENT: seed={SEED} quick={QUICK}")
     print(f"  train={N_TRAIN} eval={N_EVAL} causal_rollouts={N_CAUSAL}")
     print("=" * 70, flush=True)
 
@@ -203,7 +199,7 @@ def main():
                 [r[f"rl_s{sd}_{base}"] for sd in range(N_SEEDS)])), 4)
             r[f"crl_{base}"] = round(float(np.mean(
                 [r[f"crl_s{sd}_{base}"] for sd in range(N_SEEDS)])), 4)
-    rl, crl = rls[0], crls[0]  # representatives for EI computation below
+    rl, crl = rls[0], crls[0]
 
     # ── aggregate + tests (on seed-averaged episode values) ──
     names = ["stochastic_opt", "rl_only", "crl"]
@@ -250,20 +246,33 @@ def main():
         p3[grp]["crl_switch_rate"] = round(float(sw.mean()), 3)
     results["infrastructure_analysis"] = p3
 
-    # explainability (redesigned P4: CRL vs RL-only), averaged over seeds
-    print("\ncomputing explainability index...", flush=True)
-    results["explainability_index"] = {
-        "crl": round(float(np.mean([explainability_index(a, cm, cal) for a in crls])), 4),
-        "rl_only": round(float(np.mean([explainability_index(a, cm, cal) for a in rls])), 4),
-        "definition": "fraction of in-disruption decisions whose chosen action has "
-                      "non-negative estimated context-conditional ATE (causally justifiable decisions)"}
+    # Policy-behavior diagnostic, averaged by episode and then across seeds.
+    print("\ncomputing policy-causal alignment diagnostic...", flush=True)
+    crl_alignment = np.mean(
+        [policy_causal_alignment(a, cm, cal) for a in crls], axis=0
+    )
+    rl_alignment = np.mean(
+        [policy_causal_alignment(a, cm, cal) for a in rls], axis=0
+    )
+    _, alignment_p = wilcoxon(crl_alignment, rl_alignment)
+    results["policy_causal_alignment"] = {
+        "n_episodes": 60,
+        "crl_mean": round(float(crl_alignment.mean()), 4),
+        "crl_se": round(float(crl_alignment.std(ddof=1) / np.sqrt(60)), 4),
+        "rl_only_mean": round(float(rl_alignment.mean()), 4),
+        "rl_only_se": round(float(rl_alignment.std(ddof=1) / np.sqrt(60)), 4),
+        "paired_wilcoxon_p": round(float(alignment_p), 8),
+        "definition": "per-episode fraction of in-disruption decisions whose "
+                      "chosen action effect is within 0.01 of the best available effect",
+        "interpretation": "policy-behavior diagnostic, not human explainability",
+    }
 
     # ── freeze ──
     with open(OUT / "frozen_results.json", "w") as f:
         json.dump(results, f, indent=2)
     csv_keys = list(rows[0].keys())
     with open(OUT / "per_episode.csv", "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=csv_keys)
+        w = csv.DictWriter(f, fieldnames=csv_keys, lineterminator="\n")
         w.writeheader(); w.writerows(rows)
 
     print("\n" + "=" * 70)
@@ -271,7 +280,7 @@ def main():
     print("\nTESTS:", json.dumps(tests, indent=1))
     print("\nSCENARIOS:", json.dumps(sb, indent=1))
     print("\nP3:", json.dumps(p3, indent=1))
-    print("\nEI:", json.dumps(results["explainability_index"], indent=1))
+    print("\nALIGNMENT:", json.dumps(results["policy_causal_alignment"], indent=1))
     print(f"\n✅ frozen → {OUT}/frozen_results.json, per_episode.csv")
 
 

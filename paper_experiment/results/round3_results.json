@@ -14,13 +14,13 @@
     "mild": {
       "crl": 21.67,
       "rl_only": 28.0,
-      "stochastic_planner": 38.62,
+      "stochastic_planner": 37.09,
       "ordering_preserved": true
     },
     "harsh": {
       "crl": 30.04,
       "rl_only": 33.72,
-      "stochastic_planner": 40.59,
+      "stochastic_planner": 40.28,
       "ordering_preserved": true
     }
   }

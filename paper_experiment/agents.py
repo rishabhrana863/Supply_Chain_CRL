@@ -1,6 +1,6 @@
 """
 Agents: PPO (numpy, from scratch), CRL (PPO + causal masking/shaping),
-and a two-stage stochastic optimization baseline (sample average approximation).
+and a sample-average stochastic lookahead planner.
 
 No agent receives outcome bonuses. CRL's causal layer is estimated from
 INTERVENTIONAL SIMULATION DATA (randomized-action rollouts), not hand-set.
@@ -147,9 +147,9 @@ class PPOAgent:
 class CausalModel:
     """Context-conditional average treatment effects estimated from randomized
     interventional rollouts. Context is discretized into strata; the effect of
-    each action (vs no_action) on next-7-day service and cost is estimated by
-    stratified mean differences. This is genuine estimation — if an action
-    doesn't help in the data, its ATE will be ≤ 0 and it gets masked."""
+    each action (versus no_action) on mean service from days 5 through 20 is
+    estimated by stratified mean differences. An action is masked when its
+    estimated effect falls below the configured negative-effect threshold."""
 
     STRATA_KEYS = ["port", "capacity_low", "inventory_low", "lpi_low", "conflict"]
 
@@ -242,103 +242,153 @@ class CRLAgent(PPOAgent):
         return r + self.causal_lambda * np.clip(ate, -0.5, 0.5)
 
 
-# ═══════════════ Two-stage stochastic optimization baseline ═══════════════
+# ═════════════════ Stochastic lookahead planning baseline ═════════════════
 
 class StochasticOptAgent:
-    """Sample average approximation over the discrete action set.
-    At each replanning point (weekly), evaluates each action by K Monte Carlo
-    rollouts of a NOMINAL internal model (persistence forecast of current
-    disruption, historical demand distribution), then commits to the action
-    minimizing expected cost − service. Between replanning points, holds policy.
-    Exact minimization over the discrete first-stage set = enumeration,
-    i.e., a genuine two-stage SAA stochastic program."""
+    """Sample-average lookahead over the discrete action set.
+
+    At each replanning point, the planner evaluates every candidate action with
+    K rollouts of a nominal internal model over a fixed lookahead horizon. The
+    same K random-number streams are used for every action at a replanning
+    point. This common-random-number design ensures that action comparisons are
+    driven by modeled consequences rather than independent sampling noise.
+
+    The model is a rolling-horizon lookahead planner, not a two-stage stochastic
+    program. The weekly version acts once at each seven-day replanning point and
+    takes no additional action between planning points. The daily version uses
+    the identical model and replans every day.
+    """
 
     name = "stochastic_opt"
-    REPLAN_EVERY = 7
     K = 12          # scenarios per action
     LOOKAHEAD = 14  # days
 
-    def __init__(self, cal, seed=0):
+    def __init__(self, cal, seed=0, replan_every=7, lookahead=None,
+                 scenario_count=None, allowed_actions=None, expedite_cooldown=0,
+                 name=None):
         self.cal = cal
         self.rng = np.random.RandomState(seed)
+        self.replan_every = int(replan_every)
+        self.lookahead = int(self.LOOKAHEAD if lookahead is None else lookahead)
+        self.scenario_count = int(self.K if scenario_count is None else scenario_count)
+        self.allowed_actions = tuple(range(N_ACTIONS)) if allowed_actions is None \
+            else tuple(int(a) for a in allowed_actions)
+        self.expedite_cooldown = int(expedite_cooldown)
+        if self.replan_every < 1:
+            raise ValueError("replan_every must be at least one day")
+        if self.lookahead < 1 or self.scenario_count < 1:
+            raise ValueError("lookahead and scenario_count must be positive")
+        if not self.allowed_actions or 0 not in self.allowed_actions:
+            raise ValueError("allowed_actions must include no_action (0)")
+        if name is not None:
+            self.name = name
         self.current_action = 0
         self.last_plan_day = -99
+        self.last_expedite_day = -999
 
     def reset(self):
         """Must be called at the start of every episode."""
         self.current_action = 0
         self.last_plan_day = -99
+        self.last_expedite_day = -999
 
-    def _rollout_value(self, env, first_action):
-        """Nominal two-stage rollout. The planner's internal model mirrors the
+    def _rollout_value(self, env, first_action, severity_multipliers, demand_draws):
+        """Return the mean nominal rollout cost for one candidate action.
+
+        The planner's internal model mirrors the
         true mechanics at a coarse level (delay days, capacity loss, setup
         times) but must FORECAST severity (persistence with noise) and demand.
-        All quantities in units of days-of-demand."""
+        All quantities are in units of days of demand. ``severity_multipliers``
+        and ``demand_draws`` are shared across actions at the current replanning
+        point. Scenario calculations are vectorized without changing the model.
+        """
         s = env._state()
         inv0 = s[0] * 60          # inventory in days of demand
         sev = s[4] * 15
         port = s[9] > 0.5
         A = env.A
-        H = self.LOOKAHEAD
-        vals = []
-        for _ in range(self.K):
-            inv = inv0
-            total = 0.0
-            sev_k = max(0.0, sev * self.rng.uniform(0.7, 1.3))
-            using_alt = env.using_alternate
-            corridor2 = env.corridor2 or (first_action == 3)
-            switch_timer = int(round(env.switch_setup)) if (
-                first_action == 1 and env.alt_available and not using_alt) else None
-            # supply interruption: arrivals stalled for `delay` days, then resume
-            delay = A["leadtime_add_per_severity"] * sev_k
-            if port and not corridor2:
-                delay += A["port_extra_leadtime"]
-            if first_action == 3:
-                delay += A["reroute_extra_days"] * 0.5   # transition friction
-            capacity = max(0.15, 1 - A["capacity_loss_per_severity"] * sev_k)
-            expedite_left = 0
-            if first_action == 2:
-                delay = max(0.0, delay * A["air_leadtime_factor"])
-                expedite_left = 7   # one air-converted arrival window
-            emergency_arrival = A["emergency_leadtime"] if first_action == 4 else None
-            for d in range(H):
-                if switch_timer is not None:
-                    switch_timer -= 1
-                    if switch_timer <= 0:
-                        using_alt = True
-                        switch_timer = None
-                if emergency_arrival is not None and d >= emergency_arrival:
-                    inv += A["emergency_qty_days"]
-                    total += A["emergency_qty_days"] * A["emergency_cost_multiplier"] \
-                        * A["air_cost_multiplier"]
-                    emergency_arrival = None
-                eff_capacity = 1.0 if using_alt else capacity
-                inflow = 0.0 if d < delay else 1.0 * eff_capacity
-                cost_mult = 1.0
-                if expedite_left > 0:
-                    cost_mult *= A["air_cost_multiplier"]; expedite_left -= 1
-                if using_alt:
-                    cost_mult *= A["alt_supplier_cost_premium"]
-                if corridor2:
-                    cost_mult *= (1 + A["reroute_extra_cost"])
-                demand = max(0.1, self.rng.lognormal(0, self.cal.daily_demand_cv))
-                cap = A["ration_service_cap"] if first_action == 5 else 1.0
-                fulfilled = min(inv + inflow, demand * cap)
-                inv = inv + inflow - fulfilled
-                unmet = demand - fulfilled
-                total += inflow * cost_mult + unmet * A["stockout_penalty_factor"]
-            vals.append(total)
-        return float(np.mean(vals))
+        H = self.lookahead
+        sev_k = np.maximum(0.0, sev * severity_multipliers)
+        scenario_count = len(sev_k)
+        inv = np.full(scenario_count, inv0, dtype=float)
+        total = np.zeros(scenario_count, dtype=float)
+        using_alt = bool(env.using_alternate)
+        corridor2 = bool(env.corridor2 or first_action == 3)
+        switch_timer = int(round(env.switch_setup)) if (
+            first_action == 1 and env.alt_available and not using_alt) else None
+
+        delay = A["leadtime_add_per_severity"] * sev_k
+        if port and not corridor2:
+            delay += A["port_extra_leadtime"]
+        if first_action == 3:
+            delay += A["reroute_extra_days"] * 0.5
+        capacity = np.maximum(
+            0.15, 1 - A["capacity_loss_per_severity"] * sev_k
+        )
+        if first_action == 2:
+            delay = np.maximum(0.0, delay * A["air_leadtime_factor"])
+        expedite_left = 7 if first_action == 2 else 0
+        emergency_arrival = A["emergency_leadtime"] if first_action == 4 else None
+
+        for day_offset in range(H):
+            if switch_timer is not None:
+                switch_timer -= 1
+                if switch_timer <= 0:
+                    using_alt = True
+                    switch_timer = None
+            if emergency_arrival is not None and day_offset >= emergency_arrival:
+                inv += A["emergency_qty_days"]
+                total += A["emergency_qty_days"] * A["emergency_cost_multiplier"] \
+                    * A["air_cost_multiplier"]
+                emergency_arrival = None
+
+            effective_capacity = 1.0 if using_alt else capacity
+            inflow = np.where(day_offset < delay, 0.0, effective_capacity)
+            cost_multiplier = 1.0
+            if expedite_left > 0:
+                cost_multiplier *= A["air_cost_multiplier"]
+                expedite_left -= 1
+            if using_alt:
+                cost_multiplier *= A["alt_supplier_cost_premium"]
+            if corridor2:
+                cost_multiplier *= 1 + A["reroute_extra_cost"]
+
+            demand = np.maximum(0.1, demand_draws[:, day_offset])
+            service_cap = A["ration_service_cap"] if first_action == 5 else 1.0
+            fulfilled = np.minimum(inv + inflow, demand * service_cap)
+            inv = inv + inflow - fulfilled
+            unmet = demand - fulfilled
+            total += inflow * cost_multiplier + unmet * A["stockout_penalty_factor"]
+        return float(np.mean(total))
 
     def act(self, state, env=None, greedy=True):
         day = env.day
-        if day - self.last_plan_day >= self.REPLAN_EVERY:
+        if day - self.last_plan_day >= self.replan_every:
+            scenario_seeds = self.rng.randint(
+                0, 2 ** 31 - 1, size=self.scenario_count
+            )
+            severity_multipliers = np.empty(self.scenario_count, dtype=float)
+            demand_draws = np.empty((self.scenario_count, self.lookahead), dtype=float)
+            for index, scenario_seed in enumerate(scenario_seeds):
+                scenario_rng = np.random.RandomState(int(scenario_seed))
+                severity_multipliers[index] = scenario_rng.uniform(0.7, 1.3)
+                demand_draws[index] = scenario_rng.lognormal(
+                    0, self.cal.daily_demand_cv, size=self.lookahead
+                )
+            candidate_actions = list(self.allowed_actions)
+            if (2 in candidate_actions and self.expedite_cooldown > 0
+                    and day - self.last_expedite_day < self.expedite_cooldown):
+                candidate_actions.remove(2)
             best, best_val = 0, np.inf
-            for a in range(N_ACTIONS):
-                v = self._rollout_value(env, a)
+            for a in candidate_actions:
+                v = self._rollout_value(
+                    env, a, severity_multipliers, demand_draws
+                )
                 if v < best_val:
                     best, best_val = a, v
             self.current_action = best
             self.last_plan_day = day
+            if best == 2:
+                self.last_expedite_day = day
             return best
-        return 0  # committed plan: act once per replanning cycle
+        return 0  # no additional intervention between replanning points
