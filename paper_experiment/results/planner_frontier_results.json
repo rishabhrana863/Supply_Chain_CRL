@@ -1,0 +1,1339 @@
+{
+  "design": {
+    "seed": 42,
+    "n_eval": 200,
+    "evaluation_context_seed": 9000,
+    "environment_seed_base": 63000,
+    "bootstrap_repetitions": 10000,
+    "common_random_numbers_across_actions": true,
+    "planner_configurations": {
+      "planner_weekly_h14": {
+        "label": "Weekly H=14",
+        "replan_every": 7,
+        "lookahead": 14,
+        "scenario_count": 12
+      },
+      "planner_daily_h14": {
+        "label": "Daily H=14",
+        "replan_every": 1,
+        "lookahead": 14,
+        "scenario_count": 12
+      },
+      "planner_daily_no_expedite": {
+        "label": "Daily, no air",
+        "replan_every": 1,
+        "lookahead": 14,
+        "scenario_count": 12,
+        "allowed_actions": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ]
+      },
+      "planner_daily_expedite_7d": {
+        "label": "Daily, air at most 1/7d",
+        "replan_every": 1,
+        "lookahead": 14,
+        "scenario_count": 12,
+        "expedite_cooldown": 7
+      },
+      "planner_daily_h28": {
+        "label": "Daily H=28",
+        "replan_every": 1,
+        "lookahead": 28,
+        "scenario_count": 12
+      },
+      "planner_daily_h56": {
+        "label": "Daily H=56",
+        "replan_every": 1,
+        "lookahead": 56,
+        "scenario_count": 12
+      },
+      "planner_daily_h14_k48": {
+        "label": "Daily H=14, K=48",
+        "replan_every": 1,
+        "lookahead": 14,
+        "scenario_count": 48
+      }
+    }
+  },
+  "labels": {
+    "crl": "CRL",
+    "rl_only": "RL-only",
+    "planner_weekly_h14": "Weekly H=14",
+    "planner_daily_h14": "Daily H=14",
+    "planner_daily_no_expedite": "Daily, no air",
+    "planner_daily_expedite_7d": "Daily, air at most 1/7d",
+    "planner_daily_h28": "Daily H=28",
+    "planner_daily_h56": "Daily H=56",
+    "planner_daily_h14_k48": "Daily H=14, K=48"
+  },
+  "aggregate": {
+    "crl": {
+      "recovery_days": {
+        "mean": 28.683,
+        "sd": 37.499579,
+        "se": 2.651621
+      },
+      "total_cost": {
+        "mean": 402162.39586,
+        "sd": 51633.55681,
+        "se": 3651.043816
+      },
+      "service_cov": {
+        "mean": 0.088137,
+        "sd": 0.133636,
+        "se": 0.009449
+      },
+      "mean_service": {
+        "mean": 0.982825,
+        "sd": 0.029025,
+        "se": 0.002052
+      }
+    },
+    "rl_only": {
+      "recovery_days": {
+        "mean": 37.216,
+        "sd": 35.340033,
+        "se": 2.498918
+      },
+      "total_cost": {
+        "mean": 413114.05089,
+        "sd": 68114.374858,
+        "se": 4816.413636
+      },
+      "service_cov": {
+        "mean": 0.142747,
+        "sd": 0.151529,
+        "se": 0.010715
+      },
+      "mean_service": {
+        "mean": 0.967477,
+        "sd": 0.038441,
+        "se": 0.002718
+      }
+    },
+    "planner_weekly_h14": {
+      "recovery_days": {
+        "mean": 43.545,
+        "sd": 46.664072,
+        "se": 3.299648
+      },
+      "total_cost": {
+        "mean": 451590.471803,
+        "sd": 99091.565162,
+        "se": 7006.831768
+      },
+      "service_cov": {
+        "mean": 0.14049,
+        "sd": 0.164396,
+        "se": 0.011625
+      },
+      "mean_service": {
+        "mean": 0.965489,
+        "sd": 0.046772,
+        "se": 0.003307
+      },
+      "air_expedites": {
+        "mean": 1.5,
+        "sd": 1.736397,
+        "se": 0.122782
+      },
+      "air_expedite_noops": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "se": 0.0
+      }
+    },
+    "planner_daily_h14": {
+      "recovery_days": {
+        "mean": 28.445,
+        "sd": 40.177333,
+        "se": 2.840966
+      },
+      "total_cost": {
+        "mean": 802078.720073,
+        "sd": 491234.119145,
+        "se": 34735.49768
+      },
+      "service_cov": {
+        "mean": 0.135595,
+        "sd": 0.17783,
+        "se": 0.012574
+      },
+      "mean_service": {
+        "mean": 0.974705,
+        "sd": 0.04293,
+        "se": 0.003036
+      },
+      "air_expedites": {
+        "mean": 8.635,
+        "sd": 10.566458,
+        "se": 0.747161
+      },
+      "air_expedite_noops": {
+        "mean": 0.615,
+        "sd": 1.539032,
+        "se": 0.108826
+      }
+    },
+    "planner_daily_no_expedite": {
+      "recovery_days": {
+        "mean": 46.88,
+        "sd": 48.246911,
+        "se": 3.411572
+      },
+      "total_cost": {
+        "mean": 437755.077746,
+        "sd": 84446.751986,
+        "se": 5971.287098
+      },
+      "service_cov": {
+        "mean": 0.149546,
+        "sd": 0.164022,
+        "se": 0.011598
+      },
+      "mean_service": {
+        "mean": 0.962764,
+        "sd": 0.046814,
+        "se": 0.00331
+      },
+      "air_expedites": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "se": 0.0
+      },
+      "air_expedite_noops": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "se": 0.0
+      }
+    },
+    "planner_daily_expedite_7d": {
+      "recovery_days": {
+        "mean": 46.64,
+        "sd": 48.093715,
+        "se": 3.400739
+      },
+      "total_cost": {
+        "mean": 491372.759896,
+        "sd": 135286.304384,
+        "se": 9566.186323
+      },
+      "service_cov": {
+        "mean": 0.151457,
+        "sd": 0.169489,
+        "se": 0.011985
+      },
+      "mean_service": {
+        "mean": 0.959243,
+        "sd": 0.053998,
+        "se": 0.003818
+      },
+      "air_expedites": {
+        "mean": 1.25,
+        "sd": 1.482731,
+        "se": 0.104845
+      },
+      "air_expedite_noops": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "se": 0.0
+      }
+    },
+    "planner_daily_h28": {
+      "recovery_days": {
+        "mean": 19.85,
+        "sd": 38.739012,
+        "se": 2.739262
+      },
+      "total_cost": {
+        "mean": 767430.662808,
+        "sd": 401431.276134,
+        "se": 28385.477754
+      },
+      "service_cov": {
+        "mean": 0.061481,
+        "sd": 0.11626,
+        "se": 0.008221
+      },
+      "mean_service": {
+        "mean": 0.988691,
+        "sd": 0.025695,
+        "se": 0.001817
+      },
+      "air_expedites": {
+        "mean": 10.31,
+        "sd": 11.579912,
+        "se": 0.818823
+      },
+      "air_expedite_noops": {
+        "mean": 1.37,
+        "sd": 3.686605,
+        "se": 0.260682
+      }
+    },
+    "planner_daily_h56": {
+      "recovery_days": {
+        "mean": 14.0,
+        "sd": 32.982864,
+        "se": 2.332241
+      },
+      "total_cost": {
+        "mean": 903918.808136,
+        "sd": 422543.871487,
+        "se": 29878.363688
+      },
+      "service_cov": {
+        "mean": 0.046591,
+        "sd": 0.102331,
+        "se": 0.007236
+      },
+      "mean_service": {
+        "mean": 0.993526,
+        "sd": 0.016181,
+        "se": 0.001144
+      },
+      "air_expedites": {
+        "mean": 15.275,
+        "sd": 13.08762,
+        "se": 0.925435
+      },
+      "air_expedite_noops": {
+        "mean": 2.495,
+        "sd": 4.977333,
+        "se": 0.351951
+      }
+    },
+    "planner_daily_h14_k48": {
+      "recovery_days": {
+        "mean": 30.895,
+        "sd": 41.670929,
+        "se": 2.94658
+      },
+      "total_cost": {
+        "mean": 794794.932582,
+        "sd": 488354.559123,
+        "se": 34531.882038
+      },
+      "service_cov": {
+        "mean": 0.141548,
+        "sd": 0.178355,
+        "se": 0.012612
+      },
+      "mean_service": {
+        "mean": 0.972335,
+        "sd": 0.044436,
+        "se": 0.003142
+      },
+      "air_expedites": {
+        "mean": 8.515,
+        "sd": 10.591538,
+        "se": 0.748935
+      },
+      "air_expedite_noops": {
+        "mean": 0.62,
+        "sd": 1.528819,
+        "se": 0.108104
+      }
+    }
+  },
+  "paired_comparisons": {
+    "planner_weekly_h14_minus_crl": {
+      "recovery_days": {
+        "contrast": "first minus second",
+        "mean_difference": 14.862,
+        "bootstrap_95_ci": [
+          10.03875,
+          19.860075
+        ],
+        "paired_wilcoxon_p": 1.437e-07,
+        "paired_dz": 0.414844,
+        "fraction_first_greater": 0.35,
+        "fraction_equal": 0.475
+      },
+      "total_cost": {
+        "contrast": "first minus second",
+        "mean_difference": 49428.075943,
+        "bootstrap_95_ci": [
+          39191.903891,
+          59719.389382
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 0.664978,
+        "fraction_first_greater": 0.715,
+        "fraction_equal": 0.0
+      },
+      "service_cov": {
+        "contrast": "first minus second",
+        "mean_difference": 0.052353,
+        "bootstrap_95_ci": [
+          0.037405,
+          0.067366
+        ],
+        "paired_wilcoxon_p": 4e-10,
+        "paired_dz": 0.480571,
+        "fraction_first_greater": 0.4,
+        "fraction_equal": 0.465
+      }
+    },
+    "planner_daily_h14_minus_crl": {
+      "recovery_days": {
+        "contrast": "first minus second",
+        "mean_difference": -0.238,
+        "bootstrap_95_ci": [
+          -5.382225,
+          4.723075
+        ],
+        "paired_wilcoxon_p": 0.4959194189,
+        "paired_dz": -0.006459,
+        "fraction_first_greater": 0.21,
+        "fraction_equal": 0.495
+      },
+      "total_cost": {
+        "contrast": "first minus second",
+        "mean_difference": 399916.324213,
+        "bootstrap_95_ci": [
+          335110.954487,
+          464746.722548
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 0.852332,
+        "fraction_first_greater": 0.735,
+        "fraction_equal": 0.0
+      },
+      "service_cov": {
+        "contrast": "first minus second",
+        "mean_difference": 0.047458,
+        "bootstrap_95_ci": [
+          0.029488,
+          0.065696
+        ],
+        "paired_wilcoxon_p": 8.579e-07,
+        "paired_dz": 0.362186,
+        "fraction_first_greater": 0.36,
+        "fraction_equal": 0.485
+      }
+    },
+    "planner_daily_no_expedite_minus_crl": {
+      "recovery_days": {
+        "contrast": "first minus second",
+        "mean_difference": 18.197,
+        "bootstrap_95_ci": [
+          13.472,
+          23.21605
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 0.515588,
+        "fraction_first_greater": 0.41,
+        "fraction_equal": 0.475
+      },
+      "total_cost": {
+        "contrast": "first minus second",
+        "mean_difference": 35592.681886,
+        "bootstrap_95_ci": [
+          27544.567276,
+          43739.477387
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 0.608385,
+        "fraction_first_greater": 0.725,
+        "fraction_equal": 0.0
+      },
+      "service_cov": {
+        "contrast": "first minus second",
+        "mean_difference": 0.061409,
+        "bootstrap_95_ci": [
+          0.047154,
+          0.076097
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 0.582609,
+        "fraction_first_greater": 0.42,
+        "fraction_equal": 0.455
+      }
+    },
+    "planner_daily_expedite_7d_minus_crl": {
+      "recovery_days": {
+        "contrast": "first minus second",
+        "mean_difference": 17.957,
+        "bootstrap_95_ci": [
+          13.005,
+          23.0032
+        ],
+        "paired_wilcoxon_p": 1e-10,
+        "paired_dz": 0.498698,
+        "fraction_first_greater": 0.41,
+        "fraction_equal": 0.475
+      },
+      "total_cost": {
+        "contrast": "first minus second",
+        "mean_difference": 89210.364036,
+        "bootstrap_95_ci": [
+          74578.958068,
+          104441.88101
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 0.814396,
+        "fraction_first_greater": 0.735,
+        "fraction_equal": 0.0
+      },
+      "service_cov": {
+        "contrast": "first minus second",
+        "mean_difference": 0.06332,
+        "bootstrap_95_ci": [
+          0.048785,
+          0.078703
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 0.591129,
+        "fraction_first_greater": 0.435,
+        "fraction_equal": 0.46
+      }
+    },
+    "planner_daily_h28_minus_crl": {
+      "recovery_days": {
+        "contrast": "first minus second",
+        "mean_difference": -8.833,
+        "bootstrap_95_ci": [
+          -14.172075,
+          -3.283775
+        ],
+        "paired_wilcoxon_p": 0.0009797772,
+        "paired_dz": -0.226234,
+        "fraction_first_greater": 0.135,
+        "fraction_equal": 0.525
+      },
+      "total_cost": {
+        "contrast": "first minus second",
+        "mean_difference": 365268.266948,
+        "bootstrap_95_ci": [
+          311161.521207,
+          418783.274967
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 0.922915,
+        "fraction_first_greater": 0.7,
+        "fraction_equal": 0.0
+      },
+      "service_cov": {
+        "contrast": "first minus second",
+        "mean_difference": -0.026656,
+        "bootstrap_95_ci": [
+          -0.044357,
+          -0.009651
+        ],
+        "paired_wilcoxon_p": 0.0113579667,
+        "paired_dz": -0.213038,
+        "fraction_first_greater": 0.18,
+        "fraction_equal": 0.525
+      }
+    },
+    "planner_daily_h56_minus_crl": {
+      "recovery_days": {
+        "contrast": "first minus second",
+        "mean_difference": -14.683,
+        "bootstrap_95_ci": [
+          -20.20405,
+          -9.154975
+        ],
+        "paired_wilcoxon_p": 4.177e-07,
+        "paired_dz": -0.370359,
+        "fraction_first_greater": 0.09,
+        "fraction_equal": 0.53
+      },
+      "total_cost": {
+        "contrast": "first minus second",
+        "mean_difference": 501756.412276,
+        "bootstrap_95_ci": [
+          444814.295697,
+          559003.069315
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 1.206003,
+        "fraction_first_greater": 0.82,
+        "fraction_equal": 0.0
+      },
+      "service_cov": {
+        "contrast": "first minus second",
+        "mean_difference": -0.041546,
+        "bootstrap_95_ci": [
+          -0.058762,
+          -0.024704
+        ],
+        "paired_wilcoxon_p": 1.03519e-05,
+        "paired_dz": -0.338339,
+        "fraction_first_greater": 0.13,
+        "fraction_equal": 0.525
+      }
+    },
+    "planner_daily_h14_k48_minus_crl": {
+      "recovery_days": {
+        "contrast": "first minus second",
+        "mean_difference": 2.212,
+        "bootstrap_95_ci": [
+          -3.092175,
+          7.574025
+        ],
+        "paired_wilcoxon_p": 0.7790900481,
+        "paired_dz": 0.057966,
+        "fraction_first_greater": 0.25,
+        "fraction_equal": 0.48
+      },
+      "total_cost": {
+        "contrast": "first minus second",
+        "mean_difference": 392632.536722,
+        "bootstrap_95_ci": [
+          328060.148253,
+          458925.618
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 0.837162,
+        "fraction_first_greater": 0.745,
+        "fraction_equal": 0.0
+      },
+      "service_cov": {
+        "contrast": "first minus second",
+        "mean_difference": 0.053411,
+        "bootstrap_95_ci": [
+          0.034867,
+          0.071554
+        ],
+        "paired_wilcoxon_p": 9.58e-08,
+        "paired_dz": 0.400894,
+        "fraction_first_greater": 0.38,
+        "fraction_equal": 0.47
+      }
+    },
+    "planner_daily_h14_k48_minus_planner_daily_h14": {
+      "recovery_days": {
+        "contrast": "first minus second",
+        "mean_difference": 2.45,
+        "bootstrap_95_ci": [
+          -1.435,
+          6.485
+        ],
+        "paired_wilcoxon_p": 0.3211552821,
+        "paired_dz": 0.085224,
+        "fraction_first_greater": 0.095,
+        "fraction_equal": 0.825
+      },
+      "total_cost": {
+        "contrast": "first minus second",
+        "mean_difference": -7283.787491,
+        "bootstrap_95_ci": [
+          -34866.217655,
+          20657.130236
+        ],
+        "paired_wilcoxon_p": 0.3984096288,
+        "paired_dz": -0.036174,
+        "fraction_first_greater": 0.185,
+        "fraction_equal": 0.585
+      },
+      "service_cov": {
+        "contrast": "first minus second",
+        "mean_difference": 0.005953,
+        "bootstrap_95_ci": [
+          -0.003567,
+          0.016519
+        ],
+        "paired_wilcoxon_p": 0.5134141502,
+        "paired_dz": 0.081414,
+        "fraction_first_greater": 0.115,
+        "fraction_equal": 0.78
+      }
+    },
+    "planner_daily_h28_minus_planner_daily_h14": {
+      "recovery_days": {
+        "contrast": "first minus second",
+        "mean_difference": -8.595,
+        "bootstrap_95_ci": [
+          -14.57,
+          -2.695
+        ],
+        "paired_wilcoxon_p": 0.000873828,
+        "paired_dz": -0.200168,
+        "fraction_first_greater": 0.13,
+        "fraction_equal": 0.54
+      },
+      "total_cost": {
+        "contrast": "first minus second",
+        "mean_difference": -34648.057265,
+        "bootstrap_95_ci": [
+          -80986.271667,
+          12981.710213
+        ],
+        "paired_wilcoxon_p": 0.0123099574,
+        "paired_dz": -0.101121,
+        "fraction_first_greater": 0.335,
+        "fraction_equal": 0.09
+      },
+      "service_cov": {
+        "contrast": "first minus second",
+        "mean_difference": -0.074114,
+        "bootstrap_95_ci": [
+          -0.095108,
+          -0.054317
+        ],
+        "paired_wilcoxon_p": 1e-10,
+        "paired_dz": -0.504148,
+        "fraction_first_greater": 0.095,
+        "fraction_equal": 0.535
+      }
+    },
+    "planner_daily_h56_minus_planner_daily_h28": {
+      "recovery_days": {
+        "contrast": "first minus second",
+        "mean_difference": -5.85,
+        "bootstrap_95_ci": [
+          -11.490125,
+          -0.25975
+        ],
+        "paired_wilcoxon_p": 0.0565929455,
+        "paired_dz": -0.145567,
+        "fraction_first_greater": 0.09,
+        "fraction_equal": 0.77
+      },
+      "total_cost": {
+        "contrast": "first minus second",
+        "mean_difference": 136488.145328,
+        "bootstrap_95_ci": [
+          102664.087596,
+          170847.128757
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 0.551129,
+        "fraction_first_greater": 0.605,
+        "fraction_equal": 0.13
+      },
+      "service_cov": {
+        "contrast": "first minus second",
+        "mean_difference": -0.01489,
+        "bootstrap_95_ci": [
+          -0.027395,
+          -0.002821
+        ],
+        "paired_wilcoxon_p": 0.0169617862,
+        "paired_dz": -0.163931,
+        "fraction_first_greater": 0.095,
+        "fraction_equal": 0.715
+      }
+    },
+    "planner_daily_no_expedite_minus_planner_daily_h14": {
+      "recovery_days": {
+        "contrast": "first minus second",
+        "mean_difference": 18.435,
+        "bootstrap_95_ci": [
+          13.515,
+          23.5
+        ],
+        "paired_wilcoxon_p": 2e-10,
+        "paired_dz": 0.507049,
+        "fraction_first_greater": 0.315,
+        "fraction_equal": 0.61
+      },
+      "total_cost": {
+        "contrast": "first minus second",
+        "mean_difference": -364323.642327,
+        "bootstrap_95_ci": [
+          -426247.21462,
+          -304629.717046
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": -0.83478,
+        "fraction_first_greater": 0.0,
+        "fraction_equal": 0.52
+      },
+      "service_cov": {
+        "contrast": "first minus second",
+        "mean_difference": 0.013952,
+        "bootstrap_95_ci": [
+          4.7e-05,
+          0.027754
+        ],
+        "paired_wilcoxon_p": 0.1475687717,
+        "paired_dz": 0.138059,
+        "fraction_first_greater": 0.23,
+        "fraction_equal": 0.575
+      }
+    },
+    "planner_daily_expedite_7d_minus_planner_daily_h14": {
+      "recovery_days": {
+        "contrast": "first minus second",
+        "mean_difference": 18.195,
+        "bootstrap_95_ci": [
+          12.635,
+          23.835125
+        ],
+        "paired_wilcoxon_p": 3.11e-08,
+        "paired_dz": 0.447088,
+        "fraction_first_greater": 0.33,
+        "fraction_equal": 0.595
+      },
+      "total_cost": {
+        "contrast": "first minus second",
+        "mean_difference": -310705.960176,
+        "bootstrap_95_ci": [
+          -364274.451072,
+          -258744.736596
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": -0.819831,
+        "fraction_first_greater": 0.0,
+        "fraction_equal": 0.54
+      },
+      "service_cov": {
+        "contrast": "first minus second",
+        "mean_difference": 0.015863,
+        "bootstrap_95_ci": [
+          0.000187,
+          0.031911
+        ],
+        "paired_wilcoxon_p": 0.0815476891,
+        "paired_dz": 0.13791,
+        "fraction_first_greater": 0.225,
+        "fraction_equal": 0.57
+      }
+    }
+  },
+  "scenario_breakdown": {
+    "single": {
+      "crl": {
+        "recovery_days": {
+          "mean": 13.99403,
+          "sd": 30.085655,
+          "se": 3.675548
+        },
+        "total_cost": {
+          "mean": 391545.111373,
+          "sd": 39673.087165,
+          "se": 4846.839015
+        },
+        "service_cov": {
+          "mean": 0.026328,
+          "sd": 0.063982,
+          "se": 0.007817
+        }
+      },
+      "rl_only": {
+        "recovery_days": {
+          "mean": 16.274627,
+          "sd": 29.480879,
+          "se": 3.601663
+        },
+        "total_cost": {
+          "mean": 386467.783313,
+          "sd": 34195.197585,
+          "se": 4177.608289
+        },
+        "service_cov": {
+          "mean": 0.042424,
+          "sd": 0.078218,
+          "se": 0.009556
+        }
+      },
+      "planner_weekly_h14": {
+        "recovery_days": {
+          "mean": 19.880597,
+          "sd": 38.730429,
+          "se": 4.731675
+        },
+        "total_cost": {
+          "mean": 386888.401622,
+          "sd": 55325.219952,
+          "se": 6759.05138
+        },
+        "service_cov": {
+          "mean": 0.049532,
+          "sd": 0.102623,
+          "se": 0.012537
+        }
+      },
+      "planner_daily_h14": {
+        "recovery_days": {
+          "mean": 18.358209,
+          "sd": 37.892072,
+          "se": 4.629253
+        },
+        "total_cost": {
+          "mean": 393137.921461,
+          "sd": 62978.360928,
+          "se": 7694.031361
+        },
+        "service_cov": {
+          "mean": 0.054477,
+          "sd": 0.112054,
+          "se": 0.01369
+        }
+      },
+      "planner_daily_no_expedite": {
+        "recovery_days": {
+          "mean": 18.358209,
+          "sd": 37.892072,
+          "se": 4.629253
+        },
+        "total_cost": {
+          "mean": 393137.921461,
+          "sd": 62978.360928,
+          "se": 7694.031361
+        },
+        "service_cov": {
+          "mean": 0.054477,
+          "sd": 0.112054,
+          "se": 0.01369
+        }
+      },
+      "planner_daily_expedite_7d": {
+        "recovery_days": {
+          "mean": 18.358209,
+          "sd": 37.892072,
+          "se": 4.629253
+        },
+        "total_cost": {
+          "mean": 393137.921461,
+          "sd": 62978.360928,
+          "se": 7694.031361
+        },
+        "service_cov": {
+          "mean": 0.054477,
+          "sd": 0.112054,
+          "se": 0.01369
+        }
+      },
+      "planner_daily_h28": {
+        "recovery_days": {
+          "mean": 17.940299,
+          "sd": 38.984799,
+          "se": 4.762751
+        },
+        "total_cost": {
+          "mean": 355140.591282,
+          "sd": 60481.455952,
+          "se": 7388.985868
+        },
+        "service_cov": {
+          "mean": 0.04465,
+          "sd": 0.102361,
+          "se": 0.012505
+        }
+      },
+      "planner_daily_h56": {
+        "recovery_days": {
+          "mean": 18.104478,
+          "sd": 39.334284,
+          "se": 4.805448
+        },
+        "total_cost": {
+          "mean": 507414.334625,
+          "sd": 189282.425588,
+          "se": 23124.52876
+        },
+        "service_cov": {
+          "mean": 0.037442,
+          "sd": 0.086073,
+          "se": 0.010516
+        }
+      },
+      "planner_daily_h14_k48": {
+        "recovery_days": {
+          "mean": 18.164179,
+          "sd": 37.456074,
+          "se": 4.575988
+        },
+        "total_cost": {
+          "mean": 393598.661951,
+          "sd": 63791.685078,
+          "se": 7793.394721
+        },
+        "service_cov": {
+          "mean": 0.054683,
+          "sd": 0.112762,
+          "se": 0.013776
+        }
+      }
+    },
+    "dual": {
+      "crl": {
+        "recovery_days": {
+          "mean": 33.265672,
+          "sd": 42.000395,
+          "se": 5.131165
+        },
+        "total_cost": {
+          "mean": 402108.281134,
+          "sd": 55426.217501,
+          "se": 6771.390195
+        },
+        "service_cov": {
+          "mean": 0.081548,
+          "sd": 0.121432,
+          "se": 0.014835
+        }
+      },
+      "rl_only": {
+        "recovery_days": {
+          "mean": 42.268657,
+          "sd": 37.278567,
+          "se": 4.554302
+        },
+        "total_cost": {
+          "mean": 407299.493075,
+          "sd": 61282.250969,
+          "se": 7486.81855
+        },
+        "service_cov": {
+          "mean": 0.136078,
+          "sd": 0.144998,
+          "se": 0.017714
+        }
+      },
+      "planner_weekly_h14": {
+        "recovery_days": {
+          "mean": 45.940299,
+          "sd": 47.652747,
+          "se": 5.82171
+        },
+        "total_cost": {
+          "mean": 459102.422192,
+          "sd": 106885.991686,
+          "se": 13058.202214
+        },
+        "service_cov": {
+          "mean": 0.150362,
+          "sd": 0.169939,
+          "se": 0.020761
+        }
+      },
+      "planner_daily_h14": {
+        "recovery_days": {
+          "mean": 40.61194,
+          "sd": 49.08402,
+          "se": 5.996568
+        },
+        "total_cost": {
+          "mean": 711515.01787,
+          "sd": 398984.06616,
+          "se": 48743.66167
+        },
+        "service_cov": {
+          "mean": 0.139273,
+          "sd": 0.177387,
+          "se": 0.021671
+        }
+      },
+      "planner_daily_no_expedite": {
+        "recovery_days": {
+          "mean": 54.059701,
+          "sd": 49.491316,
+          "se": 6.046327
+        },
+        "total_cost": {
+          "mean": 440260.617141,
+          "sd": 82119.217905,
+          "se": 10032.459222
+        },
+        "service_cov": {
+          "mean": 0.149461,
+          "sd": 0.155502,
+          "se": 0.018998
+        }
+      },
+      "planner_daily_expedite_7d": {
+        "recovery_days": {
+          "mean": 47.38806,
+          "sd": 48.454588,
+          "se": 5.91967
+        },
+        "total_cost": {
+          "mean": 483637.540542,
+          "sd": 127079.391685,
+          "se": 15525.218671
+        },
+        "service_cov": {
+          "mean": 0.148079,
+          "sd": 0.166122,
+          "se": 0.020295
+        }
+      },
+      "planner_daily_h28": {
+        "recovery_days": {
+          "mean": 24.552239,
+          "sd": 44.399455,
+          "se": 5.424257
+        },
+        "total_cost": {
+          "mean": 777600.581822,
+          "sd": 281973.933244,
+          "se": 34448.598747
+        },
+        "service_cov": {
+          "mean": 0.048028,
+          "sd": 0.097597,
+          "se": 0.011923
+        }
+      },
+      "planner_daily_h56": {
+        "recovery_days": {
+          "mean": 17.104478,
+          "sd": 38.996944,
+          "se": 4.764235
+        },
+        "total_cost": {
+          "mean": 883260.311048,
+          "sd": 371324.753589,
+          "se": 45364.538822
+        },
+        "service_cov": {
+          "mean": 0.03088,
+          "sd": 0.074381,
+          "se": 0.009087
+        }
+      },
+      "planner_daily_h14_k48": {
+        "recovery_days": {
+          "mean": 48.014925,
+          "sd": 50.876706,
+          "se": 6.215579
+        },
+        "total_cost": {
+          "mean": 667684.738784,
+          "sd": 359914.733481,
+          "se": 43970.583005
+        },
+        "service_cov": {
+          "mean": 0.157654,
+          "sd": 0.178196,
+          "se": 0.02177
+        }
+      }
+    },
+    "compound": {
+      "crl": {
+        "recovery_days": {
+          "mean": 38.942424,
+          "sd": 35.270677,
+          "se": 4.34152
+        },
+        "total_cost": {
+          "mean": 412995.482939,
+          "sd": 56650.502447,
+          "se": 6973.194811
+        },
+        "service_cov": {
+          "mean": 0.157571,
+          "sd": 0.163302,
+          "se": 0.020101
+        }
+      },
+      "rl_only": {
+        "recovery_days": {
+          "mean": 53.345455,
+          "sd": 28.06304,
+          "se": 3.454321
+        },
+        "total_cost": {
+          "mean": 446066.70697,
+          "sd": 85640.647631,
+          "se": 10541.635005
+        },
+        "service_cov": {
+          "mean": 0.251362,
+          "sd": 0.142609,
+          "se": 0.017554
+        }
+      },
+      "planner_weekly_h14": {
+        "recovery_days": {
+          "mean": 65.136364,
+          "sd": 42.204953,
+          "se": 5.195071
+        },
+        "total_cost": {
+          "mean": 509647.10856,
+          "sd": 86934.216174,
+          "se": 10700.862286
+        },
+        "service_cov": {
+          "mean": 0.222805,
+          "sd": 0.164971,
+          "se": 0.020307
+        }
+      },
+      "planner_daily_h14": {
+        "recovery_days": {
+          "mean": 26.333333,
+          "sd": 27.853094,
+          "se": 3.428479
+        },
+        "total_cost": {
+          "mean": 1309151.470899,
+          "sd": 362225.488661,
+          "se": 44586.87547
+        },
+        "service_cov": {
+          "mean": 0.214208,
+          "sd": 0.197599,
+          "se": 0.024323
+        }
+      },
+      "planner_daily_no_expedite": {
+        "recovery_days": {
+          "mean": 68.545455,
+          "sd": 42.582836,
+          "se": 5.241585
+        },
+        "total_cost": {
+          "mean": 480504.749438,
+          "sd": 83928.169339,
+          "se": 10330.843499
+        },
+        "service_cov": {
+          "mean": 0.246143,
+          "sd": 0.162089,
+          "se": 0.019952
+        }
+      },
+      "planner_daily_expedite_7d": {
+        "recovery_days": {
+          "mean": 74.590909,
+          "sd": 40.263737,
+          "se": 4.956123
+        },
+        "total_cost": {
+          "mean": 598948.424623,
+          "sd": 117683.01766,
+          "se": 14485.778107
+        },
+        "service_cov": {
+          "mean": 0.253336,
+          "sd": 0.16411,
+          "se": 0.020201
+        }
+      },
+      "planner_daily_h28": {
+        "recovery_days": {
+          "mean": 17.015152,
+          "sd": 31.858095,
+          "se": 3.92146
+        },
+        "total_cost": {
+          "mean": 1175643.544902,
+          "sd": 253751.397273,
+          "se": 31234.637828
+        },
+        "service_cov": {
+          "mean": 0.092224,
+          "sd": 0.140114,
+          "se": 0.017247
+        }
+      },
+      "planner_daily_h56": {
+        "recovery_days": {
+          "mean": 6.681818,
+          "sd": 11.564081,
+          "se": 1.42344
+        },
+        "total_cost": {
+          "mean": 1327402.429803,
+          "sd": 160138.504348,
+          "se": 19711.687263
+        },
+        "service_cov": {
+          "mean": 0.071827,
+          "sd": 0.133909,
+          "se": 0.016483
+        }
+      },
+      "planner_daily_h14_k48": {
+        "recovery_days": {
+          "mean": 26.439394,
+          "sd": 27.823139,
+          "se": 3.424792
+        },
+        "total_cost": {
+          "mean": 1331106.04041,
+          "sd": 346213.102574,
+          "se": 42615.886992
+        },
+        "service_cov": {
+          "mean": 0.213378,
+          "sd": 0.197362,
+          "se": 0.024294
+        }
+      }
+    }
+  },
+  "discrete_frontier": {
+    "cost_recovery_nondominated": [
+      "crl",
+      "planner_daily_h28",
+      "planner_daily_h56"
+    ],
+    "cost_recovery_dominated_by": {
+      "crl": [],
+      "rl_only": [
+        "crl"
+      ],
+      "planner_weekly_h14": [
+        "crl",
+        "rl_only"
+      ],
+      "planner_daily_h14": [
+        "planner_daily_h28"
+      ],
+      "planner_daily_no_expedite": [
+        "crl",
+        "rl_only"
+      ],
+      "planner_daily_expedite_7d": [
+        "crl",
+        "rl_only",
+        "planner_weekly_h14"
+      ],
+      "planner_daily_h28": [],
+      "planner_daily_h56": [],
+      "planner_daily_h14_k48": [
+        "crl",
+        "planner_daily_h28"
+      ]
+    },
+    "cost_stability_nondominated": [
+      "crl",
+      "planner_daily_h28",
+      "planner_daily_h56"
+    ],
+    "cost_stability_dominated_by": {
+      "crl": [],
+      "rl_only": [
+        "crl"
+      ],
+      "planner_weekly_h14": [
+        "crl"
+      ],
+      "planner_daily_h14": [
+        "crl",
+        "planner_daily_h28"
+      ],
+      "planner_daily_no_expedite": [
+        "crl",
+        "rl_only"
+      ],
+      "planner_daily_expedite_7d": [
+        "crl",
+        "rl_only",
+        "planner_weekly_h14",
+        "planner_daily_no_expedite"
+      ],
+      "planner_daily_h28": [],
+      "planner_daily_h56": [],
+      "planner_daily_h14_k48": [
+        "crl",
+        "planner_weekly_h14",
+        "planner_daily_h28"
+      ]
+    },
+    "note": "Dominance is based on aggregate sample means in the tested discrete set."
+  }
+}

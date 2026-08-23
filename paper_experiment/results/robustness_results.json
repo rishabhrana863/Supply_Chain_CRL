@@ -28,31 +28,99 @@
       "cost_mean": 410511.5
     },
     "stochastic_opt": {
-      "recovery_mean": 40.34,
-      "recovery_se": 3.8,
-      "cost_mean": 448256.4
+      "recovery_mean": 40.15,
+      "recovery_se": 3.74,
+      "cost_mean": 449205.2
     }
   },
   "ablation_tests": {
     "crl_mask_only": {
-      "p": 0.049959,
-      "d": -0.062,
-      "delta_days": -2.35
+      "recovery_days": {
+        "contrast": "first minus full CRL",
+        "mean_difference": -2.353333,
+        "bootstrap_95_ci": [
+          -5.497833,
+          0.800056
+        ],
+        "paired_wilcoxon_p": 0.1038998213,
+        "paired_dz": -0.118773
+      },
+      "total_cost": {
+        "contrast": "first minus full CRL",
+        "mean_difference": -21364.686168,
+        "bootstrap_95_ci": [
+          -23791.137787,
+          -18868.869072
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": -1.385965
+      }
     },
     "crl_shape_only": {
-      "p": 0.001116,
-      "d": 0.201,
-      "delta_days": 6.57
+      "recovery_days": {
+        "contrast": "first minus full CRL",
+        "mean_difference": 6.566667,
+        "bootstrap_95_ci": [
+          2.404389,
+          10.802222
+        ],
+        "paired_wilcoxon_p": 0.0022278559,
+        "paired_dz": 0.249735
+      },
+      "total_cost": {
+        "contrast": "first minus full CRL",
+        "mean_difference": 167309.219102,
+        "bootstrap_95_ci": [
+          152657.561916,
+          181921.450067
+        ],
+        "paired_wilcoxon_p": 0.0,
+        "paired_dz": 1.797032
+      }
     },
     "rl_only": {
-      "p": 0.0,
-      "d": 0.317,
-      "delta_days": 11.46
+      "recovery_days": {
+        "contrast": "first minus full CRL",
+        "mean_difference": 11.457778,
+        "bootstrap_95_ci": [
+          7.7755,
+          15.146944
+        ],
+        "paired_wilcoxon_p": 2.52e-08,
+        "paired_dz": 0.489542
+      },
+      "total_cost": {
+        "contrast": "first minus full CRL",
+        "mean_difference": 6390.545559,
+        "bootstrap_95_ci": [
+          -749.18014,
+          14237.842056
+        ],
+        "paired_wilcoxon_p": 0.6303349724,
+        "paired_dz": 0.136635
+      }
     },
     "stochastic_opt": {
-      "p": 1e-06,
-      "d": 0.361,
-      "delta_days": 15.02
+      "recovery_days": {
+        "contrast": "first minus full CRL",
+        "mean_difference": 14.824444,
+        "bootstrap_95_ci": [
+          9.253,
+          20.755889
+        ],
+        "paired_wilcoxon_p": 6.7132e-06,
+        "paired_dz": 0.414651
+      },
+      "total_cost": {
+        "contrast": "first minus full CRL",
+        "mean_difference": 45084.275677,
+        "bootstrap_95_ci": [
+          33335.799915,
+          56530.005797
+        ],
+        "paired_wilcoxon_p": 2e-10,
+        "paired_dz": 0.617642
+      }
     }
   },
   "threshold_sensitivity": {
@@ -77,29 +145,10 @@
       "0.98": 37.11
     },
     "stochastic_opt": {
-      "0.9": 39.62,
-      "0.95": 40.34,
-      "0.98": 40.46
+      "0.9": 39.45,
+      "0.95": 40.15,
+      "0.98": 40.58
     }
   },
-  "ranking_preserved_90_95_98": true,
-  "stress_test_compound_n300": {
-    "crl_full": {
-      "recovery_mean": 20.4,
-      "recovery_sd": 24.62,
-      "recovery_se": 1.42
-    },
-    "rl_only": {
-      "recovery_mean": 44.65,
-      "recovery_sd": 14.86,
-      "recovery_se": 0.86
-    },
-    "stochastic_opt": {
-      "recovery_mean": 41.62,
-      "recovery_sd": 36.67,
-      "recovery_se": 2.12
-    },
-    "crl_vs_rl_p": 0.0,
-    "crl_vs_so_p": 0.0
-  }
+  "ranking_preserved_90_95_98": true
 }

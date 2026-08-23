@@ -3,7 +3,7 @@
     "n_uncensored_episodes": 148,
     "n_total": 200,
     "crl_vs_so": {
-      "p": 1.8e-05,
+      "p": 3.5e-05,
       "d": 0.315,
       "means": [
         30.3,
@@ -11,7 +11,7 @@
       ]
     },
     "crl_vs_rl": {
-      "p": 0.0,
+      "p": 1e-06,
       "d": 0.25,
       "means": [
         26.29,
@@ -25,7 +25,7 @@
     "crl_se": 0.0378,
     "rl_mean": 0.5637,
     "rl_se": 0.0356,
-    "paired_wilcoxon_p": 0.030531,
+    "paired_wilcoxon_p": 0.061059,
     "d": 0.171
   },
   "stress_diagnostics": {
@@ -49,8 +49,8 @@
     }
   },
   "so_action_rates": {
-    "ordinary_nonzero_rate": 0.0578,
-    "stress_nonzero_rate": 0.0649
+    "ordinary_nonzero_rate": 0.042,
+    "stress_nonzero_rate": 0.0408
   },
   "new_stress_results": {
     "crl": {
@@ -62,8 +62,8 @@
       "recovery_se": 1.2
     },
     "stochastic_opt": {
-      "recovery_mean": 70.66,
-      "recovery_se": 1.92
+      "recovery_mean": 70.41,
+      "recovery_se": 1.86
     },
     "crl_vs_rl_p": 0.0,
     "crl_vs_so_p": 0.0
