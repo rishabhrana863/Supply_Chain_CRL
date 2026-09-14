@@ -1,0 +1,129 @@
+{
+  "package": "FDA recovery-time validation",
+  "description": "Files backing paper_experiment/validation/FDA_Recovery_Time_Validation_Report.md.",
+  "present": [
+    {
+      "path": "FDA_Recovery_Time_Validation.xlsx",
+      "sha256": "dbc9ee3ecba7401a988bcbbe5935b9afb3307b6010e81152b38ba817226aaed0"
+    },
+    {
+      "path": "FDA_Recovery_Time_Validation_Report.md",
+      "sha256": "825a40cd39fe0d6d1df7ba383a2a9828275ab6249308600b2e110861362d8bad"
+    },
+    {
+      "path": "verify_fda_benchmark.py",
+      "sha256": "9850d568f0b78f62a2977cb0087bc266f030a38e4797268bd789d042be92177a"
+    }
+  ],
+  "missing": [
+    {
+      "path": "aor_streams_30seed.csv.gz",
+      "sha256": null,
+      "status": "NOT IN REPOSITORY - must be supplied before the AOR comparison can be reproduced",
+      "role": "Stream-level records from the 30-seed AOR replication. The workbook's AOR Validation sheet was computed from this file; without it the AOR half of the report cannot be regenerated from a clean clone.",
+      "required_columns": [
+        "profile",
+        "agent",
+        "dipped",
+        "recovery_days",
+        "recovered"
+      ],
+      "expected_shape": {
+        "dipped_streams_total": 85626,
+        "note": "Rows with dipped=True, grouped by (profile, agent), must reproduce the per-cell counts below. These come from the workbook and identify the specific run the report describes.",
+        "cells": [
+          {
+            "profile": "aggregate_baseline",
+            "agent": "Causally guided PPO",
+            "dipped_streams": 4069,
+            "recovered_by_110": 3676,
+            "censored": 393,
+            "km_median_days": 68,
+            "validation_set": "sensitivity"
+          },
+          {
+            "profile": "aggregate_baseline",
+            "agent": "Standard PPO",
+            "dipped_streams": 3809,
+            "recovered_by_110": 3453,
+            "censored": 356,
+            "km_median_days": 65,
+            "validation_set": "sensitivity"
+          },
+          {
+            "profile": "centralized_4",
+            "agent": "Causally guided PPO",
+            "dipped_streams": 4022,
+            "recovered_by_110": 3764,
+            "censored": 258,
+            "km_median_days": 56,
+            "validation_set": "primary"
+          },
+          {
+            "profile": "centralized_4",
+            "agent": "Standard PPO",
+            "dipped_streams": 3790,
+            "recovered_by_110": 3519,
+            "censored": 271,
+            "km_median_days": 56,
+            "validation_set": "primary"
+          },
+          {
+            "profile": "distributed_12",
+            "agent": "Causally guided PPO",
+            "dipped_streams": 19862,
+            "recovered_by_110": 19246,
+            "censored": 616,
+            "km_median_days": 44,
+            "validation_set": "primary"
+          },
+          {
+            "profile": "distributed_12",
+            "agent": "Standard PPO",
+            "dipped_streams": 19944,
+            "recovered_by_110": 19381,
+            "censored": 563,
+            "km_median_days": 44,
+            "validation_set": "primary"
+          },
+          {
+            "profile": "dual_hub_8",
+            "agent": "Causally guided PPO",
+            "dipped_streams": 6631,
+            "recovered_by_110": 6194,
+            "censored": 437,
+            "km_median_days": 43,
+            "validation_set": "primary"
+          },
+          {
+            "profile": "dual_hub_8",
+            "agent": "Standard PPO",
+            "dipped_streams": 6458,
+            "recovered_by_110": 6071,
+            "censored": 387,
+            "km_median_days": 42,
+            "validation_set": "primary"
+          },
+          {
+            "profile": "stress_ood_16",
+            "agent": "Causally guided PPO",
+            "dipped_streams": 8571,
+            "recovered_by_110": 8195,
+            "censored": 376,
+            "km_median_days": 42,
+            "validation_set": "primary"
+          },
+          {
+            "profile": "stress_ood_16",
+            "agent": "Standard PPO",
+            "dipped_streams": 8470,
+            "recovered_by_110": 8119,
+            "censored": 351,
+            "km_median_days": 41,
+            "validation_set": "primary"
+          }
+        ]
+      }
+    }
+  ]
+}
