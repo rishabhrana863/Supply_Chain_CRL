@@ -13,17 +13,19 @@ FDA defines a resolved shortage at the national-market level: available supply i
 | Product episodes | 2,042 |
 | Observed resolutions / right-censored | 850 / 1,192 |
 | Kaplan–Meier median | 992 days (2.72 years) |
-| Recovery by day 110 | 1.95% (95% CI 1.43%–2.66%) |
+| Recovery by day 110 | 1.95% (95% CI 0.59%–3.73%, clustered by drug) |
 | Favorable day-110 upper bound | 5.39% |
 | Restricted mean unresolved time through day 110 | 109.23 days |
 | Unresolved at one year | 87.68% |
 | 2020–2023 day-110 sensitivity | 2.42% |
 
+The day-110 interval is clustered by drug. The 2,042 product episodes span only 298 distinct generic names, and co-listed NDCs of one drug resolve together by construction, so a binomial interval treating episodes as independent (1.43%–2.66%) is too narrow. A cluster bootstrap over the 298 drugs gives 0.59%–3.73%. This does not affect any conclusion below: the timescale gap is 17.7–24.2× in median and exceeds 90 percentage points at day 110, far outside any plausible variance correction. `verify_fda_benchmark.py` recomputes both the point estimate and the clustered interval from the raw episode rows.
+
 The reconstruction closely cross-checks the published HHS/ASPE result: 2,038 matched products and a 2.55-year median (95% CI 2.44–2.72).
 
 ## AOR paper
 
-The comparison uses AOR stream-level records from the 30-seed replication and conditions on `dipped=True`, avoiding the structural zero assigned to streams that never experienced a service failure. It covers four multi-node transfer profiles and both agents.
+The comparison uses AOR stream-level records from the 30-seed replication and conditions on `dipped=True`, avoiding the structural zero assigned to streams that never experienced a service failure. It covers four multi-node transfer profiles and both agents. The single-node `aggregate_baseline` profile is excluded; its two cells give Kaplan–Meier medians of 65 and 68 days, so including them would widen the range below to 41–68 days without changing the comparison. A reader recomputing from the workbook sheet, which lists all ten cells, should apply the same exclusion.
 
 | Distribution | Median | Recovery by day 110 | RMST through day 110 |
 |---|---:|---:|---:|
@@ -36,7 +38,7 @@ The FDA-to-AOR median ratio is 17.7–24.2×, and the maximum cumulative-distrib
 
 ### Manuscript-ready AOR language
 
-> We externally calibrated the recovery-time scale using 39 archived FDA drug-shortage snapshots. A product-level reconstruction of 2,042 shortage episodes yielded a Kaplan–Meier median of 992 days and 1.95% resolution by day 110. In contrast, simulated streams that experienced a service dip had median recovery times of 41–56 days and 92.85%–97.18% recovery by day 110 across the four transfer profiles. Because FDA resolution denotes restoration of adequate national market supply whereas our endpoint denotes stabilization of a local rolling service measure, these data do not establish distributional equivalence. We therefore interpret `recovery_days` as operational service stabilization and separate that calibration limitation from the within-simulator policy comparison.
+> We externally calibrated the recovery-time scale using 39 archived FDA drug-shortage snapshots. A product-level reconstruction of 2,042 shortage episodes yielded a Kaplan–Meier median of 992 days and 1.95% resolution by day 110 (95% CI 0.59%–3.73%, clustered by drug). In contrast, simulated streams that experienced a service dip had median recovery times of 41–56 days and 92.85%–97.18% recovery by day 110 across the four multi-node transfer profiles. Because FDA resolution denotes restoration of adequate national market supply whereas our endpoint denotes stabilization of a local rolling service measure, these data do not establish distributional equivalence. We therefore interpret `recovery_days` as operational service stabilization and separate that calibration limitation from the within-simulator policy comparison.
 
 ## Architecture-fit paper
 
@@ -57,7 +59,7 @@ An exploratory FDA market-complexity proxy was directionally consistent with lon
 
 ### Manuscript-ready architecture language
 
-> FDA shortage data were used as an external calibration benchmark rather than as a causal validation dataset. National product shortages had a reconstructed 992-day median and 1.95% resolution by day 110, whereas the available one-replicate pilot produced 81.8%–100.0% conditional recovery by day 110 across architectures. The endpoints therefore operate on different scales. A post hoc manufacturer/product-count proxy was associated with longer FDA shortage persistence, but the measure is partly coupled to the all-products-clear resolution rule and is reported only as exploratory triangulation. FDA shortage-reason completeness was not treated as a valid proxy for operational signal delay, noise, or missingness. Confirmatory external-validity claims await the repaired v4.1 run.
+> FDA shortage data were used as an external calibration benchmark rather than as a causal validation dataset. National product shortages had a reconstructed 992-day median and 1.95% resolution by day 110 (95% CI 0.59%–3.73%, clustered by drug), whereas the available one-replicate pilot produced 81.8%–100.0% conditional recovery by day 110 across architectures. The endpoints therefore operate on different scales. A post hoc manufacturer/product-count proxy was associated with longer FDA shortage persistence, but the measure is partly coupled to the all-products-clear resolution rule and is reported only as exploratory triangulation. FDA shortage-reason completeness was not treated as a valid proxy for operational signal delay, noise, or missingness. Confirmatory external-validity claims await the repaired v4.1 run.
 
 ## Recommended paper changes
 
