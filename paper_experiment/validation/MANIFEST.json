@@ -17,7 +17,7 @@
   ],
   "missing": [
     {
-      "path": "aor_streams_30seed.csv.gz",
+      "path": "replication_30seed_per_stream.csv.gz",
       "sha256": null,
       "status": "NOT IN REPOSITORY - must be supplied before the AOR comparison can be reproduced",
       "role": "Stream-level records from the 30-seed AOR replication. The workbook's AOR Validation sheet was computed from this file; without it the AOR half of the report cannot be regenerated from a clean clone.",
@@ -34,96 +34,114 @@
         "cells": [
           {
             "profile": "aggregate_baseline",
-            "agent": "Causally guided PPO",
             "dipped_streams": 4069,
             "recovered_by_110": 3676,
             "censored": 393,
             "km_median_days": 68,
-            "validation_set": "sensitivity"
+            "validation_set": "sensitivity",
+            "agent_key": "crl",
+            "agent_display": "Causally guided PPO"
           },
           {
             "profile": "aggregate_baseline",
-            "agent": "Standard PPO",
             "dipped_streams": 3809,
             "recovered_by_110": 3453,
             "censored": 356,
             "km_median_days": 65,
-            "validation_set": "sensitivity"
+            "validation_set": "sensitivity",
+            "agent_key": "ppo",
+            "agent_display": "Standard PPO"
           },
           {
             "profile": "centralized_4",
-            "agent": "Causally guided PPO",
             "dipped_streams": 4022,
             "recovered_by_110": 3764,
             "censored": 258,
             "km_median_days": 56,
-            "validation_set": "primary"
+            "validation_set": "primary",
+            "agent_key": "crl",
+            "agent_display": "Causally guided PPO"
           },
           {
             "profile": "centralized_4",
-            "agent": "Standard PPO",
             "dipped_streams": 3790,
             "recovered_by_110": 3519,
             "censored": 271,
             "km_median_days": 56,
-            "validation_set": "primary"
+            "validation_set": "primary",
+            "agent_key": "ppo",
+            "agent_display": "Standard PPO"
           },
           {
             "profile": "distributed_12",
-            "agent": "Causally guided PPO",
             "dipped_streams": 19862,
             "recovered_by_110": 19246,
             "censored": 616,
             "km_median_days": 44,
-            "validation_set": "primary"
+            "validation_set": "primary",
+            "agent_key": "crl",
+            "agent_display": "Causally guided PPO"
           },
           {
             "profile": "distributed_12",
-            "agent": "Standard PPO",
             "dipped_streams": 19944,
             "recovered_by_110": 19381,
             "censored": 563,
             "km_median_days": 44,
-            "validation_set": "primary"
+            "validation_set": "primary",
+            "agent_key": "ppo",
+            "agent_display": "Standard PPO"
           },
           {
             "profile": "dual_hub_8",
-            "agent": "Causally guided PPO",
             "dipped_streams": 6631,
             "recovered_by_110": 6194,
             "censored": 437,
             "km_median_days": 43,
-            "validation_set": "primary"
+            "validation_set": "primary",
+            "agent_key": "crl",
+            "agent_display": "Causally guided PPO"
           },
           {
             "profile": "dual_hub_8",
-            "agent": "Standard PPO",
             "dipped_streams": 6458,
             "recovered_by_110": 6071,
             "censored": 387,
             "km_median_days": 42,
-            "validation_set": "primary"
+            "validation_set": "primary",
+            "agent_key": "ppo",
+            "agent_display": "Standard PPO"
           },
           {
             "profile": "stress_ood_16",
-            "agent": "Causally guided PPO",
             "dipped_streams": 8571,
             "recovered_by_110": 8195,
             "censored": 376,
             "km_median_days": 42,
-            "validation_set": "primary"
+            "validation_set": "primary",
+            "agent_key": "crl",
+            "agent_display": "Causally guided PPO"
           },
           {
             "profile": "stress_ood_16",
-            "agent": "Standard PPO",
             "dipped_streams": 8470,
             "recovered_by_110": 8119,
             "censored": 351,
             "km_median_days": 41,
-            "validation_set": "primary"
+            "validation_set": "primary",
+            "agent_key": "ppo",
+            "agent_display": "Standard PPO"
           }
-        ]
-      }
+        ],
+        "agent_values": "Rows store the agent as the class `name` attribute: 'crl' and 'ppo'. The display labels in the workbook ('Causally guided PPO', 'Standard PPO') are for presentation only and are NOT the values in the file.",
+        "total_rows": 252000,
+        "seeds": {
+          "min": 52,
+          "max": 81,
+          "count": 30
+        }
+      },
+      "expected_sha256_gzip": "681c7fecaef353ab0da0eb287d86121f850825f2da89b601a00962731a4570e8"
     }
   ]
 }
