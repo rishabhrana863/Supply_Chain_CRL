@@ -13,9 +13,10 @@ manuscript-ready language.
 |---|---|
 | `FDA_Recovery_Time_Validation_Report.md` | The report: benchmark, both paper comparisons, verdicts, recommended changes |
 | `FDA_Recovery_Time_Validation.xlsx` | Workbook: reconstructed episodes, Kaplan–Meier curves, per-cell comparisons, audit trail |
+| `replication_30seed_per_stream.csv.gz` | Exact 30-seed AOR stream export used by the comparison (252,000 rows) |
 | `verify_fda_benchmark.py` | Recomputes the headline FDA figures from the workbook's raw episode rows |
-| `verify_manifest.py` | Checks file checksums and validates a supplied stream file against the expected run |
-| `MANIFEST.json` | SHA-256 of each file, plus the specification of the one file not in this repository |
+| `verify_manifest.py` | Checks file checksums and validates the stream export against the expected run |
+| `MANIFEST.json` | SHA-256 and structural expectations for the reproducibility files |
 
 ## Reproducing the FDA benchmark
 
@@ -52,31 +53,24 @@ the comparison. Each row is labelled in the `Validation set` column, and the two
 ranges are stated side by side at `AOR Validation!A30:D33`. Executive Summary
 formulas reference rows 8–15 and are therefore on the primary basis.
 
-## Missing data: stream-level AOR replication
+## AOR stream-level replication data
 
-**The AOR half of this validation cannot currently be reproduced from a clean
-clone.** The workbook's `AOR Validation` sheet was computed from stream-level
-records of the 30-seed replication, and that file is not in this repository. It
-is too large to commit directly; supply it as a gzipped CSV or a release asset.
+The exact stream-level export behind the workbook's `AOR Validation` sheet is
+included as `replication_30seed_per_stream.csv.gz`. It contains 252,000 rows
+covering seeds 52–81 and both raw agent keys, `crl` and `ppo`.
 
-To add it:
+To verify the complete package from a clean clone:
 
-1. Export the stream-level rows of the 30-seed replication with at least the
-   columns `profile`, `agent`, `dipped`, `recovery_days`, `recovered`.
-2. Compress to `paper_experiment/validation/aor_streams_30seed.csv.gz`, or
-   attach it to a GitHub release and download it to that path.
-3. Verify and record its checksum:
-
-   ```
-   python paper_experiment/validation/verify_manifest.py --record
-   ```
+```
+python paper_experiment/validation/verify_manifest.py
+```
 
 `verify_manifest.py` does not merely checksum the file. It confirms the file is
-the specific run the report describes, by checking that rows with `dipped=True`
-reproduce the per-cell counts recorded in `MANIFEST.json` — 85,626 dipped
-streams across the ten profile-agent cells. A file from a different run fails
-with the per-cell discrepancies listed, which is the check that would have
-caught the earlier frozen-versus-v12 mismatch.
+the specific run the report describes by checking 252,000 total rows, the
+30-seed range, and all ten profile-agent cells: dipped streams, recovery by day
+110, censoring, and Kaplan–Meier medians. A file from a different run fails with
+the discrepancies listed, which is the check that would have caught the earlier
+frozen-versus-v12 mismatch.
 
 ## Limitations carried into the papers
 

@@ -8,19 +8,16 @@
     },
     {
       "path": "FDA_Recovery_Time_Validation_Report.md",
-      "sha256": "825a40cd39fe0d6d1df7ba383a2a9828275ab6249308600b2e110861362d8bad"
+      "sha256": "64bc03f09b0f322f88c4348eb451dd9638956fbdf512a0b2b6bf3e3ff7b1e93a"
     },
     {
       "path": "verify_fda_benchmark.py",
       "sha256": "9850d568f0b78f62a2977cb0087bc266f030a38e4797268bd789d042be92177a"
-    }
-  ],
-  "missing": [
+    },
     {
       "path": "replication_30seed_per_stream.csv.gz",
-      "sha256": null,
-      "status": "NOT IN REPOSITORY - must be supplied before the AOR comparison can be reproduced",
-      "role": "Stream-level records from the 30-seed AOR replication. The workbook's AOR Validation sheet was computed from this file; without it the AOR half of the report cannot be regenerated from a clean clone.",
+      "sha256": "681c7fecaef353ab0da0eb287d86121f850825f2da89b601a00962731a4570e8",
+      "role": "Stream-level records from the 30-seed AOR replication used to compute the workbook's AOR Validation sheet.",
       "required_columns": [
         "profile",
         "agent",
@@ -143,5 +140,6 @@
       },
       "expected_sha256_gzip": "681c7fecaef353ab0da0eb287d86121f850825f2da89b601a00962731a4570e8"
     }
-  ]
+  ],
+  "missing": []
 }

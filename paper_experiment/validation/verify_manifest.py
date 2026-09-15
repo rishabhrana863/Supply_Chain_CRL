@@ -13,7 +13,7 @@ import gzip
 import hashlib
 import json
 import sys
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 
 HERE = Path(__file__).parent
@@ -43,8 +43,11 @@ def check_shape(path, entry):
     import csv
 
     spec = entry["expected_shape"]
-    expected = {(c["profile"], c["agent_key"]): c["dipped_streams"] for c in spec["cells"]}
+    expected = {(c["profile"], c["agent_key"]): c for c in spec["cells"]}
     counts = Counter()
+    recovered_by_110 = Counter()
+    censored = Counter()
+    observations = defaultdict(list)
     seen = Counter()
     seeds = set()
     total_rows = 0
@@ -56,13 +59,28 @@ def check_shape(path, entry):
         if missing_cols:
             return [f"missing required columns: {', '.join(missing_cols)}",
                     f"columns present: {', '.join(fields) or '(none)'}"]
+        seed_field = "model_seed" if "model_seed" in fields else "seed" if "seed" in fields else None
+        if "seeds" in spec and seed_field is None:
+            return ["missing seed column: expected 'model_seed' or 'seed'",
+                    f"columns present: {', '.join(fields) or '(none)'}"]
         for row in reader:
             total_rows += 1
-            seen[(row.get("profile"), row.get("agent"))] += 1
-            if "seed" in fields:
-                seeds.add(row.get("seed"))
+            key = (row.get("profile"), row.get("agent"))
+            seen[key] += 1
+            if seed_field:
+                seeds.add(row.get(seed_field))
             if str(row.get("dipped", "")).strip().lower() in ("true", "1"):
-                counts[(row.get("profile"), row.get("agent"))] += 1
+                counts[key] += 1
+                try:
+                    duration = float(row["recovery_days"])
+                except (TypeError, ValueError):
+                    return [f"non-numeric recovery_days in {key}: {row.get('recovery_days')!r}"]
+                event = str(row.get("recovered", "")).strip().lower() in ("true", "1")
+                observations[key].append((duration, event))
+                if event and duration <= 110:
+                    recovered_by_110[key] += 1
+                if not event:
+                    censored[key] += 1
 
     problems = []
     if not set(counts) & set(expected):
@@ -80,12 +98,60 @@ def check_shape(path, entry):
         problems.append(f"dipped rows: found {dipped_total}, expected {spec['dipped_streams_total']}")
     if "total_rows" in spec and total_rows != spec["total_rows"]:
         problems.append(f"total rows: found {total_rows}, expected {spec['total_rows']}")
-    if seeds and "seeds" in spec and len(seeds) != spec["seeds"]["count"]:
-        problems.append(f"distinct seeds: found {len(seeds)}, expected {spec['seeds']['count']}")
+    if "seeds" in spec:
+        try:
+            numeric_seeds = {int(float(s)) for s in seeds}
+        except (TypeError, ValueError):
+            problems.append(f"seed values are not numeric: {sorted(seeds)[:5]}")
+        else:
+            seed_spec = spec["seeds"]
+            if len(numeric_seeds) != seed_spec["count"]:
+                problems.append(f"distinct seeds: found {len(numeric_seeds)}, expected {seed_spec['count']}")
+            if numeric_seeds and min(numeric_seeds) != seed_spec["min"]:
+                problems.append(f"minimum seed: found {min(numeric_seeds)}, expected {seed_spec['min']}")
+            if numeric_seeds and max(numeric_seeds) != seed_spec["max"]:
+                problems.append(f"maximum seed: found {max(numeric_seeds)}, expected {seed_spec['max']}")
+
+    def km_median(items):
+        by_time = defaultdict(lambda: [0, 0])
+        for duration, event in items:
+            by_time[duration][0 if event else 1] += 1
+        at_risk = len(items)
+        survival = 1.0
+        for duration in sorted(by_time):
+            events, withdrawals = by_time[duration]
+            if events:
+                survival *= 1.0 - events / at_risk
+                if survival <= 0.5:
+                    return duration
+            at_risk -= events + withdrawals
+        return None
+
     for key, want in sorted(expected.items()):
         got = counts.get(key, 0)
-        if got != want:
-            problems.append(f"{key[0]} / {key[1]}: found {got} dipped streams, expected {want}")
+        if got != want["dipped_streams"]:
+            problems.append(
+                f"{key[0]} / {key[1]}: found {got} dipped streams, "
+                f"expected {want['dipped_streams']}"
+            )
+        got_recovered = recovered_by_110.get(key, 0)
+        if got_recovered != want["recovered_by_110"]:
+            problems.append(
+                f"{key[0]} / {key[1]}: found {got_recovered} recovered by day 110, "
+                f"expected {want['recovered_by_110']}"
+            )
+        got_censored = censored.get(key, 0)
+        if got_censored != want["censored"]:
+            problems.append(
+                f"{key[0]} / {key[1]}: found {got_censored} censored, "
+                f"expected {want['censored']}"
+            )
+        got_median = km_median(observations.get(key, []))
+        if got_median != want["km_median_days"]:
+            problems.append(
+                f"{key[0]} / {key[1]}: found KM median {got_median}, "
+                f"expected {want['km_median_days']}"
+            )
     return problems
 
 
@@ -104,9 +170,18 @@ def main():
             print(f"MISSING   {entry['path']}")
             failures += 1
             continue
+        if entry.get("expected_shape"):
+            problems = check_shape(path, entry)
+            if problems:
+                print(f"MISMATCH  {entry['path']} does not match the expected run:")
+                for problem in problems:
+                    print(f"          {problem}")
+                failures += 1
+                continue
         actual = sha256(path)
         if actual == entry["sha256"]:
-            print(f"ok        {entry['path']}")
+            suffix = " (shape verified)" if entry.get("expected_shape") else ""
+            print(f"ok        {entry['path']}{suffix}")
         else:
             print(f"CHANGED   {entry['path']}\n          recorded {entry['sha256']}\n          actual   {actual}")
             failures += 1
@@ -133,9 +208,9 @@ def main():
             print( "          re-compressed copy of the same CSV differs here. The shape check")
             print( "          above is the authoritative test of which run this is.")
         if args.record:
-            entry["sha256"] = digest
-            entry["status"] = "supplied"
-            manifest["present"].append({"path": entry["path"], "sha256": digest})
+            recorded_entry = {key: value for key, value in entry.items() if key != "status"}
+            recorded_entry["sha256"] = digest
+            manifest["present"].append(recorded_entry)
             manifest["missing"] = [m for m in manifest["missing"] if m["path"] != entry["path"]]
             MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
             print(f"          recorded in {MANIFEST.name}")
