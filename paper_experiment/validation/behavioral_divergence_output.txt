@@ -1,0 +1,80 @@
+
+export: 252,000 stream rows -> 84,000 model-episode-agent cells
+seeds 52-81 (30), profiles 5, streams/cell 3
+infeasible actions selected anywhere in the export: 0
+
+REPRODUCTION CHECK -- manuscript Table 5, aggregate baseline (all five outcomes)
+
+  outcome                          PPO        guided     paper PPO  paper guided       tol
+  recovery_days                13.9537       15.2442       13.9500       15.2400     0.005
+  total_cost                   787,258       764,854       787,258       764,854       0.5
+  intervention_rate             0.0650        0.0581        0.0650        0.0581     5e-05
+  service_cov                   0.0550        0.0592        0.0550        0.0592     5e-05
+  recovery_prob                 0.9802        0.9782        0.9802        0.9782     5e-05
+
+1. BEHAVIORAL DIVERGENCE -- paired contrast against the seed contrast
+
+  paired contrast (guided vs PPO, same seed, n=30)
+     median 0.0099   mean 0.0304   range [0.0014, 0.1745]
+  seed contrast (same agent, different seed, n=870)
+     median 0.0297   mean 0.0661   range [0.0007, 0.2132]
+
+  seed / paired, medians: 2.99x
+  77% of paired contrasts fall below the median seed contrast
+  -> the paired policies differ by less than seeds of the same agent do.
+
+2. WHERE THE DISPLACEMENT LANDS -- mean action probability by agent
+
+  action                         PPO    guided   diff (pp)
+  no action                   93.50%    94.19%      -0.70
+  switch supplier              0.54%     0.53%       0.01
+  air expedite                 4.64%     4.00%       0.64
+  reroute                      0.45%     0.41%       0.04
+  emergency procurement        0.74%     0.74%      -0.00
+  ration                       0.13%     0.13%       0.00
+
+3. DIVERGENCE AND OUTCOMES -- exploratory, and not a causal contrast
+
+  outcome difference        signed rho       p     |abs| rho       p
+  cost                          +0.219   0.246        +0.714   0.000
+  intervention_pp               +0.320   0.085        +0.965   0.000
+  recovery_days                 -0.060   0.753        +0.596   0.001
+
+  split at the median divergence:
+                       n    mean cost diff    mean |cost diff|
+  below median        15           -2,518             56,327
+  above median        15           47,326            230,216
+
+  seeds above the median show 4.1x the absolute cost divergence of
+  seeds below it, with no reliable shift in sign.
+
+4. DISPERSION -- the paired difference and its spread
+
+  paired cost difference (PPO - guided), n=30
+     mean $22,404   SD $216,047   range [$-624,035, $558,148]
+     This SD is the quantity quoted in the abstract and introduction: the
+     spread of the PAIRED difference, computed within seed.
+
+  outcome                between-seed SD    paired mean diff   ratio
+  total cost                    $253,026             $22,404   11.3x
+  intervention rate              5.70 pp             0.70 pp    8.2x
+  recovery days                   5.07 d             -1.29 d    3.9x
+     The between-seed SD column describes the level of the outcome across
+     seeds and is a different quantity from the paired SD above. The
+     manuscript quotes the paired SD.
+
+5. AGREEMENT WITH THE MANUSCRIPT -- 29 stated values checked,
+   each against half an ulp of the precision the manuscript prints
+
+  bound     max_other_action_gap_pp: 0.04361 (at most 0.05) ok
+
+  all values reproduce within tolerance.
+
+SCOPE
+  Behavioral divergence is realized, not assigned: it is a property of the
+  converged policies. The signed-against-absolute contrast is descriptive
+  and was not prespecified. It belongs with the exploratory mechanism
+  diagnostics, not the confirmatory outcomes. Training exposure is a
+  separate quantity and is not computable from this export; see
+  EXPOSURE_AUDIT.md.
+

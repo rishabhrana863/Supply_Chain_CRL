@@ -1,0 +1,149 @@
+{
+  "post_hoc": true,
+  "seeds": [
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81
+  ],
+  "original_source_untouched": true,
+  "training": {
+    "steps": 5400000,
+    "bound_steps": 50365,
+    "removed": 53434,
+    "feasible": 22252264,
+    "feasible_interventions": 16852264,
+    "shaping_nonzero": 235716,
+    "base_sum": 1813028.139592483,
+    "base_abs_sum": 1863621.034700454,
+    "base_sq_sum": 707346.6801665779,
+    "delta_sum": 356.9337371681405,
+    "delta_abs_sum": 394.89445756037287,
+    "delta_sq_sum": 1.893853619288038,
+    "delta_min": -0.0028660317687200787,
+    "delta_max": 0.04313879514341856,
+    "removed_by_action": [
+      0,
+      0,
+      0,
+      32806,
+      20628,
+      0
+    ],
+    "feasible_by_action": [
+      5400000,
+      422120,
+      4530414,
+      1771655,
+      4728075,
+      5400000
+    ],
+    "slot_percent": 0.24012837525206424,
+    "intervention_slot_percent": 0.3170731244181791,
+    "binding_step_percent": 0.9326851851851852,
+    "nonzero_shaping_percent": 4.365111111111111,
+    "mean_shaping": 6.609884021632232e-05,
+    "mean_abs_shaping": 7.31286032519209e-05,
+    "absolute_shaping_to_absolute_base_percent": 0.021189632989082764,
+    "seed_slot_percent_min": 0.0,
+    "seed_slot_percent_max": 1.3572656283155795
+  },
+  "aggregate_evaluation_mask": {
+    "steps": 2160000,
+    "bound_steps": 29455,
+    "removed": 31611,
+    "feasible": 10064045,
+    "feasible_interventions": 7904045,
+    "shaping_nonzero": 0,
+    "base_sum": 0.0,
+    "base_abs_sum": 0.0,
+    "base_sq_sum": 0.0,
+    "delta_sum": 0.0,
+    "delta_abs_sum": 0.0,
+    "delta_sq_sum": 0.0,
+    "delta_min": 0.0,
+    "delta_max": 0.0,
+    "removed_by_action": [
+      0,
+      0,
+      0,
+      21844,
+      9767,
+      0
+    ],
+    "feasible_by_action": [
+      2160000,
+      178420,
+      2141644,
+      1416769,
+      2007212,
+      2160000
+    ],
+    "slot_percent": 0.3140983570721315,
+    "intervention_slot_percent": 0.3999344639358708,
+    "binding_step_percent": 1.3636574074074075,
+    "nonzero_shaping_percent": 0.0,
+    "mean_shaping": 0.0,
+    "mean_abs_shaping": 0.0,
+    "absolute_shaping_to_absolute_base_percent": 0.0,
+    "seed_slot_percent_min": 0.0,
+    "seed_slot_percent_max": 1.7411226964319806
+  },
+  "effect_table": {
+    "estimable_cells_total": 2190,
+    "blocked_cells_total": 40,
+    "estimable_cells_per_seed_range": [
+      60,
+      85
+    ],
+    "blocked_cells_per_seed_range": [
+      0,
+      4
+    ],
+    "seeds_with_any_blocking": 24
+  },
+  "checks": {
+    "all_training_summaries_match": true,
+    "aggregate_streams_checked": 18000,
+    "all_aggregate_streams_match": true,
+    "original_manifest_files_verified": 59,
+    "max_training_summary_error": 0.0,
+    "max_cost_error": 6.984919309616089e-10
+  },
+  "methods_paragraphs": [
+    "A post hoc manipulation check reconstructs all 30 causal tables and replays guided-policy training under the unchanged frozen source, inputs, contexts, and random seeds. Observers count mechanically feasible slots removed by the causal mask and the reward increment actually supplied to learning, \u0394R = R\u1d4d \u2212 R. The slot denominator sums mechanically feasible actions over visited states, including no action; a second denominator excludes no action. Binding-state frequency counts decisions with at least one removal. Mean absolute shaping is averaged over all training steps, including zeros, and its scale is compared with the sum of absolute base rewards. These are descriptive exposure measures, not treatment ablations.",
+    "Replay verification compares retained first- and last-100-episode training reward summaries and every one of the 18,000 guided-policy aggregate deployment streams. This additional instrumentation was developed after inspecting the prospective results and does not alter the frozen primary inference. Deployment rewards in the export are unshaped; reward dosage therefore comes from replayed training transitions, not differences between exported episode rewards. Mask exposure in network-transfer deployments is not reconstructed in this check."
+  ],
+  "results_paragraphs": [
+    "All 30 replays matched the retained training summaries and the 18,000 aggregate guided-policy streams within numerical precision. Across 5,400,000 training decisions, causal screening removed 53,434 of 22,252,264 mechanically feasible action slots (0.240%; 0.317% when no action is excluded). At least one slot was removed at 0.933% of training decisions. Seed-specific slot-removal rates ranged from 0.000% to 1.357%. Across the fitted tables, 40 of 2190 estimable stratum\u2013action cells met the blocking rule; realized exposure depends on whether policies visit those states and the action remains mechanically feasible. All observed training removals affected corridor rerouting or emergency procurement; none removed an air-expediting slot.",
+    "The shaping increment was nonzero on 4.37% of training steps. Its signed mean was 0.000066 and its mean absolute magnitude was 0.000073 reward units per step; the sum of absolute increments was 0.021% of the sum of absolute base rewards. Across aggregate deployment states, the mask removed 31,611 of 10,064,045 mechanically feasible slots (0.314%), binding on 1.364% of decisions. Thus the treatment was present but sparse at the tested settings. These averages do not show that small or infrequent perturbations are behaviorally inconsequential, nor do they separate masking from shaping."
+  ],
+  "limitation_paragraph": "The treatment comparison concerns sparse realized guidance under the \u22120.02 threshold, five-pair minimum, and \u03bb = 0.15 shaping coefficient. Its failure to establish an average advantage cannot distinguish weak exposure from ineffective guidance at stronger doses. The post hoc replay provides an auditable reconstruction of exposure, rather than contemporaneous telemetry, and does not identify separate masking and shaping effects. Dosage on transferred multi-node trajectories remains unmeasured.",
+  "abstract_sentence": "A post hoc replay found that screening removed 0.240% of feasible training slots, with mean absolute shaping of 0.000073 reward units per step. "
+}
