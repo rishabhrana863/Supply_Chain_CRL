@@ -1,0 +1,90 @@
+{
+  "protocol_fingerprints": [
+    {
+      "path": "aor_experiment/agents.py",
+      "expected": "edc7aff3241754d6308d5465899efce7af71cd2a5da4ab743a18ce3a74cba9dc",
+      "actual": "edc7aff3241754d6308d5465899efce7af71cd2a5da4ab743a18ce3a74cba9dc",
+      "match": true
+    },
+    {
+      "path": "aor_experiment/analysis.py",
+      "expected": "8c4e3a435ddbe08a905ffc247102d6f3c017a6c806c644fa221e55b34401f011",
+      "actual": "8c4e3a435ddbe08a905ffc247102d6f3c017a6c806c644fa221e55b34401f011",
+      "match": true
+    },
+    {
+      "path": "aor_experiment/causal_fitting.py",
+      "expected": "9a0bc5cded1428852e7d01f9fbfb2cd0088d20b99441a6ab2c1486bc376532f0",
+      "actual": "9a0bc5cded1428852e7d01f9fbfb2cd0088d20b99441a6ab2c1486bc376532f0",
+      "match": true
+    },
+    {
+      "path": "aor_experiment/feasibility.py",
+      "expected": "02403467305f9e5ad7d3b4b2a11710e1ce3ce6189fd8d9a98c99a9e1f552cf33",
+      "actual": "02403467305f9e5ad7d3b4b2a11710e1ce3ce6189fd8d9a98c99a9e1f552cf33",
+      "match": true
+    },
+    {
+      "path": "aor_experiment/network_environment.py",
+      "expected": "c661371ee546bbe6d61fb4ca8ea34eebc143328a98a3ddb0be9acc46552335fe",
+      "actual": "c661371ee546bbe6d61fb4ca8ea34eebc143328a98a3ddb0be9acc46552335fe",
+      "match": true
+    },
+    {
+      "path": "aor_experiment/runner.py",
+      "expected": "a3217d5e5f8fb415c335fe603693815e41a2361e4ac275b54db5ded7f1e836df",
+      "actual": "a3217d5e5f8fb415c335fe603693815e41a2361e4ac275b54db5ded7f1e836df",
+      "match": true
+    },
+    {
+      "path": "aor_experiment/run_aor_experiment.py",
+      "expected": "ed6af57384623a641c6ef4365d910760e430890b57518f0624c3a95e15dea958",
+      "actual": "ed6af57384623a641c6ef4365d910760e430890b57518f0624c3a95e15dea958",
+      "match": true
+    },
+    {
+      "path": "aor_experiment/prospective_extension_analysis.py",
+      "expected": "a28ea37f00316611c6b6770979642f3e4896565d9f0337e02974d45c10399bf7",
+      "actual": "a28ea37f00316611c6b6770979642f3e4896565d9f0337e02974d45c10399bf7",
+      "match": true
+    },
+    {
+      "path": "paper_experiment/agents.py",
+      "expected": "065e638f9b6058acdfaae0438157e055455c92af80f63624494e6d18c8cc28d4",
+      "actual": "065e638f9b6058acdfaae0438157e055455c92af80f63624494e6d18c8cc28d4",
+      "match": true
+    },
+    {
+      "path": "paper_experiment/calibration.py",
+      "expected": "c69bac07d658a277ddb3c4c04cd95ae1ab6d7810fec44669abdac2ba327957f1",
+      "actual": "c69bac07d658a277ddb3c4c04cd95ae1ab6d7810fec44669abdac2ba327957f1",
+      "match": true
+    },
+    {
+      "path": "paper_experiment/environment.py",
+      "expected": "9351f12a139c1e9483f429fdc58a9b523579313ea11da7655268552dbb3bc857",
+      "actual": "9351f12a139c1e9483f429fdc58a9b523579313ea11da7655268552dbb3bc857",
+      "match": true
+    },
+    {
+      "path": "aor_experiment/results/aor_confirmatory_per_model_episode.csv",
+      "expected": "1a622b44855460d0563945b1671230f9dc4c64d5b4c173369e9c1590ed93cd16",
+      "actual": "1a622b44855460d0563945b1671230f9dc4c64d5b4c173369e9c1590ed93cd16",
+      "match": true
+    },
+    {
+      "path": "aor_experiment/results/aor_confirmatory_results.json",
+      "expected": "f974a499c58fadcf5530b8e394ecb3f7cbcc4349162a23b5c34effc40c295667",
+      "actual": "f974a499c58fadcf5530b8e394ecb3f7cbcc4349162a23b5c34effc40c295667",
+      "match": true
+    }
+  ],
+  "raw_stream_sha256": "90cf8c762464ffb15087decf45c38b04f156cdc23b6e97a3747fa62b9b60a89c",
+  "runtime": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "filename": "AOR_Reproducibility_Package_Prospective_Replication.zip",
+  "bytes": 45249004,
+  "sha256": "f818b878e86d16036d16f314f52442b2d0a8f2367123a138c27302cf1276db63",
+  "parts": [
+    {
+      "path": "AOR_Reproducibility_Package_Prospective_Replication.zip.part000",
+      "bytes": 4194304,
+      "sha256": "0862ee5f4bd8471c2d115623793bc5f4a6d33212c032e3a4b880127dcfb7a3ab"
+    },
+    {
+      "path": "AOR_Reproducibility_Package_Prospective_Replication.zip.part001",
+      "bytes": 4194304,
+      "sha256": "fd59c29bee419f53deb221202f267cedc3829414ad4635d6524bd15e8bcbab5c"
+    },
+    {
+      "path": "AOR_Reproducibility_Package_Prospective_Replication.zip.part002",
+      "bytes": 4194304,
+      "sha256": "3e2d355c1a1e993793cf232448b1022ecfcd61cee826a2bebd519f64369abcf0"
+    },
+    {
+      "path": "AOR_Reproducibility_Package_Prospective_Replication.zip.part003",
+      "bytes": 4194304,
+      "sha256": "9fc088b40919cd0e78faba43a8f74b9363c3fcbe6b8d70c915b6fb19ad53e3a9"
+    },
+    {
+      "path": "AOR_Reproducibility_Package_Prospective_Replication.zip.part004",
+      "bytes": 4194304,
+      "sha256": "2d3d764cad155d5f822244a3a2b4b48314d640d61623b75f3133847178383ec8"
+    },
+    {
+      "path": "AOR_Reproducibility_Package_Prospective_Replication.zip.part005",
+      "bytes": 4194304,
+      "sha256": "716264eb50fadab8d2d338acbdb85c483faa177c07b99f456ae000722ac16535"
+    },
+    {
+      "path": "AOR_Reproducibility_Package_Prospective_Replication.zip.part006",
+      "bytes": 4194304,
+      "sha256": "6b4b3c86aa49e011a14530d7ff739287f8d8367ddfeff93b7d8705b4be6b97bc"
+    },
+    {
+      "path": "AOR_Reproducibility_Package_Prospective_Replication.zip.part007",
+      "bytes": 4194304,
+      "sha256": "665bb9bc42c46f097d345d471ffc0af4ff28fe40c6a488c1f9a90cb11e86eb80"
+    },
+    {
+      "path": "AOR_Reproducibility_Package_Prospective_Replication.zip.part008",
+      "bytes": 4194304,
+      "sha256": "5101dca7e33e8796404e74bbdf59577d63f8c7a95c6604963b0ecd0430e31378"
+    },
+    {
+      "path": "AOR_Reproducibility_Package_Prospective_Replication.zip.part009",
+      "bytes": 4194304,
+      "sha256": "d668a76f7cf8a218ecfb0844d3af968decdbb550c4ea2d4fd391d3f31e0b96bd"
+    },
+    {
+      "path": "AOR_Reproducibility_Package_Prospective_Replication.zip.part010",
+      "bytes": 3305964,
+      "sha256": "a2db95e4b1a0880004ccbc9a2bcbf0aec63488db628d0e5a40435995fdf7e10a"
+    }
+  ]
+}

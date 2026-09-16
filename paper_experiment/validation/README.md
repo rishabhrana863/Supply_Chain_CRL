@@ -1,4 +1,8 @@
-# FDA recovery-time validation
+# AOR replication and external benchmark deposit
+
+This complete package includes the frozen corrected implementation, training-exposure replay harness and records, and the deployment validation materials. The frozen ZIP is stored as checksummed parts and reconstructed automatically without changing its bytes. Start with `REPRODUCE.md`; run `python verify_complete_deposit.py` for the quick checks. Cite an immutable repository commit when using these materials.
+
+# FDA recovery-time comparison
 
 External calibration of the simulated `recovery_days` distributions against FDA
 drug-shortage data. The finding is negative and deliberately so: FDA data do not
@@ -15,8 +19,49 @@ manuscript-ready language.
 | `FDA_Recovery_Time_Validation.xlsx` | Workbook: reconstructed episodes, Kaplan–Meier curves, per-cell comparisons, audit trail |
 | `replication_30seed_per_stream.csv.gz` | Exact 30-seed AOR stream export used by the comparison (252,000 rows) |
 | `verify_fda_benchmark.py` | Recomputes the headline FDA figures from the workbook's raw episode rows |
+| `behavioral_divergence.py` | Recomputes the Section 6.3 behavioral-divergence results and the full Table 5 aggregate column from the export, and asserts 29 values stated in the manuscript |
+| `behavioral_divergence_output.txt` | Recorded output of that script against the deposited export |
+| `EXPOSURE_AUDIT.md` | What the training-exposure audit reports, and why it is not computable from this export |
 | `verify_manifest.py` | Checks file checksums and validates the stream export against the expected run |
 | `MANIFEST.json` | SHA-256 and structural expectations for the reproducibility files |
+
+## Behavioral divergence (manuscript Section 6.3)
+
+```
+python paper_experiment/validation/behavioral_divergence.py
+```
+
+This recomputes, from the export alone, the total variation distance between the
+two converged agents' realized daily action frequencies within each model seed,
+its reference scale (the same distance between different seeds of the same
+agent), the action-class displacement, the signed and absolute rank correlations
+against seed-level paired outcome differences, and the paired cost difference
+with its spread. It also recomputes all ten values in the Table 5
+aggregate-baseline column, across all five outcomes including recovery
+probability.
+
+It then asserts 29 values the manuscript states and exits non-zero if any has
+drifted. Each tolerance is **half an ulp of the precision the manuscript
+prints** — a figure written as 4.64 is checked to ±0.005, one written as 0.0650
+to ±0.00005, one written as "$216 thousand" to ±500. A looser tolerance would
+let a value move far enough to change the printed digit without failing. Where
+the manuscript states a bound rather than an estimate, the check is an
+inequality.
+
+Two distinctions the script enforces in its own vocabulary, because the
+manuscript depends on them:
+
+- **Divergence is not a treatment dose.** It is a realized property of the
+  converged policies, reflecting both action choice and the states each policy
+  visited. It is not an assigned quantity, so the correlations are descriptive
+  and were not prespecified.
+- **The paired SD is not the between-seed SD.** The manuscript quotes $216,047,
+  the spread of the within-seed paired difference. The between-seed SD of the
+  cost level, $253,026, is a different quantity; the script prints both and
+  labels them.
+
+The four training-exposure figures in Section 6.3 are **not** produced by this
+script and cannot be produced from this export — see `EXPOSURE_AUDIT.md`. The replay harness and frozen corrected implementation are included in this expanded package. `verify_manifest.py` retains its completeness check and now exits zero when the full deposit is intact. `verify_complete_deposit.py` also checks the retained replay evidence. Instructions for independently regenerating training exposure are in `REPRODUCE.md`.
 
 ## Reproducing the FDA benchmark
 
